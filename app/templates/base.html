@@ -1,0 +1,94 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block navbar %}
+    <div class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type = "button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">Home</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">人事管理</a>
+                    <ul class="dropdown-menu">
+                        <li>职员信息</li>
+                        <li>值班分配</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"data-toggle="dropdown">房产管理</a>
+                    <ul class="dropdown-menu">
+                        <li>职员信息</li>
+                        <li>值班分配</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">工程设备管理</a>
+                    <ul class="dropdown-menu">
+                        <li>职员信息</li>
+                        <li>值班分配</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">财务管理</a>
+                    <ul class="dropdown-menu">
+                        <li>职员信息</li>
+                        <li>值班分配</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">员工之家</a>
+                    <ul class="dropdown-menu">
+                        <li>职员信息</li>
+                        <li>值班分配</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">下载中心</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <a href="#" class="navbar-brand">登录/注册</a>
+            </ul>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+{% endblock %}
+
+
+
+{% block footer %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
+
