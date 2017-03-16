@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}登录{% endblock %}
 
-</body>
-</html>
+{% block page_content %}
+    <div class="page-header">
+    登录
+    </div>
+    <div class ='col-md-4'>
+    {{ wtf.quick_form(form) }}
+    <br>
+    <P> 尚未注册？<a href="{{ url_for('auth.register') }}">点击注册</a></P>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}
+

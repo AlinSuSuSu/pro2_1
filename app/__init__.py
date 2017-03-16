@@ -8,7 +8,7 @@ from flask_login import LoginManager
 bootstrap = Bootstrap()
 moment = Moment()
 db = SQLAlchemy()
-
+#登录
 login_manager = LoginManager()
 login_manager.session_protection = "Strong"
 login_manager.login_view = 'auth.login'

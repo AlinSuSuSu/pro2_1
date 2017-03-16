@@ -1,7 +1,13 @@
 from . import db
 from flask_login import UserMixin
 from datetime import datetime
+from werkzeug.security import generate_password_hash,check_password_hash
+from . import login_manager
 
+#加载用户的回调函数
+@login_manager.user_loader
+def load_user(staff_staffid):
+    return Staff.query.get(int(staff_staffid))
 
 class Permission:
     ADMINISTRATOR=0x80
@@ -17,7 +23,7 @@ class Role(db.Model):
     name = db.Column(db.String(64),unique=True)
     default=db.Column(db.Boolean,default=False,index=True)
     permissions = db.Column(db.Integer)
-    users=db.relationship('User',backref='role',lazy='dynamic')
+    staff=db.relationship('Staff',backref='role',lazy='dynamic')
 
     #创建角色
     @staticmethod
@@ -43,16 +49,57 @@ class Role(db.Model):
         return '<Role %r>' % self.name
 
 class Staff(UserMixin, db.Model):
-    __tablename__ = 'users'
-    Staff_id = db.Column(db.Integer,primary_key=True)#员工编号
+    __tablename__ = 'staffs'
+    id=db.Column(db.Integer,unique=True)
+    staffid = db.Column(db.Integer,primary_key=True,index=True)#员工编号
     staffname = db.Column(db.String(64),unique=True,index=True)#员工姓名
     age= db.Column(db.Integer)#年龄
-    password_hash =db.Column(db.String(128))#密码
+    password_hash =db.Column(db.String(128))#密码散列
     last_seen = db.Column(db.DateTime(),default=datetime.utcnow)#上次登录
-    gender = db.Column(db.Boolean(),Default=True)#性别
-    glossary = db.Column(db.Integer)#薪资
+    gender = db.Column(db.String(2))#性别
+    salary = db.Column(db.Integer)#薪资
     phone = db.Column(db.String(11),unique=True)#联系方式
     idcard = db.Column(db.String(18),unique=True)#身份证号
     job = db.Column(db.String(18))#工种
+    role_id = db.Column(db.String(64),db.ForeignKey('roles.id'))#角色
 
-    role_id = db.Column(db.String(64))#角色
+
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
+
+
+    @password.setter
+    def password(self,password):
+        self.password_hash = generate_password_hash(password)
+    def verify_password(self,password):
+         return check_password_hash(self.password_hash, password)
+    '''
+    @password.setter
+    def password(self,password):
+        self.password_hash = generate_password_hash(password)
+    def verify_password(self,password):
+        return check_password_hash(self.password_hash,password)
+'''
+    #定义默认角色
+    def __init__(self, **kwargs):
+        super(Staff, self).__init__(**kwargs)
+        if self.role is None:
+            if self.staffname == 'admin':
+                self.role = Role.query.filter_by(permissions=0xff).first()
+            if self.role is None:
+                self.role = Role.query.filter_by(default=True).first()
+
+    #检查用户是否有指定的权限
+    def can(self,permissions):
+        return self.role is not None and (self.role.permissions & permissions) == permissions
+    def is_administrator(self):
+        return self.can(Permission.ADMINISTRATOR)
+
+    # 刷新用户的最后访问时间,每次用户请求时都要调用ping()方法。
+    def ping(self):
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
+
+    def __repr__(self):
+        return '<Role %r>' % self.staffname
