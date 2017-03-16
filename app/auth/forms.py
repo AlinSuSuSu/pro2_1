@@ -50,4 +50,10 @@ class ChangePasswordForm(FlaskForm):
     password2 = PasswordField('确认密码', validators=[Required()])
     submit = SubmitField('确认')
 
+class ChangeMessageForm(FlaskForm):
+    salary = StringField('薪资', validators=[Required()])  # 薪资
+    phone = StringField('手机号码', validators=[Required()])  # 联系方式
+    idcard = StringField('身份证号', )  # 身份证号
+    job = StringField('职位')  # 工种
+    submit = SubmitField('确认')
 

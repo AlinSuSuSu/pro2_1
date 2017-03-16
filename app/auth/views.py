@@ -1,8 +1,8 @@
 from flask import render_template,flash,redirect,request,url_for
 from . import auth
 from ..models import Staff
-from .forms import LoginForm,RegistrationForm
-from flask_login import login_user,logout_user,login_required
+from .forms import LoginForm,RegistrationForm,ChangePasswordForm,ChangeMessageForm
+from flask_login import login_user,logout_user,login_required,current_user
 from app import db
 
 @auth.route('/login',methods=['GET','POST'])
@@ -37,5 +37,24 @@ def logout():
     return redirect(url_for('main.index'))
 
 @auth.route('/change_message',methods=['GET','POST'])
+@login_required
 def change_message():
-    return render_template('auth/change_message.html')
+    form = ChangeMessageForm()
+    if form.validate_on_submit():
+        current_user.salary=form.salary.data
+        current_user.phone=form.phone.data
+        current_user.phone=form.phone.data
+        current_user.idcard=form.idcard.data
+        current_user.job=form.job.data
+        db.session.add(current_user)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+
+    return render_template('auth/change_message.html',form=form)
+
+@auth.route('/change_password',methods=['GET','POST'])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+
+    return render_template('auth/change_password.html',form=form)
