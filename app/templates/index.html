@@ -6,3 +6,8 @@
 {% block header %}
     {{ super() }}
 {% endblock %}
+{% block page_content %}
+    {% if current_user.is_authenticated %}
+    <h3>Hello,{{ current_user.staffname }}</h3>
+    {% endif %}
+{% endblock %}

@@ -1,1 +1,2 @@
 1.在boostrap\base.html 中增加了{% block footer %}{%-endblock footer %}
+2.在flask_login的mixins.py中的UserMixin类修改了self.staffid
