@@ -2,7 +2,7 @@ from flask import render_template,flash,redirect,request,url_for
 from . import auth
 from ..models import Staff
 from .forms import LoginForm,RegistrationForm
-from flask_login import login_user
+from flask_login import login_user,logout_user,login_required
 from app import db
 
 @auth.route('/login',methods=['GET','POST'])
@@ -27,3 +27,15 @@ def register():
         flash("注册成功")
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html',form=form )
+
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("您已退出登录")
+    return redirect(url_for('main.index'))
+
+@auth.route('/change_message',methods=['GET','POST'])
+def change_message():
+    return render_template('auth/change_message.html')
