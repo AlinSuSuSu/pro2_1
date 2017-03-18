@@ -50,7 +50,6 @@ class Role(db.Model):
 
 class Staff(UserMixin, db.Model):
     __tablename__ = 'staffs'
-    id=db.Column(db.Integer,unique=True)
     staffid = db.Column(db.Integer,primary_key=True,index=True)#员工编号
     staffname = db.Column(db.String(64),unique=True,index=True)#员工姓名
     age= db.Column(db.Integer)#年龄

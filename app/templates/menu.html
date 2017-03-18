@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Flasky - Login{% endblock %}
+{% block head %}
+{{ super() }}
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block page_content %}
+
+<div class="content-left">
+	<!-- Contenedor -->
+	<ul id="accordion" class="accordion">
+		<li>
+			<div class="link"><i class="fa fa-paint-brush"></i>人事管理<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li><a href="{{ url_for('main.personnel_management',page='staff_message') }}">职员信息</a></li>
+				<li><a href="#">入职登记</a></li>
+				<li><a href="#">员工福利</a></li>
+				<li><a href="#">费用报销</a></li>
+				<li><a href="#">假期安排</a></li>
+			</ul>
+		</li>
+		<li>
+			<div class="link"><i class="fa fa-code"></i>房产管理<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li><a href="#">房产信息</a></li>
+				<li><a href="#">新房产登记</a></li>
+				<li><a href="#">业主信息</a></li>
+				<li><a href="#">新业主登记</a></li>
+			</ul>
+		</li>
+		<li>
+			<div class="link"><i class="fa fa-mobile"></i>社区服务<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li><a href="#">保安巡逻</a></li>
+				<li><a href="#">报修管理</a></li>
+				<li><a href="#">保洁绿化</a></li>
+			</ul>
+		</li>
+		<li><div class="link"><i class="fa fa-globe"></i>财务管理<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li><a href="#">薪资信息</a></li>
+				<li><a href="#">费用收取</a></li>
+			</ul>
+		</li>
+        <li><div class="link"><i class="fa fa-globe"></i>下载管理<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li><a href="#">资料下载</a></li>
+			</ul>
+		</li>
+	</ul>
+
+
+
+</div>
+
+{% endblock %}

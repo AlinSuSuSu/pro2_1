@@ -7,7 +7,6 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet"href="{{ url_for('static',filename='css/main.css') }}" media="screen"type="text/css"/>
-
 {% endblock %}
 
 {% block navbar %}
@@ -24,49 +23,20 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">人事管理</a>
-                    <ul class="dropdown-menu">
-                        <li>职员信息</li>
-                        <li>值班分配</li>
-                    </ul>
-                </li>
+                <li><a href="{{ url_for('main.personnel_management',page='main') }}">人事管理</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle"data-toggle="dropdown">房产管理</a>
-                    <ul class="dropdown-menu">
-                        <li>职员信息</li>
-                        <li>值班分配</li>
-                    </ul>
-                </li>
+                <li><a href="#">房产管理</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">工程设备管理</a>
-                    <ul class="dropdown-menu">
-                        <li>职员信息</li>
-                        <li>值班分配</li>
-                    </ul>
-                </li>
+                <li>
+                    <a href="#">工程设备管理</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">财务管理</a>
-                    <ul class="dropdown-menu">
-                        <li>职员信息</li>
-                        <li>值班分配</li>
-                    </ul>
-                </li>
+                <li><a href="#">财务管理</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">员工之家</a>
-                    <ul class="dropdown-menu">
-                        <li>职员信息</li>
-                        <li>值班分配</li>
-                    </ul>
-                </li>
+                <li><a href="#" >员工之家</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
@@ -78,7 +48,9 @@
                     <li class="dropdown">
                 <a href="#" class="dropdown-toggle"data-toggle="dropdown">{{ current_user.staffname }}<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ url_for('auth.change_message') }}">修改信息</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('auth.profile') }}">个人资料</a></li>
+                    {% endif %}
                     <li><a href="{{ url_for('auth.change_password') }}">密码修改</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">退出</a></li>
                 </ul>
@@ -109,11 +81,13 @@
 
 
 {% block footer %}
-    <div class="ss-footer">
+    <div class="footer">
 
     </div>
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="{{ url_for('static', filename = 'js/main.js') }}"></script>
 {% endblock %}

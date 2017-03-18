@@ -47,84 +47,74 @@
 unique (name</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="15" parent="5" name="id">
-      <DataType>INTEGER(0,-1)|4</DataType>
-    </column>
-    <column id="16" parent="5" name="staffid">
-      <Position>1</Position>
+    <column id="15" parent="5" name="staffid">
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="17" parent="5" name="staffname">
-      <Position>2</Position>
+    <column id="16" parent="5" name="staffname">
+      <Position>1</Position>
       <DataType>VARCHAR(64)(0,-1)|12</DataType>
     </column>
-    <column id="18" parent="5" name="age">
-      <Position>3</Position>
+    <column id="17" parent="5" name="age">
+      <Position>2</Position>
       <DataType>INTEGER(0,-1)|4</DataType>
     </column>
-    <column id="19" parent="5" name="password_hash">
-      <Position>4</Position>
+    <column id="18" parent="5" name="password_hash">
+      <Position>3</Position>
       <DataType>VARCHAR(128)(0,-1)|12</DataType>
     </column>
-    <column id="20" parent="5" name="last_seen">
-      <Position>5</Position>
+    <column id="19" parent="5" name="last_seen">
+      <Position>4</Position>
       <DataType>DATETIME(0,-1)|12</DataType>
     </column>
-    <column id="21" parent="5" name="gender">
-      <Position>6</Position>
+    <column id="20" parent="5" name="gender">
+      <Position>5</Position>
       <DataType>VARCHAR(2)(0,-1)|12</DataType>
     </column>
-    <column id="22" parent="5" name="salary">
-      <Position>7</Position>
+    <column id="21" parent="5" name="salary">
+      <Position>6</Position>
       <DataType>INTEGER(0,-1)|4</DataType>
     </column>
-    <column id="23" parent="5" name="phone">
-      <Position>8</Position>
+    <column id="22" parent="5" name="phone">
+      <Position>7</Position>
       <DataType>VARCHAR(11)(0,-1)|12</DataType>
     </column>
-    <column id="24" parent="5" name="idcard">
+    <column id="23" parent="5" name="idcard">
+      <Position>8</Position>
+      <DataType>VARCHAR(18)(0,-1)|12</DataType>
+    </column>
+    <column id="24" parent="5" name="job">
       <Position>9</Position>
       <DataType>VARCHAR(18)(0,-1)|12</DataType>
     </column>
-    <column id="25" parent="5" name="job">
+    <column id="25" parent="5" name="role_id">
       <Position>10</Position>
-      <DataType>VARCHAR(18)(0,-1)|12</DataType>
-    </column>
-    <column id="26" parent="5" name="role_id">
-      <Position>11</Position>
       <DataType>VARCHAR(64)(0,-1)|12</DataType>
     </column>
-    <index id="27" parent="5" name="sqlite_autoindex_staffs_1">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <index id="28" parent="5" name="sqlite_autoindex_staffs_2">
-      <NameSurrogate>1</NameSurrogate>
+    <index id="26" parent="5" name="ix_staffs_staffid">
       <ColNames>staffid</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="29" parent="5" name="ix_staffs_staffname">
+    <index id="27" parent="5" name="ix_staffs_staffname">
       <ColNames>staffname</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="30" parent="5" name="sqlite_autoindex_staffs_3">
+    <index id="28" parent="5" name="sqlite_autoindex_staffs_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>phone</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="31" parent="5" name="sqlite_autoindex_staffs_4">
+    <index id="29" parent="5" name="sqlite_autoindex_staffs_2">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idcard</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="32" parent="5">
+    <key id="30" parent="5">
       <ColNames>staffid)
-unique (id</ColNames>
+unique (phone</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="33" parent="5" name="#FAKE_staffs_1">
+    <foreign-key id="31" parent="5" name="#FAKE_staffs_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>role_id</ColNames>
       <Deferrable>1</Deferrable>

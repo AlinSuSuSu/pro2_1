@@ -1,7 +1,7 @@
 from flask import render_template,flash,redirect,request,url_for
 from . import auth
 from ..models import Staff
-from .forms import LoginForm,RegistrationForm,ChangePasswordForm,ChangeMessageForm
+from .forms import LoginForm,RegistrationForm,ChangePasswordForm,ChangeMessageForm,ProfileForm
 from flask_login import login_user,logout_user,login_required,current_user
 from app import db
 
@@ -58,3 +58,11 @@ def change_password():
     form = ChangePasswordForm()
 
     return render_template('auth/change_password.html',form=form)
+
+@auth.route('/profile',methods=['GET','POST'])
+@login_required
+def profile():
+    form = ProfileForm()
+
+
+    return render_template('auth/profile.html',form=form)
