@@ -1,12 +1,12 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
-{% block title %}人事管理{% endblock %}
-
+{% block script %}
+    {{ super() }}
+{% endblock %}
 {% block head %}
     {{ super() }}
     <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
 {% endblock %}
-
 {% block page_content %}
 
 <div id="wrapper">
@@ -24,16 +24,13 @@
   <div id="right-side">
       <div id="first" class="active">
           <div class = "pm-search-form">{{ wtf.quick_form(form) }}
-            <div class="table-title">
+         <div class="table-title">
              <label class="ss-label">aa</label><label class="ss-label">bb</label>
-            </div>
+         </div>
           {% for staff in querystaffs %}
-              <div class="ss-table-column">
-              {{ staff.staffid }}
 
-              </div>
           {% endfor %}
-      </div>
+          </div>
       </div>
       <div id="second">
           <h1>Pay for it</h1>
@@ -52,7 +49,4 @@
   </div>
 </div>
 
-{% endblock %}
-{% block script %}
-    {{ super() }}
 {% endblock %}
