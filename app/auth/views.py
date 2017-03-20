@@ -21,7 +21,7 @@ def login():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        staff = Staff(staffid = form.staffid.data,staffname=form.staffname.data,password=form.password.data)
+        staff = Staff(staffid = form.staffid.data,staffname=form.staffname.data,password=form.password.data,gender=form.gender.data)
         db.session.add(staff)
         db.session.commit()
         flash("注册成功")

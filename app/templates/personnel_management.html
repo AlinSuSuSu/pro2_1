@@ -12,7 +12,7 @@
 <div id="wrapper">
   <div id="left-side">
    <ul>
-       <li class="pm-staffmessage active"><a href="{{ url_for('main.personnel_management',page="staffmessage") }}">职员信息</a></li>
+       <li class="pm-staffmessage active"><a href="{{ url_for('.personnel_management') }}">职员信息</a></li>
      <li class="pm-staffbonus">员工福利</li>
      <li class="pm-holiday">假期安排</li>
      <li class="pm-reimbursement">费用报销</li>
@@ -23,16 +23,33 @@
   </div>
   <div id="right-side">
       <div id="first" class="active">
-          <div class = "pm-search-form">{{ wtf.quick_form(form) }}
+          <div class = "pm-search-form">
+          <form method="GET" action='/personnel_management/'>
+              <div class="ss-form-group">
+                  <label>员工编号</label>
+                  <input class="ss-form-control"id="staffid"name="staffid">
+              </div>
+              <div class="ss-form-group">
+                  <label>员工姓名</label>
+                  <input class="ss-form-control"id="staffname"name="staffname">
+              </div>
+              <div class="ss-form-group">
+                  <button id="searchmessage" type="submit"class="btn">查询</button>
+              </div>
+
+          </form>
             <div class="table-title">
              <label class="ss-label">aa</label><label class="ss-label">bb</label>
             </div>
-          {% for staff in querystaffs %}
-              <div class="ss-table-column">
-              {{ staff.staffid }}
 
-              </div>
+            <ul class="ss-results">
+          {% for query in querys %}
+              <li class="ss-table-column">
+              <a>{{ query.staffid }}</a>
+
+              </li>
           {% endfor %}
+            </ul>
       </div>
       </div>
       <div id="second">

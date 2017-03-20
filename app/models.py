@@ -55,7 +55,7 @@ class Staff(UserMixin, db.Model):
     age= db.Column(db.Integer)#年龄
     password_hash =db.Column(db.String(128))#密码散列
     last_seen = db.Column(db.DateTime(),default=datetime.utcnow)#上次登录
-    gender = db.Column(db.String(2))#性别
+    gender = db.Column(db.String(4))#性别
     salary = db.Column(db.Integer)#薪资
     phone = db.Column(db.String(11),unique=True)#联系方式
     idcard = db.Column(db.String(18),unique=True)#身份证号

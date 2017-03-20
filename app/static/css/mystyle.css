@@ -31,3 +31,17 @@
     width:60px;
     border:solid 1px;
 }
+.ss-table-column{
+    background: rgba(83,84,127,0.59);
+
+    width:100px;
+    margin:10px;
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    font-size:15px;
+}
+.ss-results{
+    font-family:'Open Sans', Arial, Helvetica, Sans-serif, Verdana, Tahoma;
+	 font-size:15px;
+	 margin-top:10px;
+    background: #000;
+}

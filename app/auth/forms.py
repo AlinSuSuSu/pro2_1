@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,PasswordField,SelectField,SubmitField,BooleanField
+from wtforms import StringField,PasswordField,SelectField,SubmitField,BooleanField,RadioField
 from wtforms.validators import Regexp,Required,EqualTo
 from ..models import Staff
 from wtforms import ValidationError
@@ -18,7 +18,7 @@ class RegistrationForm(FlaskForm):
     password =PasswordField('密码',validators=[Required(),EqualTo('password2',message='密码不匹配')])
     password2 = PasswordField('确认密码',validators=[Required()])
     #last_seen = db.Column(db.DateTime(), default=datetime.utcnow)  # 上次登录
-    gender = SelectField('性别',coerce=str)  # 性别
+    gender = RadioField('性别',choices=[('A','男'),('B','女')])# 性别
     salary = StringField('薪资',validators=[Required()])  # 薪资
     phone = StringField('手机号码', validators=[Required()])  # 联系方式
     idcard = StringField('身份证号', )  # 身份证号

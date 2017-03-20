@@ -7,22 +7,23 @@ from ..models import Staff
 def index():
     return render_template('index.html')
 
-@main.route('/personnel_management/<string:page>',methods=['GET','POST'])
-def personnel_management(page):
-    form = StaffMessageForm()
-    page = request.cookies.get("page",'')
-    a = form.validate_on_submit();
-    if form.validate_on_submit():
-        if form.staffid.data is not None:
-            querystaffs=Staff.query.filter_by(staffid=form.staffid.data).all()
-            for stafs in querystaffs:
-                b=stafs.staffid;
-            return render_template('personnel_management.html',page=page,form=form,querystaffs=querystaffs)
-        flash("meiyoushuju")
-    return render_template('personnel_management.html',page=page,form=form)
+@main.route('/personnel_management/',methods=['GET','POST'])
+def personnel_management():
+    '''TODO'''
+    s = request.args.get('staffid')
+    querys = []
 
-@main.route("/staffmessage",methods=['GET','POST'])
+    if s is not None and (s != '' ):
+        querys = Staff.query.filter_by(gender=s).all()
+    a=querys
+    return render_template('personnel_management.html',s=s,querys=querys)
+
+'''
+@main.route("/staff_message",methods=['GET','POST'])
 def staff_message():
+    data = request.get_json()
     resp = make_response(redirect(url_for('.personnel_management')))
-    resp.set_cookie("page","staffmessage", max_age=30 * 24 * 60 * 60)
+    if data is not None and (data['staffid'] != '' or data['staffname'] != ''):
+        resp.set_cookie("staffid",data['staffid'], max_age=30 * 24 * 60 * 60)
     return resp
+'''
