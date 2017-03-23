@@ -21,7 +21,8 @@ def login():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        staff = Staff(staffid = form.staffid.data,staffname=form.staffname.data,password=form.password.data,gender=form.gender.data)
+        staff = Staff(staffid = form.staffid.data,staffname=form.staffname.data,password=form.password.data,age=form.age.data,gender=form.gender.data,salary=form.salary.data, \
+                      phone=form.phone.data,idcard=form.phone.data,job=form.job.data)
         db.session.add(staff)
         db.session.commit()
         flash("注册成功")
@@ -43,7 +44,6 @@ def change_message():
     if form.validate_on_submit():
         current_user.salary=form.salary.data
         current_user.phone=form.phone.data
-        current_user.phone=form.phone.data
         current_user.idcard=form.idcard.data
         current_user.job=form.job.data
         db.session.add(current_user)
@@ -59,9 +59,9 @@ def change_password():
 
     return render_template('auth/change_password.html',form=form)
 
-@auth.route('/profile',methods=['GET','POST'])
+@auth.route('/profile/<int:staff_id>',methods=['GET','POST'])
 @login_required
-def profile():
+def profile(staff_id):
     form = ProfileForm()
 
 

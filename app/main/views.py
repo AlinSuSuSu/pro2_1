@@ -1,8 +1,9 @@
 from . import main
 from flask import render_template,make_response,redirect,url_for,request,flash
-from .forms import StaffMessageForm
+from .forms import StaffMessageForm,StaffAddForm
 from ..models import Staff
 from .. import db
+import json
 @main.route('/',methods=['GET','POST'])
 def index():
     return render_template('index.html')
@@ -24,16 +25,34 @@ def personnel_management():
         flash("请输入查询项")
     if querys == []:
         flash("没有数据")'''
-    return render_template('personnel_management.html',querys=querys)
+    return render_template('staff/personnel_management.html',querys=querys)
 
 
 @main.route('/detail/<int:staff_id>/delete',methods=['POST','GET'])
 def staff_delete(staff_id):
+    res = {
+        "status": 1,
+        "message": "success"
+    }
     staff=Staff.query.filter_by(staffid=staff_id).first()
     db.session.delete(staff)
     db.session.commit()
-    resp = make_response(redirect(url_for('.personnel_management')))
-    return resp
+    #resp = make_response(redirect(url_for('.personnel_management')))
+    #return resp
+    #return render_template('personnel_management.html')
+    return json.dumps(res)
+
+@main.route('/personnel_management/add',methods=['POST','GET'])
+def staff_add():
+    form = StaffAddForm()
+    if form.validate_on_submit():
+        staff = Staff(staffid=form.staffid.data, staffname=form.staffname.data, phone=form.staffphone.data,
+                      gender=form.staffgender.data)
+        db.session.add(staff)
+        db.session.commit()
+        flash("添加成功")
+        return redirect(url_for('main.personnel_management'))
+    return render_template('staff/add_staff.html', form=form)
 
 
 '''
