@@ -1,6 +1,13 @@
+{% extends 'staff/personnel_management.html' %}
+{% block title %}添加职员{% endblock %}
 
-{% block title %}员工福利{% endblock %}
-
-    {% block page_content_right %}
-        11
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+        {{ super() }}
         {% endblock %}
+    {% block page_content_right %}
+        {{ wtf.quick_form(form) }}
+        {% endblock %}
+    </div>
+{% endblock %}

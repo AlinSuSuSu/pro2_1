@@ -69,4 +69,8 @@ def staff_add_1():
 @main.route('/personnel_bonus',methods=['GET','POST'])
 def personnel_bonus():
     form=StaffBonusForm()
-    return render_template('staff/personnel_management.html')
+    return render_template('staff/personnel_bonus.html',form=form)
+
+@main.route('/personnel_message',methods=['GET','POST'])
+def personnel_message():
+    return render_template('staff/personnel_message.html')
