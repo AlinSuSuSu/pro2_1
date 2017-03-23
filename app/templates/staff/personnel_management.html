@@ -13,8 +13,8 @@
 {% block page_content_left %}
   <div id="left-side">
    <ul>
-       <li class="pm-staffmessage active"><a href="{{ url_for('.personnel_management') }}">职员信息</a></li>
-     <li class="pm-staffbonus">员工福利</li>
+       <li class="pm-staffmessage active"><a href="{{ url_for('main.personnel_management') }}">职员信息</a></li>
+       <li class="pm-staffbonus"><a href="{{ url_for('main.personnel_bonus') }}">员工福利</a></li>
      <li class="pm-holiday">假期安排</li>
      <li class="pm-reimbursement">费用报销</li>
    </ul>
@@ -91,7 +91,7 @@
                         <td class="ss-td">{{ query.job }}</td>
                         <td class="ss-td">{{ query.salary }}</td>
                         <td class="ss-td"><a href="{{ url_for('main.staff_delete',staff_id=query.staffid) }}"class="ss-table-delete"id="{{ query.staffid }}">删除</a>
-                            <a href="{% include 'auth/profile.html' %}"class="ss-table-detail"id="{{ query.staffid }}">详情</a></td>
+                            <a href="{{ url_for('auth.profile',staff_id=query.staffid) }}"class="ss-table-detail"id="{{ query.staffid }}">详情</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -99,7 +99,7 @@
       </div>
       </div>
       <div id="second">
-          <h1>Pay for it</h1>
+          {% include 'staff/personnel_bonus.html' %}
       </div>
       <div id="third">
 

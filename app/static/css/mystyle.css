@@ -34,7 +34,7 @@
 }
 .ss-scrolltbody{
     display: block;
-    height:260px;
+    height:270px;
     overflow: auto;
     width: 100%;
 }

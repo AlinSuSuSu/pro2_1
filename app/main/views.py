@@ -1,6 +1,6 @@
 from . import main
 from flask import render_template,make_response,redirect,url_for,request,flash
-from .forms import StaffMessageForm,StaffAddForm
+from .forms import StaffBonusForm,StaffAddForm
 from ..models import Staff
 from .. import db
 import json
@@ -8,7 +8,7 @@ import json
 def index():
     return render_template('index.html')
 
-@main.route('/personnel_management/',methods=['GET','POST'])
+@main.route('/personnel_message',methods=['GET','POST'])
 def personnel_management():
     staffid = request.args.get('staffid')
     staffname= request.args.get("staffname")
@@ -37,9 +37,6 @@ def staff_delete(staff_id):
     staff=Staff.query.filter_by(staffid=staff_id).first()
     db.session.delete(staff)
     db.session.commit()
-    #resp = make_response(redirect(url_for('.personnel_management')))
-    #return resp
-    #return render_template('personnel_management.html')
     return json.dumps(res)
 
 @main.route('/personnel_management/add',methods=['POST','GET'])
@@ -55,21 +52,21 @@ def staff_add():
     return render_template('staff/add_staff.html', form=form)
 
 
-'''
-@main.route('/personnel_management/',methods=['GET','POST'])
-def personnel_management():
-    data=request.args
-    querys=Staff.query.filter_by()
-    for key in data:
-        querys=querys.filter_by(getname(key)=data[key])
-    return render_template('personnel_management.html',data=data,querys=querys)
-'''
-'''
-@main.route("/staff_message",methods=['GET','POST'])
-def staff_message():
-    data = request.get_json()
-    resp = make_response(redirect(url_for('.personnel_management')))
-    if data is not None and (data['staffid'] != '' or data['staffname'] != ''):
-        resp.set_cookie("staffid",data['staffid'], max_age=30 * 24 * 60 * 60)
-    return resp
-'''
+@main.route('/personnel_management/detail/<int:staffid>',methods=['POST','GET'])
+def staff_add_1():
+    form = StaffAddForm()
+    if form.validate_on_submit():
+        staff = Staff(staffid=form.staffid.data, staffname=form.staffname.data, phone=form.staffphone.data,
+                      gender=form.staffgender.data)
+        db.session.add(staff)
+        db.session.commit()
+        flash("添加成功")
+        return redirect(url_for('main.personnel_management'))
+    return render_template('staff/add_staff.html', form=form)
+
+###########人事管理，员工福利
+
+@main.route('/personnel_bonus',methods=['GET','POST'])
+def personnel_bonus():
+    form=StaffBonusForm()
+    return render_template('staff/personnel_management.html')
