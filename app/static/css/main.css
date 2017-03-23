@@ -17,32 +17,6 @@
     width:100%;
     height:auto;
 }
-.sc-form-group{
-    margin-bottom: 15px;
-    display: inline-block;
-    margin-bottom: 0;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-#sc-input{
-    margin-left:10px;
-    border: solid 1px #dce4ec;
-    padding:6px 0 7px 10px;
-    margin:2px 0 5px 2px;
-    text-indent: 1px;
-    background-color: #eaeded;
-    border-color: transparent;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;;
-    cursor:default;
-    color:#cad2d3;
-}
-#sc-label{
-    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
-    font-size: 16px;
-}
-
 
 
 

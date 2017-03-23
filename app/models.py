@@ -66,7 +66,9 @@ class Staff(UserMixin, db.Model):
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
-
+    @property
+    def getname(self,key):
+        return key
 
     @password.setter
     def password(self,password):

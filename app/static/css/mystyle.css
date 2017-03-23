@@ -7,41 +7,69 @@
     border-radius:5px;
 }
 
-.pm-search-form{
-    width:100%;
+.pm-form{
+
     margin-left:20px;
     margin-top:20px;
     height:auto;
     display: flex;
-
     flex-direction: column;
     -ms-flex-direction: column;
     -webkit-flex-direction: column;
     position:absolute;
 }
-.table-title{
-    margin-top:20px;
-    border-bottom: rgba(127,90,45,0.59) 1px solid;
-    height:50px;
-}
-.ss-label{
-    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
-    font-size:15px;
-    padding:6px;
-    width:60px;
-    border:solid 1px;
-}
-.ss-table-column{
-    background: rgba(83,84,127,0.59);
 
-    width:100px;
-    margin:10px;
+
+.ss-table{
+    border-collapse: collapse;
+    border: 1px solid #4b4a5e;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    height:auto;
+}
+.ss-tr{
+    height:20px;
+}
+.ss-td{
+    height:20px;
+    width:80px;
+    border: 1px solid #4b4a5e;
+}
+.pm-search-form{
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    width:auto;
+}
+
+.ss-name-label{
     font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
     font-size:15px;
+    width:80px;
+
+
 }
-.ss-results{
-    font-family:'Open Sans', Arial, Helvetica, Sans-serif, Verdana, Tahoma;
-	 font-size:15px;
-	 margin-top:10px;
-    background: #000;
+.ss-form-control{
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #2d2c41;
+    height:30px;
+    width:120px;
+
+}
+.ss-form-group{
+    height:40px;
+    width:200px;
+    display:flex;
+    margin:5px 0 0 5px;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-direction: row;
+    align-items: center;
+
 }

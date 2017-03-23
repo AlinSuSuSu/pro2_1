@@ -72,7 +72,8 @@ $('.pm-reimbursement').click(function () {
 $('#searchmessage').click(function(){
 	var data={
 		'staffid':$('#staffid').val(),
-		'staffname':$('#staffname').val()
+		'staffname':$('#staffname').val(),
+		'staffgender':$("input[name='gender']:checked").val()
 	};
 	$.ajax({
 		type:'GET',
@@ -85,3 +86,18 @@ $('#searchmessage').click(function(){
 		},
 	})
 });
+$('a.ss-table-delete').on('click',function(evt){
+	evt.preventDefault();
+	var staff_id = $(this).attr('id');
+	$.ajax({
+		url:'/detail/'+staff_id+'/delete',
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
