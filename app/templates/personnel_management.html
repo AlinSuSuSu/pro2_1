@@ -63,7 +63,7 @@
           </form>
 
             <table class="ss-table">
-                <tr class="ss-tr">
+                <thead class="ss-fixedthead">
                     <th class="ss-td">序号</th>
                     <th class="ss-td">员工编号</th>
                     <th class="ss-td">员工姓名</th>
@@ -73,8 +73,9 @@
                     <th class="ss-td">年龄</th>
                     <th class="ss-td">职位</th>
                     <th class="ss-td">薪资</th>
-                    <th class="ss-td">操作</th>
-                </tr>
+                    <th class="ss-td"><a href="{{ url_for('main.staff_delete') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
+                </thead>
+                <tbody class="ss-scrolltbody">
                 {% for query in querys %}
                     <tr class="ss-tr">
                         <td class="ss-td">{{ 1 }}</td>
@@ -86,9 +87,11 @@
                         <td class="ss-td">{{ query.age }}</td>
                         <td class="ss-td">{{ query.job }}</td>
                         <td class="ss-td">{{ query.salary }}</td>
-                        <td class="ss-td"><a href="{{ url_for('main.staff_delete',staff_id=query.staffid) }}"class="ss-table-delete"id="{{ query.staffid }}">删除</a><a href="#"class="ss-table-detail"id="{{ query.staffid }}">详情</a></td>
+                        <td class="ss-td"><a href="{{ url_for('main.staff_delete',staff_id=query.staffid) }}"class="ss-table-delete"id="{{ query.staffid }}">删除</a>
+                            <a href="{{ url_for('main.staff_delete',staff_id=query.staffid) }}"class="ss-table-detail"id="{{ query.staffid }}">详情</a></td>
+                    </tr>
                 {% endfor %}
-
+                </tbody>
             </table>
       </div>
       </div>

@@ -26,16 +26,26 @@
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    height:auto;
+    width:100%;
 }
-.ss-tr{
+.ss-fixedthead{
+    display: block;
+    width:100%;
+}
+.ss-scrolltbody{
+    display: block;
+    height:260px;
+    overflow: auto;
+    width: 100%;
+}
+.ss-table td,.ss-table th{
+    width:180px;
+    border-bottom:1px solid #4b4a5e;
+    border-right:1px solid #4b4a5e;
     height:20px;
 }
-.ss-td{
-    height:20px;
-    width:80px;
-    border: 1px solid #4b4a5e;
-}
+
+
 .pm-search-form{
     display: flex;
     -webkit-flex-direction: row;

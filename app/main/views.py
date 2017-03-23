@@ -20,24 +20,22 @@ def personnel_management():
             querys = Staff.query.filter_by(staffid=staffid).all()
         else:
             querys = Staff.query.filter_by(staffid=staffid,staffname=staffname).all()
-    else:
+    '''else:
         flash("请输入查询项")
     if querys == []:
-        flash("没有数据")
+        flash("没有数据")'''
     return render_template('personnel_management.html',querys=querys)
 
 
 @main.route('/detail/<int:staff_id>/delete',methods=['POST','GET'])
 def staff_delete(staff_id):
-    res={
-        'status':1,
-        'message':'success'
-    }
     staff=Staff.query.filter_by(staffid=staff_id).first()
     db.session.delete(staff)
     db.session.commit()
     resp = make_response(redirect(url_for('.personnel_management')))
     return resp
+
+
 '''
 @main.route('/personnel_management/',methods=['GET','POST'])
 def personnel_management():
