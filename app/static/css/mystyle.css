@@ -57,8 +57,9 @@
 }
 
 .ss-name-label{
-    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    font-family: '微软雅黑','Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
     font-size:15px;
+    color: #4b4a5e;
     width:80px;
 
 
@@ -76,10 +77,53 @@
     height:40px;
     width:200px;
     display:flex;
-    margin:5px 0 0 5px;
+    margin:5px 0 0 15px;
     -webkit-flex-direction: row;
     flex-direction: row;
     -ms-flex-direction: row;
     align-items: center;
 
+}
+
+.ss-form-header ,.ss-form-body,.ss-detail-div{
+    margin-left:20px;
+    margin-top:20px;
+}
+.ss-form-header #ss-form-line{
+    width: 500px;
+    height:1px;
+    background-color: #4b4a5e;
+}
+
+.ss-form-header #ss-form-line #ss-form-label{
+    margin-bottom:10px;
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    font-size:15px;
+}
+.ss-form-body{
+    display: flex;
+    flex-direction: column;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+}
+.ss-form-body-row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.ss-form-body-row-btn{
+    justify-content: flex-end;
+}
+.ss-detail-div{
+    width:auto;
+}
+.ss-detail-title{
+    padding-left:3px;
+}
+.ss-detail-ol{
+    padding-left:20px;
+    font-family:'微软雅黑','Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    font-size:13px;
 }

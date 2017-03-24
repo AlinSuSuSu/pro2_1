@@ -29,6 +29,9 @@ def create_app(config_name):
     from .auth import auth  as auth_blueprint
     app.register_blueprint(auth_blueprint,url_prefix='/auth')
 
+    from .house import house as house_blueprint
+    app.register_blueprint(house_blueprint,url_prefix='/house')
+
 
     return app
 

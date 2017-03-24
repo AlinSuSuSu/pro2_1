@@ -39,30 +39,20 @@ def staff_delete(staff_id):
     db.session.commit()
     return json.dumps(res)
 
+@main.route('/personnel_management/add/post',methods=['POST','GET'])
+def staff_add_post():
+    staff=Staff(staffid=request.form.get('add-staffid'),staffname=request.form.get('add-staffid'),
+                phone=request.form.get('add-phone'),idcard=request.form.get('add-idcard'),
+                salary=request.form.get('add-salary'),job=request.form.get('add-job'),
+                age=request.form.get('add-age'),password=request.form.get('add-password'),gender=request.form.get('add-gender'))
+    db.session.add(staff)
+    db.session.commit()
+    return redirect(url_for('main.personnel_management'))
+
 @main.route('/personnel_management/add',methods=['POST','GET'])
 def staff_add():
-    form = StaffAddForm()
-    if form.validate_on_submit():
-        staff = Staff(staffid=form.staffid.data, staffname=form.staffname.data, phone=form.staffphone.data,
-                      gender=form.staffgender.data)
-        db.session.add(staff)
-        db.session.commit()
-        flash("添加成功")
-        return redirect(url_for('main.personnel_management'))
-    return render_template('staff/add_staff.html', form=form)
 
-
-@main.route('/personnel_management/detail/<int:staffid>',methods=['POST','GET'])
-def staff_add_1():
-    form = StaffAddForm()
-    if form.validate_on_submit():
-        staff = Staff(staffid=form.staffid.data, staffname=form.staffname.data, phone=form.staffphone.data,
-                      gender=form.staffgender.data)
-        db.session.add(staff)
-        db.session.commit()
-        flash("添加成功")
-        return redirect(url_for('main.personnel_management'))
-    return render_template('staff/add_staff.html', form=form)
+    return render_template('staff/add_staff.html')
 
 ###########人事管理，员工福利
 
@@ -74,3 +64,4 @@ def personnel_bonus():
 @main.route('/personnel_message',methods=['GET','POST'])
 def personnel_message():
     return render_template('staff/personnel_message.html')
+
