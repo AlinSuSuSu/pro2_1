@@ -26,6 +26,9 @@ def create_app(config_name):
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    from .staff import staff as staff_blueprint
+    app.register_blueprint(staff_blueprint,url_prefix='/staff')
+
     from .auth import auth  as auth_blueprint
     app.register_blueprint(auth_blueprint,url_prefix='/auth')
 

@@ -13,8 +13,8 @@
 {% block page_content_left %}
   <div id="left-side">
    <ul>
-       <li class="pm-staffmessage active"><a href="{{ url_for('main.personnel_management') }}">职员信息</a></li>
-       <li class="pm-staffbonus"><a href="{{ url_for('main.personnel_bonus') }}">员工福利</a></li>
+       <li class="pm-staffmessage active"><a href="{{ url_for('staff.staff_message') }}">职员信息</a></li>
+       <li class="pm-staffbonus"><a href="{{ url_for('staff.staff_bonus') }}">员工福利</a></li>
      <li class="pm-holiday">假期安排</li>
      <li class="pm-reimbursement">费用报销</li>
    </ul>
@@ -28,7 +28,7 @@
       <div id="first" class="active">
           <div class = "pm-form">
 
-          <form method="GET" action='/personnel_management/'>
+          <form method="GET" action='/staff_message/'>
               <div class="pm-search-form">
               <div class="ss-form-group">
                   <div class="ss-name-label">员工编号</div>
@@ -61,7 +61,7 @@
                     <th class="ss-td">年龄</th>
                     <th class="ss-td">职位</th>
                     <th class="ss-td">薪资</th>
-                    <th class="ss-td"><a href="{{ url_for('main.staff_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
+                    <th class="ss-td"><a href="{{ url_for('staff.staff_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
                 </thead>
                 <tbody class="ss-scrolltbody">
                 {% for query in querys %}
@@ -75,7 +75,7 @@
                         <td class="ss-td">{{ query.age }}</td>
                         <td class="ss-td">{{ query.job }}</td>
                         <td class="ss-td">{{ query.salary }}</td>
-                        <td class="ss-td"><a href="{{ url_for('main.staff_delete',staff_id=query.staffid) }}"class="ss-table-delete"id="{{ query.staffid }}">删除</a>
+                        <td class="ss-td"><a href="{{ url_for('staff.staff_delete',staff_id=query.staffid) }}"class="ss-table-delete"id="{{ query.staffid }}">删除</a>
                             <a href="{{ url_for('auth.profile',staff_id=query.staffid) }}"class="ss-table-detail"id="{{ query.staffid }}">详情</a></td>
                     </tr>
                 {% endfor %}

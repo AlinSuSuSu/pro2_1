@@ -90,7 +90,7 @@ $('a.ss-table-delete').on('click',function(evt){
 	evt.preventDefault();
 	var staff_id = $(this).attr('id');
 	$.ajax({
-		url:'/detail/'+staff_id+'/delete',
+		url:'/detail/delete/'+staff_id,
 		type:'POST',
 		dataType:'JSON',
 		success:function(resp){
