@@ -125,8 +125,10 @@ class Owner(UserMixin,db.Model):
     house_houseid=db.Column(db.String(64),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
     ownername=db.Column(db.String(64))
     ownerphone=db.Column(db.String(11))
-
-
+    owneridcard=db.Column(db.String(20))
+    owneryears=db.Column(db.String(20))
+    ownerstatus=db.Column(db.String(20))
+    ownerdate=db.Column(db.String(20))
 
 class House(UserMixin,db.Model):
     __tablename__='houses'
@@ -136,5 +138,6 @@ class House(UserMixin,db.Model):
     housespace=db.Column(db.String(64))
     housecommunity=db.Column(db.String(64))
     houseremark=db.Column(db.String(64))
-    owner_ownername=db.Column(db.String(64),db.ForeignKey('owners.ownername'))
+    houseaddress=db.Column(db.String(64))
+    owner_ownername=db.Column(db.String(64))
 

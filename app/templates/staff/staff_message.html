@@ -27,7 +27,7 @@
   <div id="right-side">
           <div class = "pm-form">
 
-          <form method="GET" action='/staff_message/'>
+          <form method="GET" action='/staff/staff_message/'>
               <div class="pm-search-form">
               <div class="ss-form-group">
                   <div class="ss-name-label">员工编号</div>
@@ -74,7 +74,7 @@
                         <td class="ss-td">{{ query.age }}</td>
                         <td class="ss-td">{{ query.job }}</td>
                         <td class="ss-td">{{ query.salary }}</td>
-                        <td class="ss-td"><a href="{{ url_for('staff.staff_delete',staff_id=query.staffid) }}"class="ss-table-delete"id="{{ query.staffid }}">删除</a>
+                        <td class="ss-td"><a href="{{ url_for('staff.staff_delete',staff_id=query.staffid) }}"class="ss-table-delete-staff"id="{{ query.staffid }}">删除</a>
                             <a href="{{ url_for('auth.profile',staff_id=query.staffid) }}"class="ss-table-detail"id="{{ query.staffid }}">详情</a></td>
                     </tr>
                 {% endfor %}

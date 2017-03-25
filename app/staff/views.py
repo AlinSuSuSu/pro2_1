@@ -14,7 +14,7 @@ def index():
 
 ################staff_message
 #员工信息
-@staff.route('/staff_message',methods=['GET','POST'])
+@staff.route('/staff_message/',methods=['GET','POST'])
 def staff_message():
     staffid = request.args.get('staffid')
     staffname= request.args.get("staffname")
@@ -34,7 +34,7 @@ def staff_message():
     return render_template('staff/staff_message.html',querys=querys)
 
 #删除员工
-@staff.route('/detail/delete/<int:staff_id>',methods=['POST','GET'])
+@staff.route('/staff_message/delete/<int:staff_id>',methods=['POST','GET'])
 def staff_delete(staff_id):
     res = {
         "status": 1,
@@ -59,14 +59,19 @@ def staff_add_post():
 @staff.route('/staff_message/add',methods=['POST','GET'])
 def staff_add():
     return render_template('staff/add_staff.html')
-#########
+
+
+##############################################################
+
 ##########staff_bonus
 #员工福利页面
 @staff.route('/staff_bonus',methods=['GET','POST'])
 def staff_bonus():
     form=StaffBonusForm()
     return render_template('staff/staff_bonus.html',form=form)
-##########
+
+###############################################################
+
 ############staff_holiday
 @staff.route('/staff_holiday',methods=['GET','POST'])
 @login_required
@@ -80,6 +85,8 @@ def staff_holiday():
         db.session.commit()
         flash("登记成功")
     return render_template('staff/staff_holiday.html',form=form)
+
+##########################################################################
 
 @staff.route('/staff_reimbursement',methods=['POST','GET'])
 @login_required

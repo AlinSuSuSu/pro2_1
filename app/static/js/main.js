@@ -68,29 +68,27 @@ $('.pm-reimbursement').click(function () {
 	$('#fourth').addClass('active');
 });
 
-
-$('#searchmessage').click(function(){
-	var data={
-		'staffid':$('#staffid').val(),
-		'staffname':$('#staffname').val(),
-		'staffgender':$("input[name='gender']:checked").val()
-	};
-	$.ajax({
-		type:'GET',
-		url:'/',
-		data:data,
-		dataType:'json',
-		contentType:"application/json;charset='UTF-8'",
-		success: function(data) {
-
-		},
-	})
-});
-$('a.ss-table-delete').on('click',function(evt){
+$('a.ss-table-delete-staff').on('click',function(evt){
 	evt.preventDefault();
 	var staff_id = $(this).attr('id');
 	$.ajax({
-		url:'/detail/delete/'+staff_id,
+		url:'/staff/staff_message/delete/'+staff_id,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
+
+$('a.ss-table-delete-house').on('click',function(evt){
+	evt.preventDefault();
+	var house_id = $(this).attr('id');
+	$.ajax({
+		url:'/house/house_message/delete/'+house_id,
 		type:'POST',
 		dataType:'JSON',
 		success:function(resp){
