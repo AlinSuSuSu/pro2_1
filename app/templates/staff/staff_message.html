@@ -15,8 +15,8 @@
    <ul>
        <li class="pm-staffmessage active"><a href="{{ url_for('staff.staff_message') }}">职员信息</a></li>
        <li class="pm-staffbonus"><a href="{{ url_for('staff.staff_bonus') }}">员工福利</a></li>
-     <li class="pm-holiday">假期安排</li>
-     <li class="pm-reimbursement">费用报销</li>
+       <li class="pm-holiday"><a href="{{ url_for('staff.staff_holiday') }}">假期安排</a></li>
+       <li class="pm-reimbursement"><a href="{{ url_for('staff.staff_reimbursement') }}">费用报销</a></li>
    </ul>
   </div>
   <div id="border">
@@ -25,7 +25,6 @@
 {% endblock %}
 {% block page_content_right %}
   <div id="right-side">
-      <div id="first" class="active">
           <div class = "pm-form">
 
           <form method="GET" action='/staff_message/'>
@@ -82,21 +81,7 @@
                 </tbody>
             </table>
       </div>
-      </div>
-      <div id="second">
 
-      </div>
-      <div id="third">
-
-
-     <h1>We will wrap it</h1>
-
-   </div>
-   <div id="fourth">
-
-     <h1>Ship it</h1>
-
-   </div>
   </div>
     {% endblock %}
 </div>

@@ -211,9 +211,9 @@ div.pagination {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
+  -webkit-align-items: flex-start;
   -ms-flex-align: center;
-   align-items: center;
+   align-items: flex-start;
     overflow: hidden;
     justify-content: flex-start;
     flex-direction: row;
@@ -307,31 +307,9 @@ div.pagination {
 }
 
 #right-side {
-  height: 400px;
+  height: auto;
   width: 75%;
   overflow: hidden;
-}
-#right-side #first, #right-side #second, #right-side #third, #right-side #fourth {
-  position: absolute;
-  height: 300px;
-  width: 75%;
-
-  margin-top: -350px;
-  opacity: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-	  -ms-flex-align: center;
-		  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-	  -ms-flex-direction: column;
-		  flex-direction: column;
 }
 #right-side #first h1, #right-side #second h1, #right-side #third h1, #right-side #fourth h1 {
   font-weight: 800;

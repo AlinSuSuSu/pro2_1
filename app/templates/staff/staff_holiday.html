@@ -1,0 +1,22 @@
+{% extends 'staff/staff_message.html' %}
+{% import 'bootstrap/wtf.html'as wtf %}
+{% block title %}添加职员{% endblock %}
+
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+        {{ super() }}
+        {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+        <div class="ss-form-header">
+            <label id="ss-form-label">请假登记</label>
+            <div id="ss-form-line"></div>
+        </div>
+        <div class="ss-detail-div ss-detail-holiday-form">
+            {{ wtf.quick_form(form) }}
+        </div>
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -3,7 +3,7 @@ from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
 from . import login_manager
-
+import random
 #加载用户的回调函数
 @login_manager.user_loader
 def load_user(staff_staffid):
@@ -50,25 +50,22 @@ class Role(db.Model):
 
 class Staff(UserMixin, db.Model):
     __tablename__ = 'staffs'
-    staffid = db.Column(db.Integer,primary_key=True,index=True)#员工编号
+    staffid = db.Column(db.String(64),primary_key=True,index=True)#员工编号
     staffname = db.Column(db.String(64),unique=True,index=True)#员工姓名
     age= db.Column(db.Integer)#年龄
     password_hash =db.Column(db.String(128))#密码散列
-    last_seen = db.Column(db.DateTime(),default=datetime.utcnow)#上次登录
+    entertime = db.Column(db.DateTime(),default=datetime.utcnow)#上次登录
     gender = db.Column(db.String(4))#性别
     salary = db.Column(db.Integer)#薪资
     phone = db.Column(db.String(11),unique=True)#联系方式
     idcard = db.Column(db.String(18),unique=True)#身份证号
     job = db.Column(db.String(18))#工种
     role_id = db.Column(db.String(64),db.ForeignKey('roles.id'))#角色
-
-
+    holiday_holidayid = db.relationship('Holiday', backref='staff', lazy='dynamic')
+    reimbursement_reimbursementid=db.relationship('Reimbursement',backref='staff',lazy='dynamic')
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
-    @property
-    def getname(self,key):
-        return key
 
     @password.setter
     def password(self,password):
@@ -102,3 +99,21 @@ class Staff(UserMixin, db.Model):
         self.last_seen = datetime.utcnow()
         db.session.add(self)
 
+class Holiday(UserMixin, db.Model):
+    __tablename__='holidays'
+    holidayid=db.Column(db.String(64),primary_key=True,index=True)#请假编号
+    holidayreason=db.Column(db.String(300))#请假原因
+    holidaytype=db.Column(db.String(10))#请假类型
+    holidaytime=db.Column(db.String(50))#请假时间
+    staff_phone=db.Column(db.String(11))#角色
+    staff_staffid=db.Column(db.String(64),db.ForeignKey('staffs.staffid'))#角色
+
+
+class Reimbursement(UserMixin,db.Model):
+    __tablename__='reimbursements'
+    reimbursementid=db.Column(db.String(64),primary_key=True,index=True)
+    reimbursementtype=db.Column(db.String(64))
+    reimbursementitem=db.Column(db.String(128))
+    reimbursementcost=db.Column(db.String(64))
+    reimbursementtime=db.Column(db.String(64),default=datetime.utcnow())
+    staff_staffid=db.Column(db.String,db.ForeignKey('staffs.staffid'))
