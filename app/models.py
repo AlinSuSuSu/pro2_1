@@ -117,3 +117,24 @@ class Reimbursement(UserMixin,db.Model):
     reimbursementcost=db.Column(db.String(64))
     reimbursementtime=db.Column(db.String(64),default=datetime.utcnow())
     staff_staffid=db.Column(db.String,db.ForeignKey('staffs.staffid'))
+
+
+
+class Owner(UserMixin,db.Model):
+    __tablename__='owners'
+    house_houseid=db.Column(db.String(64),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
+    ownername=db.Column(db.String(64))
+    ownerphone=db.Column(db.String(11))
+
+
+
+class House(UserMixin,db.Model):
+    __tablename__='houses'
+    houseid=db.Column(db.String(64),primary_key=True,index=True)
+    housestatus=db.Column(db.String(10))
+    housetype=db.Column(db.String(64))
+    housespace=db.Column(db.String(64))
+    housecommunity=db.Column(db.String(64))
+    houseremark=db.Column(db.String(64))
+    owner_ownername=db.Column(db.String(64),db.ForeignKey('owners.ownername'))
+
