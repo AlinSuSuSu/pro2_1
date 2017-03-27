@@ -9,14 +9,14 @@ import json
 def house_message():
     querys=House.query.all()
     houseid=request.args.get('houseid')
-    housestatus=request.args.get('housestatus')
-    if (houseid != '' and houseid is not None) or (housestatus is not None and housestatus != ''):
+    ownername=request.args.get('ownername')
+    if (houseid != '' and houseid is not None) or (ownername is not None and ownername != ''):
         if houseid == '' or houseid is  None:
-            querys = House.query.filter_by(housestatus=housestatus)
-        if housestatus == '' or housestatus is None:
+            querys = House.query.filter_by(housestatus=ownername)
+        if ownername == '' or ownername is None:
             querys = House.query.filter_by(houseid=houseid)
         else:
-            querys = House.query.filter_by(houseid=houseid,housestatus=housestatus)
+            querys = House.query.filter_by(houseid=houseid,housestatus=ownername)
     return render_template('house/house_message.html',querys=querys)
 
 @house.route('/house_message/house_add',methods=['POST','GET'])
