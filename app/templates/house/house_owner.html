@@ -1,10 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}业主管理{% endblock %}
 
-</body>
-</html>
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
+{% endblock %}
+
+{% block page_content %}
+
+<div id="wrapper">
+{% block page_content_left %}
+  <div id="left-side">
+   <ul>
+       <li class="pm-staffmessage active"><a href="{{ url_for('house.house_message') }}">房产信息</a></li>
+       <li class="pm-staffbonus"><a href="{{ url_for('house.house_owner') }}">业主管理</a></li>
+   </ul>
+  </div>
+  <div id="border">
+   <div id="line" class="one"></div>
+  </div>
+{% endblock %}
+{% block page_content_right %}
+  <div id="right-side">
+          <div class = "pm-form">
+
+          <form method="GET" action='/house/house_owner/'>
+              <div class="pm-search-form">
+              <div class="ss-form-group">
+                  <div class="ss-name-label">房屋编号</div>
+                  <input class="ss-form-control"id="houseid"name="houseid">
+              </div>
+               <div class="ss-form-group">
+                  <div class="ss-name-label">业主姓名</div>
+                  <input class="ss-form-control"id="ownername"name="ownername">
+              </div>
+
+              <div class="ss-form-group">
+                  <button id="house_searchmessage" type="submit"class="btn">查询</button>
+              </div>
+              </div>
+          </form>
+
+            <table class="ss-table">
+                <thead class="ss-fixedthead">
+                    <th class="ss-td">序号</th>
+                    <th class="ss-td">房屋编号</th>
+                    <th class="ss-td">业主姓名</th>
+                    <th class="ss-td">联系方式</th>
+                    <th class="ss-td">身份证</th>
+                    <th class="ss-td">产权年限</th>
+                    <th class="ss-td">拥有状态</th>
+                    <th class="ss-td">进户日期</th>
+
+                    <th class="ss-td"><a href="{{ url_for('house.owner_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
+                </thead>
+                <tbody class="ss-scrolltbody">
+                {% for query in querys %}
+                    <tr class="ss-tr">
+                        <td class="ss-td">{{ 1 }}</td>
+                        <td class="ss-td">{{ query.house_houseid }}</td>
+                        <td class="ss-td">{{ query.ownername}}</td>
+                        <td class="ss-td">{{ query.ownerphone }}</td>
+                        <td class="ss-td">{{ query.owneridcard }}</td>
+                        <td class="ss-td">{{ query.owneryears}}</td>
+                        <td class="ss-td">{{ query.ownerstatus }}</td>
+                        <td class="ss-td">{{ query.ownerdate }}</td>
+                        <td class="ss-td"><a href="{{ url_for('house.owner_delete',house_id=query.house_houseid) }}"class="ss-table-delete-owner"id="{{ query.house_houseid }}">删除</a>
+                            <a href="{{ url_for('house.owner_detail',house_id=query.house_houseid) }}"class="ss-table-detail"id="{{ query.house_houseid }}">详情</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+      </div>
+  </div>
+    {% endblock %}
+</div>
+
+{% endblock %}
+{% block script %}
+    {{ super() }}
+{% endblock %}

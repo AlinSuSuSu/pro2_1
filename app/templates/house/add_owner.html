@@ -1,10 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'house/house_message.html' %}
+{% block title %}添加业主{% endblock %}
 
-</body>
-</html>
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+        {{ super() }}
+        {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+        <div class="ss-form-header">
+            <label id="ss-form-label">添加业主</label>
+            <div id="ss-form-line"></div>
+        </div>
+        <form method="POST" action="/house/house_owner/add/post">
+        <div class="ss-form-body">
+            <div class="ss-form-body-row">
+            <div class="ss-form-group">
+                  <div class="ss-name-label">业主姓名:</div>
+                  <input class="ss-form-control"id="addhouse_houseid"name="add_house_houseid">
+            </div>
+                <div class="ss-form-group">
+                  <div class="ss-name-label">门牌编号:</div>
+                  <input class="ss-form-control"id="addownername"name="add_ownername">
+            </div>
+            </div>
+            <div class="ss-form-body-row">
+            <div class="ss-form-group">
+                  <div class="ss-name-label">电话:</div>
+                  <input class="ss-form-control"id="addownerphone"name="add_ownerphone">
+            </div>
+                <div class="ss-form-group">
+                  <div class="ss-name-label">身份证号:</div>
+                  <input class="ss-form-control"id="addowneridcard"name="add_owneridcard">
+            </div>
+            </div>
+            <div class="ss-form-body-row">
+            <div class="ss-form-group">
+                <div class="ss-name-label">产权年限:</div>
+                <input class="ss-form-control"id="addowneryears"name="add_owneryears">
+
+            </div>
+                <div class="ss-form-group">
+                  <div class="ss-name-label">拥有状态:</div>
+                  <input class="ss-form-control"id="addownerstatus"name="add_ownerstatus">
+            </div>
+            </div>
+            <div class="ss-form-body-row">
+            <div class="ss-form-group">
+                  <div class="ss-name-label">进户日期:</div>
+                  <input class="ss-form-control"id="addownerdate"name="add_ownerdate">
+
+            </div>
+            </div>
+
+            <div class="ss-form-body-row ss-form-body-row-btn">
+            <div class="ss-form-group ss-form-gruop-btn">
+                  <input class="ss-form-control"id="reset"name="重置"type="reset">
+                  <input class="ss-form-control"id="sbumit"name="提交"type="submit">
+            </div>
+            </div>
+        </div>
+        </form>
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}

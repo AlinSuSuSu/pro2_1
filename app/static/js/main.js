@@ -99,3 +99,19 @@ $('a.ss-table-delete-house').on('click',function(evt){
 		}
 	})
 })
+
+$('a.ss-table-delete-owner').on('click',function(evt){
+	evt.preventDefault();
+	var house_id = $(this).attr('id');
+	$.ajax({
+		url:'/house/house_owner/delete/'+house_id,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
