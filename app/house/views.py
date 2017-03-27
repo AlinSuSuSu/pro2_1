@@ -7,17 +7,19 @@ import json
 
 @house.route('/house_message/',methods=['POST','GET'])
 def house_message():
-    querys=House.query.all()
+    queryall=House.query.all()
     houseid=request.args.get('houseid')
     ownername=request.args.get('ownername')
     if (houseid != '' and houseid is not None) or (ownername is not None and ownername != ''):
         if houseid == '' or houseid is  None:
-            querys = House.query.filter_by(housestatus=ownername)
-        if ownername == '' or ownername is None:
+            querys = House.query.filter_by(owner_ownername=ownername)
+        elif ownername == '' or ownername is None:
             querys = House.query.filter_by(houseid=houseid)
         else:
-            querys = House.query.filter_by(houseid=houseid,housestatus=ownername)
-    return render_template('house/house_message.html',querys=querys)
+            querys = House.query.filter_by(houseid=houseid,owner_ownername=ownername)
+    else:
+        querys = House.query.all()
+    return render_template('house/house_message.html',querys=querys,queryall=queryall)
 
 @house.route('/house_message/house_add',methods=['POST','GET'])
 def house_add():
