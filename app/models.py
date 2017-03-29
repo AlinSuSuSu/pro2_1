@@ -141,3 +141,20 @@ class House(UserMixin,db.Model):
     houseaddress=db.Column(db.String(64))
     owner_ownername=db.Column(db.String(64))
 
+class Repairation(UserMixin,db.Model):
+    __tablename__ = 'repairations'
+    house_houseid = db.Column(db.String(64),db.ForeignKey('houses.houseid'),index=True)
+    owner_ownername=db.Column(db.String(64))
+    repairationid = db.Column(db.String(64),primary_key=True,index=True)
+    repairationcontent=db.Column(db.String(128))
+    repairationestimatedcost=db.Column(db.String(64))#预计费用
+    repairationactualcost=db.Column(db.String(64))#实际费用
+    repairationresperson=db.Column(db.String(64))#负责人
+    repairationresphone=db.Column(db.String(64))#负责人电话
+    repairationsupervisitor=db.Column(db.String(64))#监督人，从志愿中选
+    repairationtime=db.Column(db.String(64))#报修时间
+    repairationcomptime=db.Column(db.String(64))#竣工时间
+    repairationcheck=db.Column(db.String(4),default='否')#是否审核，默认未审核
+
+
+

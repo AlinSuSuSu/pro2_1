@@ -115,3 +115,19 @@ $('a.ss-table-delete-owner').on('click',function(evt){
 		}
 	})
 })
+
+$('a.ss-table-delete-repairation').on('click',function(evt){
+	evt.preventDefault();
+	var repairationid = $(this).attr('id');
+	$.ajax({
+		url:'/community/repairation/delete/'+repairationid,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})

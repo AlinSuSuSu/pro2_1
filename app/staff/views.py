@@ -18,20 +18,23 @@ def index():
 def staff_message():
     staffid = request.args.get('staffid')
     staffname= request.args.get("staffname")
-    staffgender=request.args.get("staffgender")
-    querys = Staff.query.all()
+    #staffgender=request.args.get("staffgender")
+    queryall = Staff.query.all()
     if (staffid !='' and staffid is not None) or (staffname !='' and staffname is not None):
-        if staffid =='':
+        if staffid =='' or staffid is None:
             querys = Staff.query.filter_by(staffname=staffname).all()
-        if staffname =='':
+        elif staffname =='' or staffid is None:
             querys = Staff.query.filter_by(staffid=staffid).all()
         else:
             querys = Staff.query.filter_by(staffid=staffid,staffname=staffname).all()
+    else:
+        querys = Staff.query.all()
+
     '''else:
         flash("请输入查询项")
     if querys == []:
         flash("没有数据")'''
-    return render_template('staff/staff_message.html',querys=querys)
+    return render_template('staff/staff_message.html',querys=querys,queryall=queryall)
 
 #删除员工
 @staff.route('/staff_message/delete/<int:staff_id>',methods=['POST','GET'])

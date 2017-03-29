@@ -31,18 +31,24 @@
               <div class="pm-search-form">
               <div class="ss-form-group">
                   <div class="ss-name-label">员工编号</div>
-                  <input class="ss-form-control"id="staffid"name="staffid">
+                  <select class="ss-form-control"id="staffid"name="staffid">
+                      <option value=""></option>
+                      {% for query in queryall %}
+                      <option value="{{ query.staffid }}">{{ query.staffid }}</option>
+                      {% endfor %}
+                  </select>
               </div>
               <div class="ss-form-group">
                   <div class="ss-name-label">员工姓名</div>
-                  <input class="ss-form-control"id="staffname"name="staffname">
+                  <select class="ss-form-control"id="staffname"name="staffname">
+                      <option value=""></option>
+                      {% for query in queryall %}
+                      <option value="{{ query.staffname }}">{{ query.staffname }}</option>
+                      {% endfor %}
+                  </select>
               </div>
 
-              <div class="ss-form-group">
-                  <div class="ss-name-label">性别</div>
-                  <input type='radio' name='gender'id="gender" value='nan'checked>男
-                  <input type='radio' name='gender'id="gender" value='nv'>女
-              </div>
+
               <div class="ss-form-group">
                   <button id="searchmessage" type="submit"class="btn">查询</button>
               </div>

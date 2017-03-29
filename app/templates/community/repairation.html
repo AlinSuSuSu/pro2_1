@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}故障报修{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
+{% endblock %}
+
+{% block page_content %}
+
+<div id="wrapper">
+{% block page_content_left %}
+  <div id="left-side">
+   <ul>
+       <li class="pm-staffmessage active"><a href="{{ url_for('community.repairation') }}">故障报修</a></li>
+       <li class="pm-staffbonus"><a href="{{ url_for('community.safety') }}">保洁保安</a></li>
+       <li class="pm-staffbonus"><a href="{{ url_for('community.plant') }}">绿化基建</a></li>
+       <li class="pm-staffbonus"><a href="{{ url_for('community.complaint') }}">投诉建议</a></li>
+
+   </ul>
+  </div>
+  <div id="border">
+   <div id="line" class="one"></div>
+  </div>
+{% endblock %}
+{% block page_content_right %}
+  <div id="right-side">
+          <div class = "pm-form">
+
+          <form method="GET" action='/community/repairation/'>
+              <div class="pm-search-form">
+              <div class="ss-form-group">
+                  <div class="ss-name-label">报修编号</div>
+                  <!--<input class="ss-form-control"id="houseid"name="houseid">-->
+                  <select class="ss-form-control"id="repairationid"name="repairationid">
+                      <option value=""></option>
+                      {% for query in queryall %}
+                      <option value="{{ query.repairationid }}">{{ query.repairationid }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+              <div class="ss-form-group">
+                  <div class="ss-name-label">门牌编号</div>
+                  <!--<input class="ss-form-control"id="ownername"name="ownername">-->
+                  <select class="ss-form-control"id="houseid"name="houseid">
+                      <option value=""></option>
+                      {% for query in queryall %}
+                      <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+
+              <div class="ss-form-group">
+                  <button id="house_searchmessage" type="submit"class="btn">查询</button>
+              </div>
+              </div>
+          </form>
+
+            <table class="ss-table">
+                <thead class="ss-fixedthead">
+                    <th class="ss-td">序号</th>
+                    <th class="ss-td">报修编号</th>
+                    <th class="ss-td">门牌编号</th>
+                    <th class="ss-td">业主姓名</th>
+                    <th class="ss-td">报修内容</th>
+                    <th class="ss-td">负责人</th>
+                    <th class="ss-td">负责人电话</th>
+                    <th class="ss-td">监督人</th>
+                    <th class="ss-td">预计费用</th>
+                    <th class="ss-td">实际费用</th>
+                    <th class="ss-td">报修时间</th>
+                    <th class="ss-td">竣工时间</th>
+                    <th class="ss-td">审核是否通过</th>
+                    <th class="ss-td"><a href="{{ url_for('community.repairation_apply') }}"class="ss-table-add"id="ss-table-add">申请</a></th>
+                </thead>
+                <tbody class="ss-scrolltbody">
+                {% for query in querys %}
+                    <tr class="ss-tr">
+                        <td class="ss-td">{{ 1 }}</td>
+                        <td class="ss-td">{{ query.repairationid }}</td>
+                        <td class="ss-td">{{ query.house_houseid}}</td>
+                        <td class="ss-td">{{ query.owner_ownername}}</td>
+                        <td class="ss-td">{{ query.repairationcontent }}</td>
+                        <td class="ss-td">{{ query.repairationresperson }}</td>
+                        <td class="ss-td">{{ query.repairationresphone }}</td>
+                        <td class="ss-td">{{ query.repairationsupervisitor }}</td>
+                        <td class="ss-td">{{ query.repairationestimatedcost }}</td>
+                        <td class="ss-td">{{ query.repairationactualcost }}<td>
+                        <td class="ss-td">{{ query.repairationtime }}<td>
+                        <td class="ss-td">{{ query.repairationcomptime }}<td>
+                        <td class="ss-td">{{ query.repairationcheck }}<td>
+                        <td class="ss-td"><a href="{{ url_for('community.repairation_delete',repairationid=query.repairationid) }}"class="ss-table-delete-repairation"id="{{ query.repairationid }}">删除</a>
+                            <a href="{{ url_for('community.repairation_detail',repairationid=query.repairationid) }}"class="ss-table-detail"id="{{ query.repairationid }}">详情</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+      </div>
+
+  </div>
+    {% endblock %}
+</div>
+
+{% endblock %}
+{% block script %}
+    {{ super() }}
+{% endblock %}

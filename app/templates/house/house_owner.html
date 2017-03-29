@@ -29,11 +29,21 @@
               <div class="pm-search-form">
               <div class="ss-form-group">
                   <div class="ss-name-label">房屋编号</div>
-                  <input class="ss-form-control"id="houseid"name="houseid">
+                  <select class="ss-form-control"id="houseid"name="houseid">
+                      <option value=""></option>
+                      {% for query in queryall %}
+                      <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
+                      {% endfor %}
+                  </select>
               </div>
                <div class="ss-form-group">
                   <div class="ss-name-label">业主姓名</div>
-                  <input class="ss-form-control"id="ownername"name="ownername">
+                  <select class="ss-form-control"id="ownername"name="ownername">
+                      <option value=""></option>
+                      {% for query in queryall %}
+                      <option value="{{ query.ownername }}">{{ query.ownername }}</option>
+                      {% endfor %}
+                  </select>
               </div>
 
               <div class="ss-form-group">

@@ -23,7 +23,8 @@ def house_message():
 
 @house.route('/house_message/house_add',methods=['POST','GET'])
 def house_add():
-    return render_template('house/add_house.html')
+    owner_querys=Owner.query.all()
+    return render_template('house/add_house.html',owner_querys=owner_querys)
 
 @house.route('/house_message/add/post',methods=['POST','GET'])
 def house_add_post():
@@ -54,10 +55,21 @@ def house_detail(house_id):
 
 #####################################################################
 
-@house.route('/house_owner',methods=['POST','GET'])
+@house.route('/house_owner/',methods=['POST','GET'])
 def house_owner():
-    querys=Owner.query.all()
-    return render_template('house/house_owner.html',querys=querys)
+    queryall=Owner.query.all()
+    houseid = request.args.get('houseid')
+    ownername = request.args.get('ownername')
+    if (houseid != '' and houseid is not None) or (ownername is not None and ownername != ''):
+        if houseid == '' or houseid is None:
+            querys = Owner.query.filter_by(ownername=ownername)
+        elif ownername == '' or ownername is None:
+            querys = Owner.query.filter_by(house_houseid=houseid)
+        else:
+            querys = Owner.query.filter_by(house_houseid=houseid, ownername=ownername)
+    else:
+        querys = Owner.query.all()
+    return render_template('house/house_owner.html',querys=querys,queryall=queryall)
 
 @house.route('/house_owner/owner_add',methods=['POST','GET'])
 def owner_add():

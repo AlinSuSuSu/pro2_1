@@ -21,7 +21,12 @@
             </div>
                 <div class="ss-form-group">
                   <div class="ss-name-label">业主姓名:</div>
-                  <input class="ss-form-control"id="addownername"name="add_ownername">
+                  <select class="ss-form-control"id="ownername"name="ownername">
+                      <option value=""></option>
+                      {% for query in owner_querys %}
+                      <option value="{{ query.ownername }}">{{ query.ownername }}</option>
+                      {% endfor %}
+                  </select>
             </div>
             </div>
             <div class="ss-form-body-row">

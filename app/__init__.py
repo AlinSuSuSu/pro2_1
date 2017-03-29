@@ -35,6 +35,8 @@ def create_app(config_name):
     from .house import house as house_blueprint
     app.register_blueprint(house_blueprint,url_prefix='/house')
 
+    from .community import community as community_blueprint
+    app.register_blueprint(community_blueprint, url_prefix='/community')
 
     return app
 
