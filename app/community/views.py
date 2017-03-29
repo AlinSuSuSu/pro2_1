@@ -47,7 +47,7 @@ def repairation_delete(repairationid):
     db.session.commit()
     return json.dumps(res)
 
-@community.route('/repairation/detail/<string:repairationid>',methods=['GET','POST'])
+@community.route('/repairation/detail/<int:repairationid>',methods=['GET','POST'])
 def repairation_detail(repairationid):
     query=Repairation.query.filter_by(repairationid=repairation)
     return render_template('community/repairation_detail.html',query=query)

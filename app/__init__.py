@@ -38,6 +38,9 @@ def create_app(config_name):
     from .community import community as community_blueprint
     app.register_blueprint(community_blueprint, url_prefix='/community')
 
+    from .finance import finance as finance_blueprint
+    app.register_blueprint(finance_blueprint, url_prefix='/finance')
+
     return app
 
 

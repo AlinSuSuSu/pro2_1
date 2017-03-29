@@ -157,4 +157,21 @@ class Repairation(UserMixin,db.Model):
     repairationcheck=db.Column(db.String(4),default='否')#是否审核，默认未审核
 
 
+class Waterfee(UserMixin,db.Model):
+    __tablename__='waterfees'
+    house_houseid = db.Column(db.String(64),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
+    owner_ownername=db.Column(db.String(64))
+    startdegree=db.Column(db.String(16))#月初度数
+    enddegree=db.Column(db.String(16))#月末度数
+    priceperdegree=db.Column(db.String(8))#每度价格
+    totalprice=db.Column(db.String(16))
+    item=db.Column(db.String(8),default='水费')
+    pay=db.Column(db.String(4),default='否')#是否缴纳
+
+
+    @property
+    def totalprice(self,totalprice):
+        self.totalprice=(self.enddegree-self.startdegree)*self.priceperdegree
+
+
 
