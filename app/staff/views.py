@@ -6,7 +6,7 @@ from app import db
 from app.staff import staff
 from app.models import Staff,Holiday,Reimbursement
 from app.staff.forms import StaffBonusForm,StaffHolidayForm,StaffReimbursementForm
-
+from app.decorators import staff_required
 #员工管理主页
 @staff.route('/',methods=['GET','POST'])
 def index():
@@ -15,6 +15,7 @@ def index():
 ################staff_message
 #员工信息
 @staff.route('/staff_message/',methods=['GET','POST'])
+@login_required
 def staff_message():
     staffid = request.args.get('staffid')
     staffname= request.args.get("staffname")
@@ -50,10 +51,11 @@ def staff_delete(staff_id):
 #添加员工，post请求
 @staff.route('/staff_message/add/post',methods=['POST','GET'])
 def staff_add_post():
+    password=request.form.get('add-password')
     staff=Staff(staffid=request.form.get('add-staffid'),staffname=request.form.get('add-staffid'),
                 phone=request.form.get('add-phone'),idcard=request.form.get('add-idcard'),
                 salary=request.form.get('add-salary'),job=request.form.get('add-job'),
-                age=request.form.get('add-age'),password=request.form.get('add-password'),gender=request.form.get('add-gender'))
+                age=request.form.get('add-age'),password=request.form.get('add-password'),gender=request.form.get('add-gender'),role_id='4')
     db.session.add(staff)
     db.session.commit()
     return redirect(url_for('staff.staff_message'))

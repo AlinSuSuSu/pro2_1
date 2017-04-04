@@ -10,12 +10,10 @@ def load_user(staff_staffid):
     return Staff.query.get(int(staff_staffid))
 
 class Permission:
-    ADMINISTRATOR=0x80
-    READ=0x01
-    ADD=0x02
-    MODIFY=0x03
-    DELETE=0x04
-    DISTRIBUTE=0x05
+    COMMONSTAFF=0x04
+    HOUSEOWNER=0x02
+    VISITOR=0x01
+
 
 class Role(db.Model):
     __tablename__='roles'
@@ -29,12 +27,10 @@ class Role(db.Model):
     @staticmethod
     def insert_roles():
         roles = {
-            'User':(Permission.READ,True),
-            'Moderator':(Permission.READ|
-                         Permission.DELETE|
-                         Permission.MODIFY|
-                         Permission.ADD,False),
-            'Administrator':(0xff,False)
+            'Visitor': (Permission.VISITOR, True),
+            'Staff':(Permission.COMMONSTAFF|Permission.VISITOR,False),
+            'Houseowner':(Permission.HOUSEOWNER|Permission.VISITOR,False),
+            'Administrator':(Permission.VISITOR|Permission.COMMONSTAFF|Permission.HOUSEOWNER,False)
         }
         for r in roles:
             role = Role.query.filter_by(name=r).first()
@@ -84,9 +80,9 @@ class Staff(UserMixin, db.Model):
         super(Staff, self).__init__(**kwargs)
         if self.role is None:
             if self.staffname == 'admin':
-                self.role = Role.query.filter_by(permissions=0xff).first()
-            if self.role is None:
-                self.role = Role.query.filter_by(default=True).first()
+                self.role = Role.query.filter_by(permissions=0x07).first()
+           # if self.role is None:
+             #   self.role = Role.query.filter_by(permissions=0x05).first()
 
     #检查用户是否有指定的权限
     def can(self,permissions):
@@ -163,7 +159,7 @@ class Waterfee(UserMixin,db.Model):
     owner_ownername=db.Column(db.String(64))
     startdegree=db.Column(db.String(16))#月初度数
     enddegree=db.Column(db.String(16))#月末度数
-    priceperdegree=db.Column(db.String(8))#每度价格
+    priceperdegree=db.Column(db.String(8),default='1')#每度价格
     totalprice=db.Column(db.String(16))
     item=db.Column(db.String(8),default='水费')
     pay=db.Column(db.String(4),default='否')#是否缴纳

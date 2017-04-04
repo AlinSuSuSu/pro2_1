@@ -131,3 +131,44 @@ $('a.ss-table-delete-repairation').on('click',function(evt){
 		}
 	})
 })
+
+function finance_add(querya){
+
+	function popup(querya){
+		$('body').append('<div id="mry-opo">' +
+			'<div id="mry-opo-title">' +
+			'</div><div id="mry-opo-content">' +
+			'<form id="finance-form" method="POST" action="/finance/waterfee/add">' +
+			'<select class="ss-form-control"id="finance-houseid"name="finance-houseid">' +
+			'<option></option>' +
+			'</select>' +
+			'</form>' +
+			'</div>' +
+			'</div>')
+		$('#finance-form').append('<input class="ss-form-control"name="startdegree">');
+		$('#finance-form').append('<input class="ss-form-control"name="enddegree">');
+		$('#finance-form').append('<div id="button-area">'+
+			'<input type="submit"value="确定">' +
+			'</div>')
+		var div = $('#mry-opo');
+        $('#mry-opo-title').text('添加业主水费记录');
+        for(var k in querya){
+		$('#finance-houseid').append("<option value='"+querya[k]+"'>"+querya[k]+"</option>");
+		}
+        div.css('width', 500 + 'px');
+        div.css('height', 200 + 'px');
+        div.css('margin-left', -(parseInt(500) / 2) + 'px');
+        div.css('margin-top', -(parseInt(200) / 2) + 'px');
+        div.css('background', '#fff');
+        $('#mry-mask').css('display', 'block');
+	}
+	function del() {
+        $('#mry-opo').append('<a href="javascript:void(0)" deletes="mry-opo" style="position:absolute;right:10px;top:6px;color:#fff;font-size:12px;">X</a>');
+        $('[deletes=mry-opo]').click(function() {
+            $('#mry-opo,#mry-mask').remove();
+        });
+    }
+    $('body').append('<div id="mry-mask" deletes="mry-opo"></div>');
+	popup(querya);
+	del();
+}

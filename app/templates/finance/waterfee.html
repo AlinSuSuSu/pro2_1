@@ -30,8 +30,8 @@
   <div id="right-side-tabs">
 
   <ul class="nav nav-tabs">
+      <li{% if  charge %} class="active"{% endif %}><a href="{{ url_for('finance.watercharge') }}">已收取</a></li>
       <li{% if not charge %} class="active"{% endif %}><a href="{{ url_for('finance.waternotcharge') }}">未收取</a></li>
-      <li{% if charge %} class="active"{% endif %}><a href="{{ url_for('finance.watercharge') }}">已收取</a></li>
 
   </ul>
 <table class="ss-table">
@@ -45,7 +45,7 @@
                     <th class="ss-td">每单位价格</th>
                     <th class="ss-td">总共费用</th>
                     <th class="ss-td">是否缴纳</th>
-                    <th class="ss-td"><a href="{{ url_for('finance.waterfee_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
+                    <th class="ss-td"><input class='finance-bt'onclick="finance_add({{query_house}})" type='button'name="添加"value="添加"/></th>
                 </thead>
                 <tbody class="ss-scrolltbody">
                 {% for query in querys %}
