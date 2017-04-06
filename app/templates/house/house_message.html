@@ -63,6 +63,7 @@
                     <th class="ss-td">户型</th>
                     <th class="ss-td">房屋面积</th>
                     <th class="ss-td">房屋状态</th>
+                    <th class="ss-td">产权年限</th>
                     <th class="ss-td">小区名称</th>
                     <th class="ss-td">具体地址</th>
                     <th class="ss-td">备注</th>
@@ -77,6 +78,7 @@
                         <td class="ss-td">{{ query.housetype }}</td>
                         <td class="ss-td">{{ query.housespace }}</td>
                         <td class="ss-td">{{ query.housestatus }}</td>
+                        <td class="ss-td">{{ query.houseyears }}</td>
                         <td class="ss-td">{{ query.housecommunity }}</td>
                         <td class="ss-td">{{ query.houseaddress }}</td>
                         <td class="ss-td">{{ query.houseremark }}<td>
@@ -92,7 +94,4 @@
     {% endblock %}
 </div>
 
-{% endblock %}
-{% block script %}
-    {{ super() }}
 {% endblock %}

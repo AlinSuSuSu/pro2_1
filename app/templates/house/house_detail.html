@@ -12,52 +12,60 @@
             <label id="ss-form-label">房产信息</label>
             <div id="ss-form-line"></div>
         </div>
-        <form method="POST" action="/house/house_message/detail/post">
+        <form method="POST" action="/house/house_message/detail/post/">
         <div class="ss-form-body">
             <div class="ss-form-body-row">
             <div class="ss-form-group">
                   <div class="ss-name-label">房产编号:</div>
-                  <input class="ss-form-control"id="detailhouseid"name="detail-houseid"value="{{ query.houseid }}"disabled="False">
+                  <input class="ss-form-control"id="detailhouseid"name="detail_houseid"value="{{ query.houseid }}"readonly>
             </div>
                 <div class="ss-form-group">
                   <div class="ss-name-label">业主姓名:</div>
-                  <input class="ss-form-control"id="detailownername"name="detail-ownername"value="{{ query.owner_ownername }}">
+                  <input class="ss-form-control"id="detailownername"name="detail_ownername"value="{{ query.owner_ownername }}">
             </div>
             </div>
             <div class="ss-form-body-row">
             <div class="ss-form-group">
                   <div class="ss-name-label">房屋面积:</div>
-                  <input class="ss-form-control"id="detailhousespace"name="detail-housespace"value="{{ query.housespace }}">
+                  <input class="ss-form-control"id="detailhousespace"name="detail_housespace"value="{{ query.housespace }}">
             </div>
                 <div class="ss-form-group">
                   <div class="ss-name-label">房屋户型:</div>
-                  <input class="ss-form-control"id="detailhousetype"name="detail-housetype"value="{{ query.housetype }}">
+                  <input class="ss-form-control-small ss-form-control"id="addhousetype1"name="detail_housetype1"value="{{ query.housetype[0] }}">室
+                  <input class="ss-form-control-small ss-form-control"id="addhousetype2"name="detail_housetype2"value="{{ query.housetype[2] }}">厅
+                  <input class="ss-form-control-small ss-form-control"id="addhousetype3"name="detail_housetype3"value="{{ query.housetype[4] }}">卫
+                  <input class="ss-form-control-small ss-form-control"id="addhousetype4"name="detail_housetype4"value="{{ query.housetype[6] }}">厨房
             </div>
             </div>
             <div class="ss-form-body-row">
             <div class="ss-form-group">
                 <div class="ss-name-label">房屋状态:</div>
 
-                <input class="ss-form-control"id="detailhousestatus"name="detail-housestatus"value="{{ query.housestatus }}">
+                <input class="ss-form-control"id="detailhousestatus"name="detail_housestatus"value="{{ query.housestatus }}">
 
 
             </div>
                 <div class="ss-form-group">
                   <div class="ss-name-label">小区名称:</div>
-                  <input class="ss-form-control"id="detailhousecommunity"name="detail-housecommunity"value="{{ query.housecommunity }}">
+                  <input class="ss-form-control"id="detailhousecommunity"name="detail_housecommunity"value="{{ query.housecommunity }}">
             </div>
             </div>
             <div class="ss-form-body-row">
             <div class="ss-form-group">
                   <div class="ss-name-label">具体地址:</div>
-                  <input class="ss-form-control"id="detailhousedetaildress"name="detail-housedetaildress"value="{{ query.houseaddress }}">
+                  <input class="ss-form-control"id="detailhousedetailadress"name="detail_housedetailaddress"value="{{ query.houseaddress }}">
+
+            </div>
+                <div class="ss-form-group">
+                  <div class="ss-name-label">产权年限:</div>
+                  <input class="ss-form-control"id="detailhousedetailyears"name="detail_houseyears"value="{{ query.houseyears }}">
 
             </div>
             </div>
             <div class="ss-form-body-row">
             <div class="ss-form-group">
                   <div class="ss-name-label">备注：</div>
-                  <input class="ss-form-control"id="detailhouseremark"name="detail-houseremark"value="{{ query.houseremark }}">
+                  <input class="ss-form-control"id="detailhouseremark"name="detail_houseremark"value="{{ query.houseremark }}">
             </div>
             </div>
             <div class="ss-form-body-row ss-form-body-row-btn">

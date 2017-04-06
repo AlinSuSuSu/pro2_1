@@ -118,45 +118,48 @@ class Reimbursement(UserMixin,db.Model):
 
 class Owner(UserMixin,db.Model):
     __tablename__='owners'
-    house_houseid=db.Column(db.String(64),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
-    ownername=db.Column(db.String(64))
-    ownerphone=db.Column(db.String(11))
-    owneridcard=db.Column(db.String(20))
-    owneryears=db.Column(db.String(20))
-    ownerstatus=db.Column(db.String(20))
-    ownerdate=db.Column(db.String(20))
+    house_houseid=db.Column(db.String(10),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
+    ownername=db.Column(db.String(16),nullable=False,unique=True)
+    ownerphone=db.Column(db.String(11),nullable=False,unique=True)
+    owneridcard=db.Column(db.String(20),nullable=False,unique=True)
+    owneryears=db.Column(db.String(4),nullable=False,default='70')
+    ownerstatus=db.Column(db.String(8),nullable=False)
+    ownerdate=db.Column(db.Date,nullable=False)#进户日期
 
 class House(UserMixin,db.Model):
     __tablename__='houses'
-    houseid=db.Column(db.String(64),primary_key=True,index=True)
-    housestatus=db.Column(db.String(10))
-    housetype=db.Column(db.String(64))
-    housespace=db.Column(db.String(64))
-    housecommunity=db.Column(db.String(64))
-    houseremark=db.Column(db.String(64))
-    houseaddress=db.Column(db.String(64))
-    owner_ownername=db.Column(db.String(64))
+    houseid=db.Column(db.String(10),primary_key=True,nullable=False)#房屋编号
+    housestatus=db.Column(db.String(8),default='闲置')#房屋状态
+    housetype=db.Column(db.String(20))#房型
+    housespace=db.Column(db.String(10))#房屋面积
+    housecommunity=db.Column(db.String(20))#小区名称
+    houseremark=db.Column(db.String(64))#备注
+    houseyears = db.Column(db.String(4),default='70')#房产年限
+    houseaddress=db.Column(db.String(128))#具体地址
+    owner_ownername=db.Column(db.String(16))#业主姓名
 
 class Repairation(UserMixin,db.Model):
     __tablename__ = 'repairations'
-    house_houseid = db.Column(db.String(64),db.ForeignKey('houses.houseid'),index=True)
-    owner_ownername=db.Column(db.String(64))
-    repairationid = db.Column(db.String(64),primary_key=True,index=True)
+    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),nullable=False,unique=True)
+    owner_ownername=db.Column(db.String(16))
+    repairationid = db.Column(db.String(16),primary_key=True,index=True)
     repairationcontent=db.Column(db.String(128))
-    repairationestimatedcost=db.Column(db.String(64))#预计费用
-    repairationactualcost=db.Column(db.String(64))#实际费用
-    repairationresperson=db.Column(db.String(64))#负责人
-    repairationresphone=db.Column(db.String(64))#负责人电话
-    repairationsupervisitor=db.Column(db.String(64))#监督人，从志愿中选
-    repairationtime=db.Column(db.String(64))#报修时间
-    repairationcomptime=db.Column(db.String(64))#竣工时间
-    repairationcheck=db.Column(db.String(4),default='否')#是否审核，默认未审核
+    repairationestimatedcost=db.Column(db.String(8))#预计费用
+    repairationactualcost=db.Column(db.String(8))#实际费用
+    repairationresperson=db.Column(db.String(16))#负责人
+    repairationresphone=db.Column(db.String(11))#负责人电话
+    repairationsupervisitor=db.Column(db.String(16))#监督人，从志愿中选
+    repairationtime=db.Column(db.Date)#
+    # 报修时间
+    repairationcomptime=db.Column(db.Date)#竣工时间
+    repairationreplytime=db.Column(db.DateTime)#申请时间
+    repairationcheck=db.Column(db.String(4),nullable=False,default='未审核')#进度，分为未审核，审核通过，审核失败，默认未审核
 
 
 class Waterfee(UserMixin,db.Model):
     __tablename__='waterfees'
-    house_houseid = db.Column(db.String(64),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
-    owner_ownername=db.Column(db.String(64))
+    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
+    owner_ownername=db.Column(db.String(16))
     startdegree=db.Column(db.String(16))#月初度数
     enddegree=db.Column(db.String(16))#月末度数
     priceperdegree=db.Column(db.String(8),default='1')#每度价格

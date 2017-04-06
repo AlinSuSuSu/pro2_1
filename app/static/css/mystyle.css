@@ -71,12 +71,12 @@
     border-radius: 2px;
     border: 1px solid #2d2c41;
     height:30px;
-    width:120px;
-
+    width:80px;
+    border: 1px solid #ccc;
 }
 .ss-form-group{
     height:40px;
-    width:200px;
+    width:300px;
     display:flex;
     margin:5px 0 0 15px;
     -webkit-flex-direction: row;
@@ -142,4 +142,14 @@
 #mry-opo-content { padding: 10px; margin-top:10px; }
 #mry-opo-content .ss-form-control{
     margin-left: 10px;
+}
+input{
+    border: 1px solid #ccc;
+}
+.ss-form-control-small{
+    width:30px;
+    margin-left:5px;
+}
+.ss-house-span{
+    font-size:10px;
 }

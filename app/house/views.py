@@ -29,15 +29,17 @@ def house_add():
 @house.route('/house_message/add/post',methods=['POST','GET'])
 def house_add_post():
     house=House(houseid=request.form.get('add_houseid'),owner_ownername=request.form.get('add_ownername'),
-                housetype=request.form.get('add_housetype'),housestatus=request.form.get('add_housestatus'),
-                housespace=request.form.get('add_housespace'),housecommunity=request.form.get('add_housecommunity'),
+                housetype=request.form.get('add_housetype1')+'室'+request.form.get('add_housetype2')+'厅'+request.form.get('add_housetype3')+'卫'+request.form.get('add_housetype4')+'厨',housestatus=request.form.get('add_housestatus'),
+                housespace=request.form.get('add_housespace'),houseyears=request.form.get('add_houseyears'),housecommunity=request.form.get('add_housecommunity'),
                 houseaddress=request.form.get('add_houseaddress'),houseremark=request.form.get('add_houseremark'))
     db.session.add(house)
+    bb=house.houseid
+    aa=house.housetype[0]
     db.session.commit()
     return redirect(url_for('house.house_message'))
 
 
-@house.route('/house_message/delete/<int:house_id>',methods=['POST','GET'])
+@house.route('/house_message/delete/<string:house_id>',methods=['POST','GET'])
 def house_delete(house_id):
     res = {
         "status": 1,
@@ -48,10 +50,29 @@ def house_delete(house_id):
     db.session.commit()
     return json.dumps(res)
 
-@house.route('/house_message/detail/<int:house_id>',methods=['POST','GET'])
+@house.route('/house_message/detail/<string:house_id>',methods=['POST','GET'])
 def house_detail(house_id):
     query=House.query.filter_by(houseid=house_id).first()
     return render_template('house/house_detail.html',query=query)
+
+@house.route('/house_message/detail/post/',methods=['POST','GET'])
+def house_detail_post():
+    a=request.form.get('detail_houseid')
+    house = House.query.filter_by(houseid=a).first()
+    house.owner_ownername=request.form.get('detail_ownername')
+    house.housetype=''+request.form.get('detail_housetype1') + '室' + request.form.get(
+                      'detail_housetype2') + '厅' + request.form.get('detail_housetype3') + '卫' + request.form.get(
+                      'detail_housetype4') + '厨'
+    house.housestatus=request.form.get('detail_housestatus')
+    house.housespace=request.form.get('detail_housespace')
+    house.houseyears=request.form.get('detail_houseyears')
+    house.housecommunity=request.form.get('detail_housecommunity')
+    house.houseaddress=request.form.get('detail_houseaddress')
+    house.houseremark=request.form.get('detail_houseremark')
+    db.session.add(house)
+
+    db.session.commit()
+    return redirect(url_for('house.house_message'))
 
 #####################################################################
 
@@ -80,12 +101,12 @@ def owner_add():
 def owner_add_post():
     owner=Owner(ownername=request.form.get('add_ownername'),house_houseid=request.form.get('add_house_houseid'),
                 ownerphone=request.form.get('add_ownerphone'),owneridcard=request.form.get('add_owneridcard'),
-                owneryears=request.form.get('add_owneryears'),ownerstatus=request.form.get('add_ownerstatus'),ownerdate=request.form.get('ownerdate'))
+                owneryears=request.form.get('add_owneryears'),ownerstatus=request.form.get('add_ownerstatus'),ownerdate=request.form.get('add_ownerdate'))
     db.session.add(owner)
     db.session.commit()
     return redirect(url_for('house.house_owner'))
 
-@house.route('/house_owner/delete/<int:house_id>',methods=['POST','GET'])
+@house.route('/house_owner/delete/<string:house_id>',methods=['POST','GET'])
 def owner_delete(house_id):
     res = {
         "status": 1,
@@ -96,7 +117,7 @@ def owner_delete(house_id):
     db.session.commit()
     return json.dumps(res)
 
-@house.route('/house_owner/detail/<int:house_id>',methods=['POST','GET'])
+@house.route('/house_owner/detail/<string:house_id>',methods=['POST','GET'])
 def owner_detail(house_id):
     query=Owner.query.filter_by(house_houseid=house_id).first()
     return render_template('house/owner_detail.html',query=query)
