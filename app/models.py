@@ -197,3 +197,13 @@ class Infrastructure(UserMixin,db.Model):
     supervisitor=db.Column(db.String(16),nullable=False)
     check=db.Column(db.String(8),nullable=False)
     detail=db.Column(db.String(200),nullable=False)
+class Complaint(UserMixin,db.Model):
+    __tablename__='complaints'
+    complaintid=db.Column(db.String(10),primary_key=True,index=True)
+    complainttime=db.Column(db.DateTime,nullable=False)
+    house_houseid=db.Column(db.String(32),db.ForeignKey('houses.houseid'),nullable=False)
+    complainttype=db.Column(db.String(32),nullable=False)
+    complaintstatus=db.Column(db.String(16),nullable=False)
+    complainttime=db.Column(db.DateTime,nullable=False)
+    replystaff=db.Column(db.String(16),nullable=False)
+    complaintdetail=db.Column(db.String(200),nullable=False)

@@ -1,0 +1,115 @@
+{% extends "community/repairation.html" %}
+{% block title %}投诉建议{% endblock %}
+
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+        {{ super() }}
+        {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+            <section>
+                <div class="col-lg-10 ">
+                    <div class="page-header">
+                        <h4>投诉/建议</h4>
+                    </div>
+
+                    <form id="ownerForm" method="post" class='form-horizontal'action="/community/complaint/add/post">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">投诉/建议编号</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="complaint_complaintid" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">业主门牌号</label>
+                            <div class="col-lg-4">
+                                <select class="form-control" name="complaint_houseid" >
+                                    {% for q in house_query %}
+                                        <option value="{{ q.houseid }}">{{ q.houseid }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">事件类型</label>
+                            <div class="col-lg-4">
+                                <select class="form-control" name="complaint_complainttype" >
+                                    <option value="建议">建议</option>
+                                    <option value="投诉">投诉</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                            </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">业主门牌号</label>
+                            <div class="col-lg-4">
+                                <select class="form-control" name="complaint_houseid" >
+                                    {% for q in house_query %}
+                                        <option value="{{ q.houseid }}">{{ q.houseid }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">发生时间</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="infrastructure_infrastructuretime" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">区域</label>
+                            <div class="col-lg-4">
+                                <input class="form-control" name="infrastructure_infrastructurearea"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">负责人</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="infrastructure_resperson" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">负责人电话</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="infrastructure_resphone" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">监督人</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="infrastructure_supervisitor" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">验收</label>
+                            <div class="col-lg-4">
+                                <select class="form-control" name="infrastructure_check">
+                                    <option value="合格">合格</option>
+                                    <option value="不合格">不合格</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">描述</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="infrastructure_detail" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-9 col-lg-offset-8">
+                                <input type="reset" class="btn btn-info" id="resetBtn">
+                                <input type="submit" class="btn btn-info" id="validateBtn">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 from flask import url_for,render_template,request,redirect
 from app import db
-from app.models import Repairation,Patrol,Staff,Infrastructure
+from app.models import Repairation,Patrol,Staff,Infrastructure,Complaint
 from app.community import community
 import json
 from datetime import datetime
@@ -127,3 +127,38 @@ def infrastructure_add_post():
 @community.route('/complaint',methods=['GET','POST'])
 def complaint():
     return render_template('community/complaint.html')
+@community.route('/complaint/delete/<string:complaintid>',methods=['GET','POST'])
+def complaint_delete(complaintid):
+    res = {
+        "status": 1,
+        "message": "success"
+    }
+    complaint = Complaint.query.filter_by(complaintid=complaintid).first()
+    db.session.delete(complaint)
+    db.session.commit()
+    return json.dumps(res)
+
+@community.route('/complaint/add',methods=['GET','POST'])
+def complaint_add():
+    return render_template('community/add_complaint.html')
+
+@community.route('/complaint/add/post',methods=['GET','POST'])
+def complaint_add_post():
+    complaint = Complaint(infrastructureid=request.form.get('complaint_infrastructureid'),
+                                    infrastructuretype=request.form.get('complaint_infrastructuretype'),
+                                    infrastructuretime=datetime.strptime(
+                                        request.form.get('complaint_infrastructuretime'), "%Y-%m-%d"),
+                                    infrastructurearea=request.form.get('complaint_infrastructurearea'),
+                                    resperson=request.form.get('complaint_resperson'),
+                                    resphone=request.form.get('complaint_resphone'),
+                                    supervisitor=request.form.get('complaint_supervisitor'),
+                                    check=request.form.get('complaint_check'),
+                                    detail=request.form.get('complaint_detail'))
+    db.session.add(complaint)
+    db.session.commit()
+    return redirect(url_for('community.complaint'))
+
+@community.route('/complaint/<string:complaintid>',methods=['GET','POST'])
+def complaint_detail(complaintid):
+    query = Infrastructure.query.filter_by(complaintid=complaintid)
+    return render_template('community/complaint_detail.html',query=query)
