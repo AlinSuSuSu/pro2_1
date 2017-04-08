@@ -1,12 +1,12 @@
 /**
  * Created by Administrator on 2017-04-04.
  */
-
-    window.onload=function(){
+/**
+     window.onload=function(){
         $("#addhouseid").focus()
     }
 
-    /*失焦判断**/
+    /*失焦判断
     $("input").blur(function(){
         $(".ss-house-span").css("color","#BD362F")
         if($(this).is("#addhouseid")){
@@ -46,7 +46,8 @@
             }
         }
 
-        var atype=["#addhousetype1","#addhousetype2","#addhousetype3","#addhousetype4"]
+
+        //var atype=["#addhousetype1","#addhousetype2","#addhousetype3","#addhousetype4"]
 
         /*if($(this).is(atype[i])) {
             //var i=Math.round(Math.random()*3+1);
@@ -66,9 +67,19 @@
                 $(this).css("border", "1px solid #ccc")
             }
 
-        }*/
+        }
     })
+    $("select").blur(function() {
+     if ($(this).is("#addhouse_houseid")) {
+         var housespace = /^[0-9]{1,}.?[0-9]{2}/
+         if ($("#addhouse_houseid").val() == '' || $("#addhouse_houseid").val() == None) {
+             $(".ss-owner-span2").text('房屋编号不能为空')
+             $(this).css("border", "1px solid #BD362F")
+             return false;
 
+         }
+     }
+    })
     /**聚焦判断**/
     /*
     $("input").focus(function(){
@@ -77,4 +88,36 @@
             $(this.css("border","1px solid #aaa"))
         }
     })*/
+    /*
+    $("#owner_submit").click(function(){
+            if($("#addhouse_houseid").val()=="" || $("#addhouse_houseid").val() == None){
+                $(".ss-owner-span2").text('请选择房屋编号')
+                $(this).css("border", "1px solid #BD362F")
+                return false;
+            }
+
+    })*/
+
+
+    $(document).ready(function() {
+
+    $('#ownerform').bootstrapValidator({
+        message:'输入不合法',
+        feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+        fields: {
+            add_ownername: {
+                message:'用户名验证失败',
+                validators: {
+                    notEmpty: {
+                        message:'用户名不能为空'
+                    }
+                }
+            }
+        }
+    });
+    })
 

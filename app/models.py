@@ -119,11 +119,11 @@ class Reimbursement(UserMixin,db.Model):
 class Owner(UserMixin,db.Model):
     __tablename__='owners'
     house_houseid=db.Column(db.String(10),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
-    ownername=db.Column(db.String(16),nullable=False,unique=True)
+    ownername=db.Column(db.String(16),nullable=False)
     ownerphone=db.Column(db.String(11),nullable=False,unique=True)
     owneridcard=db.Column(db.String(20),nullable=False,unique=True)
     owneryears=db.Column(db.String(4),nullable=False,default='70')
-    ownerstatus=db.Column(db.String(8),nullable=False)
+    ownerstatus=db.Column(db.String(16),nullable=False)
     ownerdate=db.Column(db.Date,nullable=False)#进户日期
 
 class House(UserMixin,db.Model):

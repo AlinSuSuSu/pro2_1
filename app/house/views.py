@@ -3,8 +3,8 @@ from . import house
 from app import db
 from app.models import House,Owner
 import json
-
-
+from .forms import OwnerForm
+from datetime import datetime,date
 @house.route('/house_message/',methods=['POST','GET'])
 def house_message():
     queryall=House.query.all()
@@ -78,7 +78,7 @@ def house_detail_post():
 
 @house.route('/house_owner/',methods=['POST','GET'])
 def house_owner():
-    queryall=Owner.query.all()
+    house_querys=House.query.all()
     houseid = request.args.get('houseid')
     ownername = request.args.get('ownername')
     if (houseid != '' and houseid is not None) or (ownername is not None and ownername != ''):
@@ -90,18 +90,21 @@ def house_owner():
             querys = Owner.query.filter_by(house_houseid=houseid, ownername=ownername)
     else:
         querys = Owner.query.all()
-    return render_template('house/house_owner.html',querys=querys,queryall=queryall)
+
+    return render_template('house/house_owner.html',querys=querys,house_querys=house_querys)
 
 @house.route('/house_owner/owner_add',methods=['POST','GET'])
 def owner_add():
-    return render_template('house/add_owner.html')
+    house_query=House.query.all()
+    #qu = House.query.all()
+    return render_template('house/add_owner.html',house_query=house_query)
 
 
 @house.route('/house_owner/add/post', methods=['POST', 'GET'])
 def owner_add_post():
     owner=Owner(ownername=request.form.get('add_ownername'),house_houseid=request.form.get('add_house_houseid'),
                 ownerphone=request.form.get('add_ownerphone'),owneridcard=request.form.get('add_owneridcard'),
-                owneryears=request.form.get('add_owneryears'),ownerstatus=request.form.get('add_ownerstatus'),ownerdate=request.form.get('add_ownerdate'))
+                owneryears=request.form.get('add_owneryears'),ownerstatus=request.form.get('add_ownerstatus'),ownerdate=datetime.strptime(request.form.get('add_ownerdate'), "%Y-%m-%d"))
     db.session.add(owner)
     db.session.commit()
     return redirect(url_for('house.house_owner'))

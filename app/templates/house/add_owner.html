@@ -8,59 +8,67 @@
         {% endblock %}
     {% block page_content_right %}
         <div id="right-side">
-        <div class="ss-form-header">
-            <label id="ss-form-label">添加业主</label>
-            <div id="ss-form-line"></div>
-        </div>
-        <form method="POST" action="/house/house_owner/add/post">
-        <div class="ss-form-body">
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">业主姓名:</div>
-                  <input class="ss-form-control"id="addhouse_houseid"name="add_house_houseid">
-            </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">门牌编号:</div>
-                  <input class="ss-form-control"id="addownername"name="add_ownername">
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">电话:</div>
-                  <input class="ss-form-control"id="addownerphone"name="add_ownerphone">
-            </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">身份证号:</div>
-                  <input class="ss-form-control"id="addowneridcard"name="add_owneridcard">
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                <div class="ss-name-label">产权年限:</div>
-                <input class="ss-form-control"id="addowneryears"name="add_owneryears">
+            <section>
+                <div class="col-md-10 ">
+                    <div class="page-header">
+                        <h4>添加业主</h4>
+                    </div>
+                    <form id="ownerform" method="post" action="house_owner.html">
+                        <div class="form-group">
+                            <label class="col-sm-2">业主姓名</label>
+                            <div class="col-lg-4">
+                                <input type="text"class="form-control"name="owner_ownername"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="姓名不能为空"  >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <label class="col-sm-2">房屋编号</label>
+                            <div class="col-lg-4">
+                                <select class="form-control"name="owner_houseid"required data-bv-trigger="keyup" placeholder="区楼单元室" data-bv-notempty-message="编号不能为空" >
+                                    <option value=""></option>
+                                    {% for q in house_query %}
+                                        <option value="{{ q.houseid }}">{{ q.houseid }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <label class="col-sm-2 ">联系电话</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="username"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="编号不能为空" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <label class="col-sm-2 ">身份证号</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="username"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="编号不能为空" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <label class="col-sm-2 ">产权年限</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="username"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="编号不能为空" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <label class="col-sm-2 ">房屋状态</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="username"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="编号不能为空" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <label class="col-sm-2 ">进户日期</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="username"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="编号不能为空" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-info" id="validateBtn">Manual validate</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
 
-            </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">拥有状态:</div>
-                  <input class="ss-form-control"id="addownerstatus"name="add_ownerstatus">
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">进户日期:</div>
-                  <input class="ss-form-control"id="addownerdate"name="add_ownerdate">
 
-            </div>
-            </div>
-
-            <div class="ss-form-body-row ss-form-body-row-btn">
-            <div class="ss-form-group ss-form-gruop-btn">
-                  <input class="ss-form-control"id="reset"name="重置"type="reset">
-                  <input class="ss-form-control"id="sbumit"name="提交"type="submit">
-            </div>
-            </div>
-        </div>
-        </form>
         </div>
         {% endblock %}
     </div>
