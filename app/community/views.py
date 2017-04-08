@@ -1,9 +1,9 @@
 from flask import url_for,render_template,request,redirect
 from app import db
-from app.models import Repairation
+from app.models import Repairation,Patrol,Staff,Infrastructure
 from app.community import community
 import json
-
+from datetime import datetime
 @community.route('/repairation/',methods=['GET','POST'])
 def repairation():
     queryall=Repairation.query.all()
@@ -52,13 +52,77 @@ def repairation_detail(repairationid):
     query=Repairation.query.filter_by(repairationid=repairation)
     return render_template('community/repairation_detail.html',query=query)
 
-@community.route('/safety',methods=['GET','POST'])
-def safety():
-    return render_template('community/safety.html')
+@community.route('/patrol',methods=['GET','POST'])
+def patrol():
+    query_patrol=Patrol.query.all()
+    return render_template('community/patrol.html',query_patrol=query_patrol)
 
-@community.route('/plant',methods=['GET','POST'])
-def plant():
-    return render_template('community/plant.html')
+@community.route('/patrol/add',methods=['GET','POST'])
+def patrol_add():
+    query_staff=Staff.query.all()
+    return render_template('community/add_patrol.html',query_staff=query_staff)
+
+@community.route('/patrol/add/post',methods=['GET','POST'])
+def patrol_add_post():
+    patrol=Patrol(patrolid=request.form.get('patrol_patrolid'),eventtype=request.form.get('patrol_eventtype'),eventtime=datetime.strptime(request.form.get('patrol_eventtime'), "%Y-%m-%d-%H"),
+                  solveperson=request.form.get('patrol_solveperson'),personinvolved=request.form.get('patrol_personinvolved'),
+                  phoneinvolved=request.form.get('patrol_phoneinvolved'),eventresult=request.form.get('patrol_eventresult'),eventdetail=request.form.get('patrol_eventdetail'))
+    db.session.add(patrol)
+    db.session.commit()
+    return redirect(url_for('community.patrol'))
+@community.route("/patrol/delete/<string:patrolid>",methods=['POST','GET'])
+def patrol_delete(patrolid):
+    res = {
+        "status": 1,
+        "message": "success"
+    }
+    patrol = Patrol.query.filter_by(patrolid=patrolid).first()
+    db.session.delete(patrol)
+    db.session.commit()
+    return json.dumps(res)
+
+@community.route('/patrol/detail/<string:patrolid>',methods=['POST','GET'])
+def patrol_detail(patrolid):
+    query = Patrol.query.filter_by(patrolid=patrolid)
+    return render_template('community/patrol_detail.html', query=query)
+
+@community.route('/infrastructure',methods=['GET','POST'])
+def infrastructure():
+    return render_template('community/infrastructure.html')
+
+@community.route('/infrastructure/add',methods=['GET','POST'])
+def infrastructure_add():
+    return render_template('community/add_infrastructure.html')
+
+@community.route('/infrastructure/delete/<string:infrastructureid>',methods=['GET','POST'])
+def infrastructure_delete(infrastructureid):
+    res = {
+        "status": 1,
+        "message": "success"
+    }
+    infrastructure = Infrastructure.query.filter_by(infrastructureid=infrastructureid).first()
+    db.session.delete(infrastructure)
+    db.session.commit()
+    return json.dumps(res)
+
+@community.route('/infrastructure/detail/<string:infrastructureid>',methods=['GET','POST'])
+def infrastructure_detail(infrastructureid):
+    query = Infrastructure.query.filter_by(infrastructureid=infrastructureid)
+    return render_template('community/infrastructure_detail.html',query=query)
+
+
+@community.route('/infrastructure/add/post',methods=['GET','POST'])
+def infrastructure_add_post():
+    infrastructure = Infrastructure(infrastructureid=request.form.get('infrastructure_infrastructureid'), infrastructuretype=request.form.get('infrastructure_infrastructuretype'),
+                                    infrastructuretime=datetime.strptime(request.form.get('infrastructure_infrastructuretime'), "%Y-%m-%d"),
+                                    infrastructurearea=request.form.get('infrastructure_infrastructurearea'),
+                                    resperson=request.form.get('infrastructure_resperson'),
+                                    resphone=request.form.get('infrastructure_resphone'),
+                                    supervisitor=request.form.get('infrastructure_supervisitor'),
+                                    check=request.form.get('infrastructure_check'),detail=request.form.get('infrastructure_detail'))
+    db.session.add(infrastructure)
+    db.session.commit()
+    return redirect(url_for('community.infrastructure'))
 
 @community.route('/complaint',methods=['GET','POST'])
 def complaint():

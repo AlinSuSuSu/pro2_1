@@ -31,8 +31,8 @@
                   <div class="ss-name-label">房屋编号</div>
                   <select class="ss-form-control"id="houseid"name="houseid">
                       <option value=""></option>
-                      {% for query in queryall %}
-                      <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
+                      {% for query in house_querys %}
+                      <option value="{{ query.houseid }}">{{ query.houseid }}</option>
                       {% endfor %}
                   </select>
               </div>
@@ -40,7 +40,7 @@
                   <div class="ss-name-label">业主姓名</div>
                   <select class="ss-form-control"id="ownername"name="ownername">
                       <option value=""></option>
-                      {% for query in queryall %}
+                      {% for query in querys %}
                       <option value="{{ query.ownername }}">{{ query.ownername }}</option>
                       {% endfor %}
                   </select>

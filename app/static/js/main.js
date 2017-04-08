@@ -132,6 +132,22 @@ $('a.ss-table-delete-repairation').on('click',function(evt){
 	})
 })
 
+$('a.ss-table-delete-patrol').on('click',function(evt){
+	evt.preventDefault();
+	var patrolid = $(this).attr('id');
+	$.ajax({
+		url:'/community/patrol/delete/'+patrolid,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
+
 function finance_add(querya){
 
 	function popup(querya){

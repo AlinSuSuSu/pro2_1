@@ -15,7 +15,7 @@ def index():
 ################staff_message
 #员工信息
 @staff.route('/staff_message/',methods=['GET','POST'])
-@login_required
+
 def staff_message():
     staffid = request.args.get('staffid')
     staffname= request.args.get("staffname")

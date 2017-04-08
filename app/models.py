@@ -174,3 +174,26 @@ class Waterfee(UserMixin,db.Model):
 
 
 
+class Patrol(UserMixin,db.Model):
+    __tablename__='patrols'
+    patrolid = db.Column(db.String(10),primary_key=True,index=True)
+    eventtype = db.Column(db.String(32),nullable=False)
+    eventtime = db.Column(db.DateTime,nullable=False)
+    solveperson = db.Column(db.String(16),nullable=False)#处理人
+    #solvephone = db.Column(db.String(16),nullable=False)#处理人电话
+    personinvolved = db.Column(db.String(16),nullable=False)#当事人
+    phoneinvolved = db.Column(db.String(16),nullable=False)#当事人电话
+    eventresult = db.Column(db.String(32),nullable=False)#处理结果
+    eventdetail = db.Column(db.String(200),nullable=False)#事件概要
+
+class Infrastructure(UserMixin,db.Model):
+    __tablename__='infrastructures'
+    infrastructureid=db.Column(db.String(10),primary_key=True,index=True)
+    infrastructuretype=db.Column(db.String(32),nullable=False)
+    infrastructuretime=db.Column(db.Date,nullable=False)
+    infrastructurearea=db.Column(db.String(32),nullable=False)
+    resperson=db.Column(db.String(16),nullable=False)
+    resphone=db.Column(db.String(16),nullable=False)
+    supervisitor=db.Column(db.String(16),nullable=False)
+    check=db.Column(db.String(8),nullable=False)
+    detail=db.Column(db.String(200),nullable=False)

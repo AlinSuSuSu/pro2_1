@@ -13,9 +13,9 @@
 {% block page_content_left %}
   <div id="left-side">
    <ul>
-       {% if current_user.role_id == '2' %}
+
        <li class="pm-staffmessage active"><a href="{{ url_for('staff.staff_message') }}">职员信息</a></li>
-       {% endif %}
+
        <li class="pm-staffbonus"><a href="{{ url_for('staff.staff_bonus') }}">员工福利</a></li>
        <li class="pm-holiday"><a href="{{ url_for('staff.staff_holiday') }}">假期安排</a></li>
        <li class="pm-reimbursement"><a href="{{ url_for('staff.staff_reimbursement') }}">费用报销</a></li>

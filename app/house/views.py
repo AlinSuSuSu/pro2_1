@@ -102,9 +102,9 @@ def owner_add():
 
 @house.route('/house_owner/add/post', methods=['POST', 'GET'])
 def owner_add_post():
-    owner=Owner(ownername=request.form.get('add_ownername'),house_houseid=request.form.get('add_house_houseid'),
-                ownerphone=request.form.get('add_ownerphone'),owneridcard=request.form.get('add_owneridcard'),
-                owneryears=request.form.get('add_owneryears'),ownerstatus=request.form.get('add_ownerstatus'),ownerdate=datetime.strptime(request.form.get('add_ownerdate'), "%Y-%m-%d"))
+    owner=Owner(ownername=request.form.get('owner_ownername'),house_houseid=request.form.get('owner_houseid'),
+                ownerphone=request.form.get('owner_ownerphone'),owneridcard=request.form.get('owner_owneridcard'),
+                owneryears=request.form.get('owner_owneryears'),ownerstatus=request.form.get('owner_ownerstatus'),ownerdate=datetime.strptime(request.form.get('owner_ownerdate'), "%Y-%m-%d"))
     db.session.add(owner)
     db.session.commit()
     return redirect(url_for('house.house_owner'))

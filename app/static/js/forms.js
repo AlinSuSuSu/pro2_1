@@ -100,24 +100,65 @@
 
 
     $(document).ready(function() {
+        $('#ownerForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                owner_ownername: {
+                    message:'用户名不合法',
+                    validators: {
+                        notEmpty: {
+                            message:'用户名不能为空'
+                        },
+                        stringLength:{
+                            min:2,
+                            max:16,
+                            message:'用户名至少两个字符'
+                        }
 
-    $('#defaultForm').bootstrapValidator({
-        message:'输入不合法',
-        feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-        fields: {
-            username: {
-                message:'用户名验证失败',
-                validators: {
-                    notEmpty: {
-                        message:'用户名不能为空'
+                    }
+                },
+                owner_houseid:{
+                    message:'输入不合法',
+                    validators:{
+                        notEmpty:{
+                            message:'不能为空'
+                        }
+
+                    }
+
+                },
+                owner_ownerphone:{
+                    message:'输入不合法',
+                    validators:{
+                        notEmpty:{
+                            message:'不能为空'
+                        },
+                        stringLength:{
+                            max:11,
+                            min:11,
+                            message:"请输入11位"
+                        }
+
+                    }
+                },
+                owner_ownerdate:{
+                    message:'输入不合法',
+                    validators:{
+
                     }
                 }
             }
-        }
+        });
+        $('#validateBtn').click(function() {
+            $('#defaultForm').bootstrapValidator('validate');
+        });
+        $('#resetBtn').click(function() {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+        });
     });
-    })
 

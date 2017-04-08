@@ -14,15 +14,19 @@
                         <h2>注册</h2>
                     </div>
 
-                    <form id="defaultForm" method="post" class="form-horizontal" action="target.php">
+                    <form id="ownerForm" method="post" class='form-horizontal'action="/house/house_owner/add/post">
                         <div class="form-group">
                             <label class="col-lg-2 control-label">业主姓名</label>
                             <div class="col-lg-4">
                                 <input type="text" class="form-control" name="owner_ownername" required data-bv-trigger="keyup" data-bv-notempty-message="姓名不能为空" placeholder="姓" />
                             </div>
+
+                        </div>
+                        <div class="form-group">
                             <label class="col-lg-2 control-label">房屋编号</label>
                             <div class="col-lg-4">
-                                <select class="form-control" name="owner_houseid"required data-bv-trigger="blur" data-bv-notempty-message="编号不能为空" placeholder="名" >
+                                <select class="form-control" name="owner_houseid"required data-bv-trigger="blur" data-bv-notempty-message="编号不能为空"  >
+                                    <option value=""></option>
                                     {% for q in house_query %}
                                     <option value="{{ q.houseid }}">{{ q.houseid }}</option>
                                     {% endfor %}
@@ -35,45 +39,37 @@
                             <div class="col-lg-4">
                                 <input type="text" class="form-control" name="owner_ownerphone" />
                             </div>
-                            <label class="col-lg-2 control-label">身份证号</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="username" />
-                            </div>
+
                         </div>
 
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">房屋面积</label>
+                            <label class="col-lg-2 control-label">身份证号</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control" name="email" />
-                            </div>
-                            <label class="col-lg-2 control-label">房屋状态</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="password" />
+                                <input type="text" class="form-control" name="owner_owneridcard" />
                             </div>
                         </div>
-
-
-
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">房屋状态</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="owner_ownerstatus" />
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">产权年限</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control" name="confirmPassword" />
+                                <input type="text" class="form-control" name="owner_owneryears" />
                             </div>
                         </div>
 
-
-
-
-
-
-
-
-
-
-
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">进户日期</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="owner_ownerdate" />
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-lg-9 col-lg-offset-8">
-                                <input type="reset" class="btn btn-info" id="validateBtn">
+                                <button type="button" class="btn btn-info" id="resetBtn">重置</button>
                                 <input type="submit" class="btn btn-info" id="validateBtn">
                             </div>
                         </div>
@@ -81,9 +77,6 @@
                 </div>
             </section>
             <!-- :form -->
-
-
-
         </div>
         {% endblock %}
     </div>

@@ -1,0 +1,94 @@
+{% extends "community/repairation.html" %}
+{% block title %}保安巡逻{% endblock %}
+
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+        {{ super() }}
+        {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+            <section>
+                <div class="col-lg-10 ">
+                    <div class="page-header">
+                        <h4>添加事件</h4>
+                    </div>
+
+                    <form id="ownerForm" method="post" class='form-horizontal'action="/community/patrol/add/post">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">事件编号</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="patrol_patrolid" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">事件类型</label>
+                            <div class="col-lg-4">
+                                <select class="form-control" name="patrol_eventtype" >
+                                    <option value="物品丢失">物品丢失</option>
+                                    <option value="打架斗殴">打架斗殴</option>
+                                    <option value="其他事件">其他事件</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">发生时间</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="patrol_eventtime" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">处理人</label>
+                            <div class="col-lg-4">
+                                <input class="form-control" name="patrol_solveperson"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">处理人电话</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="patrol_solvephone" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">当事人</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="patrol_personinvolved" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">当事人电话</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="patrol_phoneinvolved" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">处理结果</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="patrol_eventresult" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">事件概要</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="patrol_eventdetail" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-9 col-lg-offset-8">
+                                <input type="reset" class="btn btn-info" id="resetBtn">
+                                <input type="submit" class="btn btn-info" id="validateBtn">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}
