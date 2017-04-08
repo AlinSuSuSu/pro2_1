@@ -9,64 +9,79 @@
     {% block page_content_right %}
         <div id="right-side">
             <section>
-                <div class="col-md-10 ">
+                <div class="col-lg-10 ">
                     <div class="page-header">
-                        <h4>添加业主</h4>
+                        <h2>注册</h2>
                     </div>
-                    <form id="ownerform" method="post" action="house_owner.html">
+
+                    <form id="defaultForm" method="post" class="form-horizontal" action="target.php">
                         <div class="form-group">
-                            <label class="col-sm-2">业主姓名</label>
+                            <label class="col-lg-2 control-label">业主姓名</label>
                             <div class="col-lg-4">
-                                <input type="text"class="form-control"name="owner_ownername"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="姓名不能为空"  >
+                                <input type="text" class="form-control" name="owner_ownername" required data-bv-trigger="keyup" data-bv-notempty-message="姓名不能为空" placeholder="姓" />
                             </div>
-                        </div>
-                        <div class="form-group">
-                             <label class="col-sm-2">房屋编号</label>
+                            <label class="col-lg-2 control-label">房屋编号</label>
                             <div class="col-lg-4">
-                                <select class="form-control"name="owner_houseid"required data-bv-trigger="keyup" placeholder="区楼单元室" data-bv-notempty-message="编号不能为空" >
-                                    <option value=""></option>
+                                <select class="form-control" name="owner_houseid"required data-bv-trigger="blur" data-bv-notempty-message="编号不能为空" placeholder="名" >
                                     {% for q in house_query %}
-                                        <option value="{{ q.houseid }}">{{ q.houseid }}</option>
+                                    <option value="{{ q.houseid }}">{{ q.houseid }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group">
-                             <label class="col-sm-2 ">联系电话</label>
+                            <label class="col-lg-2 control-label">手机号</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control" name="username"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="编号不能为空" />
+                                <input type="text" class="form-control" name="owner_ownerphone" />
+                            </div>
+                            <label class="col-lg-2 control-label">身份证号</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="username" />
                             </div>
                         </div>
+
                         <div class="form-group">
-                             <label class="col-sm-2 ">身份证号</label>
+                            <label class="col-lg-2 control-label">房屋面积</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control" name="username"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="编号不能为空" />
+                                <input type="text" class="form-control" name="email" />
+                            </div>
+                            <label class="col-lg-2 control-label">房屋状态</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="password" />
                             </div>
                         </div>
+
+
+
                         <div class="form-group">
-                             <label class="col-sm-2 ">产权年限</label>
+                            <label class="col-lg-2 control-label">产权年限</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control" name="username"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="编号不能为空" />
+                                <input type="text" class="form-control" name="confirmPassword" />
                             </div>
                         </div>
+
+
+
+
+
+
+
+
+
+
+
                         <div class="form-group">
-                             <label class="col-sm-2 ">房屋状态</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="username"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="编号不能为空" />
+                            <div class="col-lg-9 col-lg-offset-8">
+                                <input type="reset" class="btn btn-info" id="validateBtn">
+                                <input type="submit" class="btn btn-info" id="validateBtn">
                             </div>
-                        </div>
-                        <div class="form-group">
-                             <label class="col-sm-2 ">进户日期</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="username"required data-bv-trigger="keyup" placeholder="业主姓名" data-bv-notempty-message="编号不能为空" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-info" id="validateBtn">Manual validate</button>
                         </div>
                     </form>
                 </div>
             </section>
+            <!-- :form -->
+
 
 
         </div>

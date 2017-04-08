@@ -101,7 +101,7 @@
 
     $(document).ready(function() {
 
-    $('#ownerform').bootstrapValidator({
+    $('#defaultForm').bootstrapValidator({
         message:'输入不合法',
         feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
@@ -109,7 +109,7 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
         fields: {
-            add_ownername: {
+            username: {
                 message:'用户名验证失败',
                 validators: {
                     notEmpty: {
