@@ -41,6 +41,9 @@ def create_app(config_name):
     from .finance import finance as finance_blueprint
     app.register_blueprint(finance_blueprint, url_prefix='/finance')
 
+    from .file import file as file_blueprint
+    app.register_blueprint(file_blueprint, url_prefix='/file')
+
     return app
 
 

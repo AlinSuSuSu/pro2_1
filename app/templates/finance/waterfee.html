@@ -16,8 +16,8 @@
    <ul>
        <li class="pm-staffmessage active"><a href="{{ url_for('finance.waterfee') }}">水费</a></li>
        <li class="pm-staffmessage active"><a href="{{ url_for('finance.electricfee') }}">电费</a></li>
-       <li class="pm-staffmessage active"><a href="{{ url_for('community.repairation') }}">天然气费</a></li>
-       <li class="pm-staffmessage active"><a href="{{ url_for('community.repairation') }}">卫生费</a></li>
+       <li class="pm-staffmessage active"><a href="{{ url_for('finance.gasfee') }}">天然气费</a></li>
+       <li class="pm-staffmessage active"><a href="{{ url_for('finance.cleaningfee') }}">卫生费</a></li>
        <li class="pm-staffbonus"><a href="{{ url_for('community.patrol') }}">其他收费</a></li>
 
    </ul>
@@ -28,22 +28,31 @@
 {% endblock %}
 {% block page_content_right %}
     <div id="right-side">
-     <form action="" class="form-horizontal"  role="form">
-
-    <div class="form-group">
-                <label for="dtp_input2" class="col-md-2 control-label">上次抄表日期</label>
-                <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-MM-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+        <form action="" class="form-horizontal"  role="form">
+            <div class="form-group">
+                <label for="dtp_input2" class="col-md-2  control-label">上次抄表日期</label>
+                <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                     <input class="form-control" size="12" type="text" value="" readonly>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
-				<input type="hidden" id="dtp_input2" value="" /><br/>
-    </div>
+                <input type="hidden" id="dtp_input2" value="" /><br/>
 
-     </form>
+                <label for="dtp_input2" class="col-md-2 control-label">本次抄表时间</label>
+                <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="12" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input type="hidden" id="dtp_input2" value="" /><br/>
+                <div class="col-md-3 col-lg-offset-2">
+                    <input class=" col-md-2 btn btn-info form-control " size="12" type="submit" value="提交" >
+                </div>
+            </div>
 
+        </form>
+<br>
     <div id="right-side-tabs">
-
     <ul class="nav nav-tabs">
       <li{% if  charge %} class="active"{% endif %}><a href="{{ url_for('finance.watercharge') }}">已收取</a></li>
       <li{% if not charge %} class="active"{% endif %}><a href="{{ url_for('finance.waternotcharge') }}">未收取</a></li>
@@ -61,7 +70,7 @@
                     <th class="ss-td">每单位价格</th>
                     <th class="ss-td">总共费用</th>
                     <th class="ss-td">是否缴纳</th>
-                    <th class="ss-td"><input class='finance-bt'onclick="finance_add({{query_house}})" type='button'name="添加"value="添加"/></th>
+                    <th class="ss-td"><input class='finance-bt 'onclick="finance_add({{query_house}})" type='button'name="添加"value="添加"/><a href="#"class="ss-table-detail"id="">编辑</a></th>
                 </thead>
                 <tbody class="ss-scrolltbody">
                 {% for query in querys %}

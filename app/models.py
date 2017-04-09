@@ -200,44 +200,6 @@ class Repairation(UserMixin,db.Model):
     repairationcheck=db.Column(db.String(4),nullable=False,default='未审核')#进度，分为未审核，审核通过，审核失败，默认未审核
 
 
-class Waterfee(UserMixin,db.Model):
-    __tablename__='waterfees'
-    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
-    startdegree=db.Column(db.Float)#月初度数
-    enddegree=db.Column(db.Float)#月末度数
-    priceperdegree=db.Column(db.Float,default='1.0')#每度价格
-    totalprice=db.Column(db.Float)
-    item=db.Column(db.String(8),default='水费')
-    startdate=db.Column(db.Date)
-    enddate=db.Column(db.Date)
-    pay=db.Column(db.String(4),default='否')#是否缴纳
-
-
-
-
-    @staticmethod
-    def generate_fake(count=50):
-        from sqlalchemy.exc import IntegrityError
-        from random import seed
-        import forgery_py
-        seed()
-        for i in range(count):
-            u = Waterfee(house_houseid=forgery_py.basic.text(length=10, digits=True),
-                         startdegree=10.0,
-                         enddegree=20.0,
-                         priceperdegree=1.0,
-                         item='水费',
-                         startdate=datetime.strptime('2017-01-01',"%Y-%m-%d"),
-                         enddate=datetime.strptime('2017-02-01',"%Y-%m-%d"),
-                         pay=random.choice(['是','否'])
-                         )
-            u.totalprice=200.00
-            db.session.add(u)
-            try:
-                db.session.commit()
-            except IntegrityError:
-                db.session.rollback()
-
 class Patrol(UserMixin,db.Model):
     __tablename__='patrols'
     patrolid = db.Column(db.String(10),primary_key=True,index=True)
@@ -271,3 +233,146 @@ class Complaint(UserMixin,db.Model):
     complainttime=db.Column(db.DateTime,nullable=False)
     replystaff=db.Column(db.String(16),nullable=False)
     complaintdetail=db.Column(db.String(200),nullable=False)
+
+
+
+class Waterfee(UserMixin,db.Model):
+    __tablename__='waterfees'
+    waterfeeid=db.Column(db.String(10),primary_key=True,index=True)
+    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),)
+    startdegree=db.Column(db.Float)#月初度数
+    enddegree=db.Column(db.Float)#月末度数
+    priceperdegree=db.Column(db.Float,default='1.0')#每度价格
+    totalprice=db.Column(db.Float)
+    item=db.Column(db.String(8),default='水费')
+    startdate=db.Column(db.Date)
+    enddate=db.Column(db.Date)
+    pay=db.Column(db.String(4),default='否')#是否缴纳
+
+    @staticmethod
+    def generate_fake(count=50):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            u = Waterfee(waterfeeid=forgery_py.basic.text(lenth=10,digits=True),
+                         house_houseid=forgery_py.basic.text(length=10, digits=True),
+                         startdegree=10.0,
+                         enddegree=20.0,
+                         priceperdegree=1.0,
+                         item='水费',
+                         startdate=datetime.strptime('2017-01-01',"%Y-%m-%d"),
+                         enddate=datetime.strptime('2017-02-01',"%Y-%m-%d"),
+                         pay=random.choice(['是','否'])
+                         )
+            u.totalprice=200.00
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
+
+
+
+class Electricfee(UserMixin,db.Model):
+    __tablename__='electricfees'
+    electricfeeid=db.Column(db.String(10),primary_key=True,index=True)
+    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),)
+    startdegree=db.Column(db.Float)#月初度数
+    enddegree=db.Column(db.Float)#月末度数
+    priceperdegree=db.Column(db.Float,default='1.0')#每度价格
+    totalprice=db.Column(db.Float)
+    item=db.Column(db.String(8),default='电费')
+    startdate=db.Column(db.Date)
+    enddate=db.Column(db.Date)
+    pay=db.Column(db.String(4),default='否')#是否缴纳
+
+    @staticmethod
+    def generate_fake(count=50):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            u = Eletricfee(electricfeeid=forgery_py.basic.text(lenth=10,digits=True),
+                         house_houseid=forgery_py.basic.text(length=10, digits=True),
+                         startdegree=10.0,
+                         enddegree=20.0,
+                         priceperdegree=1.0,
+                         item='电费',
+                         startdate=datetime.strptime('2017-01-01',"%Y-%m-%d"),
+                         enddate=datetime.strptime('2017-02-01',"%Y-%m-%d"),
+                         pay=random.choice(['是','否'])
+                         )
+            u.totalprice=200.00
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
+class Gasfee(UserMixin,db.Model):
+    __tablename__='gasfees'
+    gasfeeid=db.Column(db.String(10),primary_key=True,index=True)
+    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),)
+    startdegree=db.Column(db.Float)#月初度数
+    enddegree=db.Column(db.Float)#月末度数
+    priceperdegree=db.Column(db.Float,default='1.0')#每度价格
+    totalprice=db.Column(db.Float)
+    item=db.Column(db.String(8),default='燃气费')
+    startdate=db.Column(db.Date)
+    enddate=db.Column(db.Date)
+    pay=db.Column(db.String(4),default='否')#是否缴纳
+
+    @staticmethod
+    def generate_fake(count=50):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            u = Gasfee(gasfeeid=forgery_py.basic.text(lenth=10,digits=True),
+                         house_houseid=forgery_py.basic.text(length=10, digits=True),
+                         startdegree=10.0,
+                         enddegree=20.0,
+                         priceperdegree=1.0,
+                         item='燃气费',
+                         startdate=datetime.strptime('2017-01-01',"%Y-%m-%d"),
+                         enddate=datetime.strptime('2017-02-01',"%Y-%m-%d"),
+                         pay=random.choice(['是','否'])
+                         )
+            u.totalprice=200.00
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
+class Cleaningfee(UserMixin,db.Model):
+    __tablename__='cleaningfees'
+    cleaningfeeid=db.Column(db.String(10),primary_key=True,index=True)
+    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),)
+    priceperyear=db.Column(db.Float,default='20')#每度价格
+    item=db.Column(db.String(8),default='卫生费')
+    recordeyear=db.Column(db.String(8))
+    pay=db.Column(db.String(4),default='否')#是否缴纳
+
+    @staticmethod
+    def generate_fake(count=50):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            u = Cleaningfee(cleaningfeeid=forgery_py.basic.text(lenth=10,digits=True),
+                         house_houseid=forgery_py.basic.text(length=10, digits=True),
+                         priceperdegree=20,
+                         item='卫生费',
+                         recordyear='2016',
+                         pay=random.choice(['是','否'])
+                         )
+            u.totalprice=200.00
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
