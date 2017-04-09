@@ -36,7 +36,7 @@
                     <th>{{ query.supervisitor }}</th>
                     <th>{{ query.check }}</th>
                     <th>{{ query.detail }}</th>
-                    <th><a href="{{ url_for('community.infrastructure_delete',infrastructureid=query.infrastructureid) }}"class="ss-table-delete-patrol" id="{{ query.infrastructureid }}">删除</a><a href="{{ url_for('community.infrastructureid_detail',infrastructureid=query.infrastructureid) }}">详情</a></th>
+                    <th><a href="{{ url_for('community.infrastructure_delete',infrastructureid=query.infrastructureid) }}"class="ss-table-delete-infrastructure" id="{{ query.infrastructureid }}">删除</a><a href="{{ url_for('community.infrastructureid_detail',infrastructureid=query.infrastructureid) }}">详情</a></th>
                 </tr>
                 {% endfor %}
                 </tbody>

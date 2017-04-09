@@ -52,7 +52,7 @@ def staff_delete(staff_id):
 @staff.route('/staff_message/add/post',methods=['POST','GET'])
 def staff_add_post():
     password=request.form.get('add-password')
-    staff=Staff(staffid=request.form.get('add-staffid'),staffname=request.form.get('add-staffid'),
+    staff=Staff(staffid=request.form.get('add-staffid'),staffname=request.form.get('add-staffname'),
                 phone=request.form.get('add-phone'),idcard=request.form.get('add-idcard'),
                 salary=request.form.get('add-salary'),job=request.form.get('add-job'),
                 age=request.form.get('add-age'),password=request.form.get('add-password'),gender=request.form.get('add-gender'),role_id='4')

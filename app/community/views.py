@@ -127,6 +127,7 @@ def infrastructure_add_post():
 @community.route('/complaint',methods=['GET','POST'])
 def complaint():
     return render_template('community/complaint.html')
+
 @community.route('/complaint/delete/<string:complaintid>',methods=['GET','POST'])
 def complaint_delete(complaintid):
     res = {

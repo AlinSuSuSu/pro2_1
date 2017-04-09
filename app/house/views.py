@@ -33,8 +33,8 @@ def house_add_post():
                 housespace=request.form.get('add_housespace'),houseyears=request.form.get('add_houseyears'),housecommunity=request.form.get('add_housecommunity'),
                 houseaddress=request.form.get('add_houseaddress'),houseremark=request.form.get('add_houseremark'))
     db.session.add(house)
-    bb=house.houseid
-    aa=house.housetype[0]
+    #bb=house.houseid
+    #aa=house.housetype[0]
     db.session.commit()
     return redirect(url_for('house.house_message'))
 

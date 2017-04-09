@@ -1,7 +1,7 @@
 from flask import render_template,url_for,redirect,request,make_response
 from app.finance import finance
 from app.models import Waterfee,House
-
+import json
 from app import db
 @finance.route('/waterfee')
 def waterfee():
@@ -30,6 +30,19 @@ def waternotcharge():
 @finance.route('/waterfee/add',methods=['POST','GET'])
 def waterfee_add():
     waterfee=Waterfee(house_houseid=request.form.get('finance-houseid'),startdegree=request.form.get('startdegree'),enddegree=request.form.get('enddegree'))
+    waterfee.totalprice=(waterfee.enddegree-waterfee.startdegree)*waterfee.priceperdegree
     db.session.add(waterfee)
     db.session.commit()
     return redirect(url_for('finance.waterfee'))
+
+@finance.route('/waterfee/delete/<string:houseid>',methods=['GET','POST'])
+def waterfee_delete(houseid):
+    res = {
+        "status": 1,
+        "message": "success"
+    }
+    waterfee = Waterfee.query.filter_by(house_houseid=houseid).first()
+    db.session.delete(waterfee)
+    db.session.commit()
+    return json.dumps(res)
+

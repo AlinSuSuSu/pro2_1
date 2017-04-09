@@ -126,6 +126,27 @@ class Owner(UserMixin,db.Model):
     ownerstatus=db.Column(db.String(16),nullable=False)
     ownerdate=db.Column(db.Date,nullable=False)#进户日期
 
+    @staticmethod
+    def generate_fake(count=50):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            u = Owner(ownername=forgery_py.internet.user_name(False),
+                      house_houseid=forgery_py.basic.text(length=10,digits=False),
+                      ownerphone=forgery_py.address.phone(),
+                      owneridcard=forgery_py.basic.text(length=18,digits=True),
+                      owneryears=70,
+                      ownerstatus='购买',
+                      ownerdate=forgery_py.date.date(True))
+
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
+
 class House(UserMixin,db.Model):
     __tablename__='houses'
     houseid=db.Column(db.String(10),primary_key=True,nullable=False)#房屋编号
@@ -137,6 +158,29 @@ class House(UserMixin,db.Model):
     houseyears = db.Column(db.String(4),default='70')#房产年限
     houseaddress=db.Column(db.String(128))#具体地址
     owner_ownername=db.Column(db.String(16))#业主姓名
+
+    @staticmethod
+    def generate_fake(count=50):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            u = House(owner_ownername=forgery_py.internet.user_name(False),
+                      houseid=forgery_py.basic.text(length=10, digits=True),
+                      housetype='二室二厅二卫一厨',
+                      housespace=forgery_py.basic.text(at_least=2,at_most=4,digits=True),
+                      housecommunity='天生小区',
+                      houseremark='待售',
+                      houseyears='70',
+                      houseaddress=forgery_py.address.street_address(),
+                      housestatus='闲置')
+
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
 
 class Repairation(UserMixin,db.Model):
     __tablename__ = 'repairations'
@@ -159,20 +203,40 @@ class Repairation(UserMixin,db.Model):
 class Waterfee(UserMixin,db.Model):
     __tablename__='waterfees'
     house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
-    owner_ownername=db.Column(db.String(16))
-    startdegree=db.Column(db.String(16))#月初度数
-    enddegree=db.Column(db.String(16))#月末度数
-    priceperdegree=db.Column(db.String(8),default='1')#每度价格
-    totalprice=db.Column(db.String(16))
+    startdegree=db.Column(db.Float)#月初度数
+    enddegree=db.Column(db.Float)#月末度数
+    priceperdegree=db.Column(db.Float,default='1.0')#每度价格
+    totalprice=db.Column(db.Float)
     item=db.Column(db.String(8),default='水费')
+    startdate=db.Column(db.Date)
+    enddate=db.Column(db.Date)
     pay=db.Column(db.String(4),default='否')#是否缴纳
 
 
-    @property
-    def totalprice(self,totalprice):
-        self.totalprice=(self.enddegree-self.startdegree)*self.priceperdegree
 
 
+    @staticmethod
+    def generate_fake(count=50):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            u = Waterfee(house_houseid=forgery_py.basic.text(length=10, digits=True),
+                         startdegree=10.0,
+                         enddegree=20.0,
+                         priceperdegree=1.0,
+                         item='水费',
+                         startdate=datetime.strptime('2017-01-01',"%Y-%m-%d"),
+                         enddate=datetime.strptime('2017-02-01',"%Y-%m-%d"),
+                         pay=random.choice(['是','否'])
+                         )
+            u.totalprice=200.00
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
 
 class Patrol(UserMixin,db.Model):
     __tablename__='patrols'

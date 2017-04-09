@@ -17,7 +17,7 @@
        <li class="pm-staffmessage active"><a href="{{ url_for('community.repairation') }}">电费</a></li>
        <li class="pm-staffmessage active"><a href="{{ url_for('community.repairation') }}">天然气费</a></li>
        <li class="pm-staffmessage active"><a href="{{ url_for('community.repairation') }}">卫生费</a></li>
-       <li class="pm-staffbonus"><a href="{{ url_for('community.safety') }}">其他收费</a></li>
+       <li class="pm-staffbonus"><a href="{{ url_for('community.patrol') }}">其他收费</a></li>
 
    </ul>
   </div>
@@ -27,18 +27,20 @@
 {% endblock %}
 {% block page_content_right %}
     <div id="right-side">
-  <div id="right-side-tabs">
+    <div id="header-form">
 
-  <ul class="nav nav-tabs">
+    </div>
+    <div id="right-side-tabs">
+
+    <ul class="nav nav-tabs">
       <li{% if  charge %} class="active"{% endif %}><a href="{{ url_for('finance.watercharge') }}">已收取</a></li>
       <li{% if not charge %} class="active"{% endif %}><a href="{{ url_for('finance.waternotcharge') }}">未收取</a></li>
 
-  </ul>
-<table class="ss-table">
+    </ul>
+        <table class="ss-table">
                 <thead class="ss-fixedthead">
                     <th class="ss-td">序号</th>
                     <th class="ss-td">门牌编号</th>
-                    <th class="ss-td">业主姓名</th>
                     <th class="ss-td">物业项目</th>
                     <th class="ss-td">上月度数</th>
                     <th class="ss-td">本月度数</th>
@@ -52,15 +54,16 @@
                     <tr class="ss-tr">
                         <td class="ss-td">{{ 1 }}</td>
                         <td class="ss-td">{{ query.house_houseid}}</td>
-                        <td class="ss-td">{{ query.owner_ownername}}</td>
                         <td class="ss-td">{{ query.item }}</td>
                         <td class="ss-td">{{ query.startdegree }}</td>
                         <td class="ss-td">{{ query.enddegree }}</td>
                         <td class="ss-td">{{ query.priceperdegree }}</td>
-                        <td class="ss-td">{{ query.totaldegree }}</td>
+                        <td class="ss-td">{{ query.totalprice }}</td>
                         <td class="ss-td">{{ query.pay }}<td>
                         <td class="ss-td">
-                        <a href="#"class="ss-table-detail"id="{{ query.repairationid }}">编辑</a></td>
+                        <a href="#"class="ss-table-detail"id="{{ query.house_houseid }}">编辑</a>
+                        <a href="{{ url_for("finance.waterfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-waterfee"id="{{ query.house_houseid }}">删除</a>
+                    </td>
                     </tr>
                 {% endfor %}
                 </tbody>

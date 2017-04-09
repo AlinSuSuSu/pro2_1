@@ -147,6 +147,52 @@ $('a.ss-table-delete-patrol').on('click',function(evt){
 		}
 	})
 })
+$('a.ss-table-delete-infrastructure').on('click',function(evt){
+	evt.preventDefault();
+	var infrastructureid = $(this).attr('id');
+	$.ajax({
+		url:'/community/infrastructure/delete/'+infrastructureid,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
+$('a.ss-table-delete-complaint').on('click',function(evt){
+	evt.preventDefault();
+	var complaintid = $(this).attr('id');
+	$.ajax({
+		url:'/community/complaint/delete/'+complaintid,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
+$('a.ss-table-delete-waterfee').on('click',function(evt){
+	evt.preventDefault();
+	var waterfeeid = $(this).attr('id');
+	$.ajax({
+		url:'/finance/waterfee/delete/'+waterfeeid,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
+
 
 function finance_add(querya){
 
@@ -155,16 +201,17 @@ function finance_add(querya){
 			'<div id="mry-opo-title">' +
 			'</div><div id="mry-opo-content">' +
 			'<form id="finance-form" method="POST" action="/finance/waterfee/add">' +
-			'<select class="ss-form-control"id="finance-houseid"name="finance-houseid">' +
+			'<div class="col-lg-4"><select class="form-control"id="finance-houseid"name="finance-houseid">' +
 			'<option></option>' +
-			'</select>' +
+			'</select></div>' +
 			'</form>' +
 			'</div>' +
 			'</div>')
-		$('#finance-form').append('<input class="ss-form-control"name="startdegree">');
-		$('#finance-form').append('<input class="ss-form-control"name="enddegree">');
-		$('#finance-form').append('<div id="button-area">'+
-			'<input type="submit"value="确定">' +
+		$('#finance-form').append('<div class="col-lg-4"><input class="form-control "name="startdegree"placeholder="起始度数"></div>');
+		$('#finance-form').append('<div class="col-lg-4"><input class="form-control "name="enddegree"placeholder="当前度数"></div>');
+		$('#finance-form').append('<div id="button-areaa">'+
+			'<input type="reset"class="btn btn-info col-lg-offset-4 button-area"id="water_reset"value="重置">' +
+			'<input type="submit"class="btn btn-info col-lg-offset-1 button-area"id="water_validate"value="确定">' +
 			'</div>')
 		var div = $('#mry-opo');
         $('#mry-opo-title').text('添加业主水费记录');

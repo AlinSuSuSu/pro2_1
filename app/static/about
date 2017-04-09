@@ -1,2 +1,12 @@
 1.在boostrap\base.html 中增加了{% block footer %}{%-endblock footer %}
 2.在flask_login的mixins.py中的UserMixin类修改了self.staffid
+3.修改了foregy.py中的address.py 的phone函数
+format原为#-(###)###-####
+  result = ''
+    for item in format:
+        if item == '#':
+            result += str(random.randint(0, 9))
+        else:
+            result += item
+
+    return result
