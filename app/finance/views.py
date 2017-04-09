@@ -46,3 +46,6 @@ def waterfee_delete(houseid):
     db.session.commit()
     return json.dumps(res)
 
+@finance.route('/electricfee',methods=['GET','POSY'])
+def electricfee():
+    return render_template('/finance/electricfee.html')

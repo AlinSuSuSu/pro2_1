@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
+
 {% block title %}水费{% endblock %}
 
 {% block head %}
@@ -14,7 +15,7 @@
   <div id="left-side">
    <ul>
        <li class="pm-staffmessage active"><a href="{{ url_for('finance.waterfee') }}">水费</a></li>
-       <li class="pm-staffmessage active"><a href="{{ url_for('community.repairation') }}">电费</a></li>
+       <li class="pm-staffmessage active"><a href="{{ url_for('finance.electricfee') }}">电费</a></li>
        <li class="pm-staffmessage active"><a href="{{ url_for('community.repairation') }}">天然气费</a></li>
        <li class="pm-staffmessage active"><a href="{{ url_for('community.repairation') }}">卫生费</a></li>
        <li class="pm-staffbonus"><a href="{{ url_for('community.patrol') }}">其他收费</a></li>
@@ -27,9 +28,20 @@
 {% endblock %}
 {% block page_content_right %}
     <div id="right-side">
-    <div id="header-form">
+     <form action="" class="form-horizontal"  role="form">
 
+    <div class="form-group">
+                <label for="dtp_input2" class="col-md-2 control-label">上次抄表日期</label>
+                <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-MM-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="12" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+				<input type="hidden" id="dtp_input2" value="" /><br/>
     </div>
+
+     </form>
+
     <div id="right-side-tabs">
 
     <ul class="nav nav-tabs">
@@ -44,6 +56,8 @@
                     <th class="ss-td">物业项目</th>
                     <th class="ss-td">上月度数</th>
                     <th class="ss-td">本月度数</th>
+                    <th class="ss-td">上月抄表时间</th>
+                    <th class="ss-td">本月抄表时间</th>
                     <th class="ss-td">每单位价格</th>
                     <th class="ss-td">总共费用</th>
                     <th class="ss-td">是否缴纳</th>
@@ -57,13 +71,15 @@
                         <td class="ss-td">{{ query.item }}</td>
                         <td class="ss-td">{{ query.startdegree }}</td>
                         <td class="ss-td">{{ query.enddegree }}</td>
+                        <td class="ss-td">{{ query.startdate }}</td>
+                        <td class="ss-td">{{ query.enddate }}</td>
                         <td class="ss-td">{{ query.priceperdegree }}</td>
                         <td class="ss-td">{{ query.totalprice }}</td>
                         <td class="ss-td">{{ query.pay }}<td>
-                        <td class="ss-td">
+
                         <a href="#"class="ss-table-detail"id="{{ query.house_houseid }}">编辑</a>
                         <a href="{{ url_for("finance.waterfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-waterfee"id="{{ query.house_houseid }}">删除</a>
-                    </td>
+
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -77,4 +93,5 @@
 {% endblock %}
 {% block script %}
     {{ super() }}
+
 {% endblock %}
