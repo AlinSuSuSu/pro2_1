@@ -6,13 +6,12 @@ from . import login_manager
 import random
 #加载用户的回调函数
 @login_manager.user_loader
-def load_user(staff_staffid):
-    return Staff.query.get(int(staff_staffid))
+def load_user(user_username):
+    return User.query.get(user_username)
 
 class Permission:
-    COMMONSTAFF=0x04
     HOUSEOWNER=0x02
-    VISITOR=0x01
+    ADMIN=0x01
 
 
 class Role(db.Model):
@@ -21,16 +20,14 @@ class Role(db.Model):
     name = db.Column(db.String(64),unique=True)
     default=db.Column(db.Boolean,default=False,index=True)
     permissions = db.Column(db.Integer)
-    staff=db.relationship('Staff',backref='role',lazy='dynamic')
+    user = db.relationship('User', backref='role', lazy='dynamic')
 
     #创建角色
     @staticmethod
     def insert_roles():
         roles = {
-            'Visitor': (Permission.VISITOR, True),
-            'Staff':(Permission.COMMONSTAFF|Permission.VISITOR,False),
-            'Houseowner':(Permission.HOUSEOWNER|Permission.VISITOR,False),
-            'Administrator':(Permission.VISITOR|Permission.COMMONSTAFF|Permission.HOUSEOWNER,False)
+            'Houseowner': (Permission.HOUSEOWNER, True),
+            'Admin':(Permission.ADMIN,False)
         }
         for r in roles:
             role = Role.query.filter_by(name=r).first()
@@ -44,56 +41,54 @@ class Role(db.Model):
     def __repr__(self):
         return '<Role %r>' % self.name
 
-class Staff(UserMixin, db.Model):
-    __tablename__ = 'staffs'
-    staffid = db.Column(db.String(64),primary_key=True,index=True)#员工编号
-    staffname = db.Column(db.String(64),unique=True,index=True)#员工姓名
-    age= db.Column(db.Integer)#年龄
-    password_hash =db.Column(db.String(128))#密码散列
-    entertime = db.Column(db.DateTime(),default=datetime.utcnow)#上次登录
-    gender = db.Column(db.String(4))#性别
-    salary = db.Column(db.Integer)#薪资
-    phone = db.Column(db.String(11),unique=True)#联系方式
-    idcard = db.Column(db.String(18),unique=True)#身份证号
-    job = db.Column(db.String(18))#工种
-    role_id = db.Column(db.String(64),db.ForeignKey('roles.id'))#角色
-    holiday_holidayid = db.relationship('Holiday', backref='staff', lazy='dynamic')
-    reimbursement_reimbursementid=db.relationship('Reimbursement',backref='staff',lazy='dynamic')
+class User(UserMixin,db.Model):
+    __tablename__='users'
+    house_houseid=db.Column(db.String(10),primary_key=True)#房产编号
+    username=db.Column(db.String(16),unique=True)#用户名，用于登录，业主初始用户名为房产编号
+    password_hash=db.Column(db.String(128))#密码散列
+    role_id=db.Column(db.Integer, db.ForeignKey('roles.id'))
+
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
 
     @password.setter
-    def password(self,password):
+    def password(self, password):
         self.password_hash = generate_password_hash(password)
-    def verify_password(self,password):
-         return check_password_hash(self.password_hash, password)
-    '''
-    @password.setter
-    def password(self,password):
-        self.password_hash = generate_password_hash(password)
-    def verify_password(self,password):
-        return check_password_hash(self.password_hash,password)
-'''
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
     #定义默认角色
     def __init__(self, **kwargs):
-        super(Staff, self).__init__(**kwargs)
+        super(User, self).__init__(**kwargs)
         if self.role is None:
-            if self.staffname == 'admin':
-                self.role = Role.query.filter_by(permissions=0x07).first()
-           # if self.role is None:
-             #   self.role = Role.query.filter_by(permissions=0x05).first()
+            if self.house_houseid == '000':
+                self.role = Role.query.filter_by(permissions=0x01).first()
+            if self.role is None:
+                self.role = Role.query.filter_by(default=True).first()
 
     #检查用户是否有指定的权限
     def can(self,permissions):
         return self.role is not None and (self.role.permissions & permissions) == permissions
     def is_administrator(self):
-        return self.can(Permission.ADMINISTRATOR)
+        return self.can(Permission.ADMIN)
 
     # 刷新用户的最后访问时间,每次用户请求时都要调用ping()方法。
     def ping(self):
         self.last_seen = datetime.utcnow()
         db.session.add(self)
+
+class Staff(UserMixin, db.Model):
+    __tablename__ = 'staffs'
+    staffid = db.Column(db.String(64),primary_key=True,index=True)#员工编号
+    staffname = db.Column(db.String(64),unique=True,index=True)#员工姓名
+    age= db.Column(db.Integer)#年龄
+    gender = db.Column(db.String(4))#性别
+    phone = db.Column(db.String(11),unique=True)#联系方式
+    idcard = db.Column(db.String(18),unique=True)#身份证号
+    job = db.Column(db.String(18))#工种
+
 
 class Holiday(UserMixin, db.Model):
     __tablename__='holidays'
