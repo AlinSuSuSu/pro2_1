@@ -8,22 +8,22 @@
         {% endblock %}
     {% block page_content_right %}
         <div id="right-side">
-            <table class="table table-hover">
+            <table class="table table-hover table-bordered ">
                 <caption>巡逻档案</caption>
-                <thead>
+                <thead class="ss-fixedthead">
                 <tr>
-                    <th>事件编号</th>
-                    <th>事件类型</th>
-                    <th>发生时间</th>
-                    <th>处理人</th>
-                    <th>当事人</th>
-                    <th>当事人电话</th>
-                    <th>处理结果</th>
-                    <th>事件概要</th>
-                    <th><a href="{{ url_for('community.patrol_add') }}">添加</a> </th>
+                    <th >事件编号</th>
+                    <th >事件类型</th>
+                    <th >发生时间</th>
+                    <th >处理人</th>
+                    <th >当事人</th>
+                    <th >当事人电话</th>
+                    <th >处理结果</th>
+                    <th >事件概要</th>
+                    <th ><a href="{{ url_for('community.patrol_add') }}">添加</a> </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="ss-scrolltbody">
                 {% for query in query_patrol %}
                 <tr>
                     <th>{{ query.patrolid }}</th>

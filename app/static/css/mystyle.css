@@ -32,12 +32,28 @@
 .ss-fixedthead{
     display: block;
     width:100%;
+    
+}
+.ss-fixedthead th{
+    width:100px;
+    text-align: center;
+    overflow: hidden;
 }
 .ss-scrolltbody{
     display: block;
     height:270px;
     overflow: auto;
     width: 100%;
+}
+#right-side tbody th{
+    width:100px;
+    text-align: center;
+    overflow: hidden;
+
+}
+#right-side table{
+    width:100%;
+    overflow:scroll;
 }
 .ss-table td,.ss-table th{
     width:180px;
@@ -158,4 +174,82 @@ input{
 }
 .button-area{
     margin-top:20px;
+}
+@media (min-width:1000px){
+    .banner {
+
+        height: 400px;
+    }
+    .footer{
+        height:200px;
+    }
+}
+@media(max-width: 1000px){
+    .banner {
+
+        height: 200px;
+
+    }
+    .footer{
+        height:100px;
+    }
+}
+.banner{
+    width:100%;
+    background-image:url(../picture/wood.jpg);
+}
+.footer{
+    background: #f7f7f6;
+    padding-top:25px;
+    padding-left:10%;
+    overflow: hidden;
+}
+.footer.footer-box{
+
+}
+.footer li{
+    position: relative;
+    list-style: none;
+    border:1px solid #2a6496;
+    height: 70px;
+    width: 70px;
+    margin-left:40px;
+    border-radius: 10px;
+    text-align:center;
+    float:left;
+}
+.footer-a{
+    text-decoration: none;
+}
+@media (min-width:700px) {
+    .footer li {
+        height: 100px;
+        width: 100px;
+        margin-left:80px;
+    }
+    .footer{
+        padding-left:10%;
+    }
+}
+@media (min-width:1000px) {
+    .footer li {
+        height: 100px;
+        width: 100px;
+        margin-left:80px;
+    }
+    .footer{
+        padding-left:20%;
+    }
+}
+
+
+@media (max-width:500px) {
+    .footer li {
+        height: 50px;
+        width: 50px;
+        margin-left:20px;
+    }
+    .footer{
+        padding-left:5%;
+    }
 }

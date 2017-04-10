@@ -212,6 +212,31 @@ class Patrol(UserMixin,db.Model):
     eventresult = db.Column(db.String(32),nullable=False)#处理结果
     eventdetail = db.Column(db.String(200),nullable=False)#事件概要
 
+    @staticmethod
+    def generate_fake(count=50):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            u = Patrol(patrolid=forgery_py.basic.text(length=10, digits=True),
+                       eventtype=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
+                       solveperson=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
+                       personinvolved=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
+                       phoneinvolved=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
+                       eventresult=forgery_py.basic.text(at_most=32,at_least=2, digits=False),
+                       eventtime=datetime.strptime('2017-01-01-12', "%Y-%m-%d-%H"),
+                       eventdetail=forgery_py.basic.text(at_most=200,at_least=20, digits=False),
+                       )
+            u.totalprice = 200.00
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
+
+
+
 class Infrastructure(UserMixin,db.Model):
     __tablename__='infrastructures'
     infrastructureid=db.Column(db.String(10),primary_key=True,index=True)
@@ -256,7 +281,7 @@ class Waterfee(UserMixin,db.Model):
         import forgery_py
         seed()
         for i in range(count):
-            u = Waterfee(waterfeeid=forgery_py.basic.text(lenth=10,digits=True),
+            u = Waterfee(waterfeeid=forgery_py.basic.text(length=10,digits=True),
                          house_houseid=forgery_py.basic.text(length=10, digits=True),
                          startdegree=10.0,
                          enddegree=20.0,
@@ -295,7 +320,7 @@ class Electricfee(UserMixin,db.Model):
         import forgery_py
         seed()
         for i in range(count):
-            u = Eletricfee(electricfeeid=forgery_py.basic.text(lenth=10,digits=True),
+            u = Electricfee(electricfeeid=forgery_py.basic.text(lenth=10,digits=True),
                          house_houseid=forgery_py.basic.text(length=10, digits=True),
                          startdegree=10.0,
                          enddegree=20.0,

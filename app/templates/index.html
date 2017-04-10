@@ -1,13 +1,23 @@
-{% extends 'base.html' %}
-{% import "bootstrap/wtf.html" as wtf %}
+<html>
+<head>
+    <title>
+        首页
+    </title>
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
 
-{% block title %}Home{% endblock %}
+</head>
+<body>
+<div class="banner">
+</div>
+<div class="footer">
+    <ul clas="footer-wrap">
+        <li class=" footer-box footer-staff"><a href="#" class="footer-a">员工登录</a></li>
+        <li class="footer-box footer-owner"><a href="#" class="footer-a">业主登录</a></li>
+        <li class="footer-box footer-admin"><a href="#" class="footer-a">管理员入口</a></li>
+    </ul>
+</div>
 
-{% block header %}
-    {{ super() }}
-{% endblock %}
-{% block page_content %}
-    {% if current_user.is_authenticated %}
-    <h3>Hello,{{ current_user.staffname }}</h3>
-    {% endif %}
-{% endblock %}
+</body>
+
+
+</html>
