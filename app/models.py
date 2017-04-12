@@ -88,7 +88,7 @@ class Staff(UserMixin, db.Model):
     phone = db.Column(db.String(11),unique=True)#联系方式
     idcard = db.Column(db.String(18),unique=True)#身份证号
     job = db.Column(db.String(18))#工种
-
+    enterdate=db.Column(db.Date)#入职时间
 
 class Holiday(UserMixin, db.Model):
     __tablename__='holidays'
@@ -214,7 +214,7 @@ class Patrol(UserMixin,db.Model):
         import forgery_py
         seed()
         for i in range(count):
-            u = Patrol(patrolid=forgery_py.basic.text(length=10, digits=True),
+            u = Patrol(patrolid=forgery_py.basic.text(length=10,digits=False),
                        eventtype=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
                        solveperson=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
                        personinvolved=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
