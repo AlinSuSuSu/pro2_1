@@ -29,24 +29,27 @@
 {% block page_content_right %}
     <div id="right-side">
         <form action="" class="form-horizontal"  role="form">
-            <div class="form-group">
-                <label for="dtp_input2" class="col-md-2  control-label">上次抄表日期</label>
-                <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+            <div class="row">
+            <div class="form-group col-md-5">
+                <label for="dtp_input2" class="col-md-4  control-label">上次抄表日期</label>
+                <div class="input-group date form_date col-md-7" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                     <input class="form-control" size="12" type="text" value="" readonly>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
-                <input type="hidden" id="dtp_input2" value="" /><br/>
-
-                <label for="dtp_input2" class="col-md-2 control-label">本次抄表时间</label>
-                <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                <input type="hidden" id="dtp_input2" value="" />
+            </div>
+                <div class="form-group col-md-5">
+                <label for="dtp_input2" class="col-md-4 control-label">本次抄表时间</label>
+                <div class="input-group date form_date col-md-7" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                     <input class="form-control" size="12" type="text" value="" readonly>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
-                <input type="hidden" id="dtp_input2" value="" /><br/>
-                <div class="col-md-3 col-lg-offset-2">
-                    <input class=" col-md-2 btn btn-info form-control " size="12" type="submit" value="提交" >
+                <input type="hidden" id="dtp_input2" value="" />
+                </div>
+                <div class="form-group col-md-1">
+                    <input class="btn btn-info form-control " size="12" type="submit" value="提交" >
                 </div>
             </div>
 

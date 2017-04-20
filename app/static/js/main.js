@@ -208,7 +208,7 @@ function finance_add(querya){
 			'</div>' +
 			'</div>')
 		$('#finance-form').append('<div class="col-lg-4"><input class="form-control "name="startdegree"placeholder="起始度数"></div>');
-		$('#finance-form').append('<div class="col-lg-4"><input class="form-control "name="enddegree"placeholder="当前度数"></div>');
+		$('#finance-form').append('<div class="col-lg-4"><input class="form-control "name="startdate"placeholder="起始时间"></div>');
 		$('#finance-form').append('<div id="button-areaa">'+
 			'<input type="reset"class="btn btn-info col-lg-offset-4 button-area"id="water_reset"value="重置">' +
 			'<input type="submit"class="btn btn-info col-lg-offset-1 button-area"id="water_validate"value="确定">' +
