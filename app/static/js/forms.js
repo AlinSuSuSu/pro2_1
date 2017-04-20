@@ -155,10 +155,16 @@
             }
         });
         $('#validateBtn').click(function() {
-            $('#defaultForm').bootstrapValidator('validate');
+            $('#ownerForm').bootstrapValidator('validate');
         });
         $('#resetBtn').click(function() {
-            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            $('#ownerForm').data('bootstrapValidator').resetForm(true);
+        });
+        $('#patrol_validateBtn').click(function() {
+            $('#patrolForm').bootstrapValidator('validate');
+        });
+        $('#patrol_resetBtn').click(function() {
+            $('#patrolForm').data('bootstrapValidator').resetForm(true);
         });
     });
 

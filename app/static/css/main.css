@@ -302,6 +302,7 @@ div.pagination {
   height: auto;
   width: 100%;
   overflow: hidden;
+    margin-left:15px;
 }
 #right-side #first h1, #right-side #second h1, #right-side #third h1, #right-side #fourth h1 {
   font-weight: 800;
