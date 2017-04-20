@@ -19,20 +19,14 @@
     position:absolute;
 }
 
-
-.ss-table{
-    border-collapse: collapse;
-    border: 1px solid #4b4a5e;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    width:100%;
-    max-width:900px;
+table.table.table-hover.table-bordered {
+    table-layout: fixed;
 }
+
 .ss-fixedthead{
     display: block;
     width:100%;
-    
+
 }
 .ss-fixedthead th{
     width:100px;
