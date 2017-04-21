@@ -4,8 +4,9 @@ from app.models import Waterfee,House,Electricfee,Gasfee,Cleaningfee
 import json
 from app import db
 import time
+from datetime import date
 from flask_moment import Moment
-from datetime import datetime
+import datetime
 @finance.route('/waterfee')
 def waterfee():
     charge=True
@@ -32,11 +33,14 @@ def waternotcharge():
     return resp
 @finance.route('/waterfee/add',methods=['POST','GET'])
 def waterfee_add():
-    waterfee=Waterfee(house_houseid=request.form.get('finance-houseid'),startdegree=float(request.form.get('startdegree')),enddegree=float(request.form.get('startdegree')),
-                      startdate=datetime.strftime("%Y-%m-%d",request.form.get('startdate')))
+    waterfee=Waterfee(house_houseid=request.form.get('finance-houseid'),startdegree=float(request.form.get('startdegree')),enddegree=float(request.form.get('startdegree')))
+    a=request.form.get('startdate')
+    b=datetime.datetime.strptime(a,'%Y-%m-%d').date()
+    waterfee.startdate=b
+    waterfee.waterfeeid=waterfee.house_houseid
     waterfee.enddate=waterfee.startdate
     waterfee.priceperdegree=1.0
-    waterfee.totalprice=(waterfee.enddegree-waterfee.startdegree)*float(waterfee.priceperdegree)
+    waterfee.totalprice=0
     db.session.add(waterfee)
     db.session.commit()
     return redirect(url_for('finance.waterfee'))

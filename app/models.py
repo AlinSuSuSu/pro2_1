@@ -258,8 +258,8 @@ class Complaint(UserMixin,db.Model):
 
 class Waterfee(UserMixin,db.Model):
     __tablename__='waterfees'
-    waterfeeid=db.Column(db.String(10),primary_key=True,index=True)
-    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),)
+    waterfeeid=db.Column(db.String(20),primary_key=True,index=True)
+    house_houseid = db.Column(db.String(10))
     startdegree=db.Column(db.Float)#月初度数
     enddegree=db.Column(db.Float)#月末度数
     priceperdegree=db.Column(db.Float,default='1.0')#每度价格
