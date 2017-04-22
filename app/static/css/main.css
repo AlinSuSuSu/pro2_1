@@ -206,28 +206,18 @@ div.pagination {
   bottom: 0;
   left: 0;
   right: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: flex-start;
-  -ms-flex-align: center;
-   align-items: flex-start;
     overflow: hidden;
-    justify-content: flex-start;
-    flex-direction: row;
 }
 
 #left-side {
     height: 70%;
-    width: 25%;
+    width: 15%;
     font-family: '微软雅黑', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
     font-size:15px;
     padding-left:40px;
     -webkit-box-align: center;
     -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
     -webkit-box-pack: center;
 }
@@ -300,24 +290,9 @@ div.pagination {
 
 #right-side {
   height: auto;
-  width: 100%;
+  width: 85%;
   overflow: hidden;
     margin-left:15px;
-}
-#right-side #first h1, #right-side #second h1, #right-side #third h1, #right-side #fourth h1 {
-  font-weight: 800;
-  color: #333;
-}
-#right-side #first p, #right-side #second p, #right-side #third p, #right-side #fourth p {
-  color: #333;
-  font-weight: 500;
-  padding-left: 30px;
-  padding-right: 30px;
-}
-#right-side #first.active, #right-side #second.active, #right-side #third.active, #right-side #fourth.active {
-  margin-top: 0px;
-  opacity: 1;
-
 }
 
 
@@ -350,7 +325,3 @@ body{
 }
 a:hover,a:focus{color:#74777b;}
 
-@media (min-width: 786px){
-    #left-side{
-    width:230px;}
-}

@@ -8,92 +8,137 @@
         {% endblock %}
     {% block page_content_right %}
         <div id="right-side">
-        <div class="ss-form-header">
-            <label id="ss-form-label">故障申请</label>
-            <div id="ss-form-line"></div>
-        </div>
-        <form method="POST" action="/community/repairation/apply/post">
-        <div class="ss-form-body">
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">报修单号:</div>
-                  <input class="ss-form-control"id="addrepairationid"name="add_repairationid">
+        <div class="row">
+                <div class="col-md-10">
+                    <div class="page-header">
+                        <h4>故障申请</h4>
+                    </div>
+                </div>
             </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">业主姓名:</div>
-                  <select class="ss-form-control"id="ownername"name="ownername">
-                      <option value=""></option>
-                      {% for query in querys %}
-                      <option value="{{ query.owner_ownername }}">{{ query.owner_ownername }}</option>
-                      {% endfor %}
-                  </select>
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">门牌编号:</div>
-                  <input class="ss-form-control"id="addhouse_houseid"name="add_house_houseid">
-            </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">报修内容:</div>
-                  <input class="ss-form-control"id="addrepairationtype"name="add_repairationcontent">
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                <div class="ss-name-label">预计费用:</div>
-                <input class="ss-form-control"id="addrepairationtype"name="add_repairationestimatedcost">
 
+        <form id="patrolForm"  method="POST" class='form-horizontal' action="/community/repairation/apply/post">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">保修单号</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control"id="addrepairationid" name="add_repairationid" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <label class="col-md-4 control-label">业主姓名：</label>
+                    <div class="col-md-6">
+                        <select class="form-control"id="ownername"name="add_ownername">
+                            <option value=""></option>
+                            {% for query in querys %}
+                            <option value="{{ query.owner_ownername }}">{{ query.owner_ownername }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
             </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">实际费用:</div>
-                  <input class="ss-form-control"id="addrepairationcommunity"name="add_repairationacutalcost"disabled>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">门牌编号</label>
+                        <div class="col-md-6">
+                            <input class="form-control" id="addhouse_houseid"name="add_house_houseid"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">监督人</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="addrepairationremark"name="add_repairationsupervisitor" />
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">预计费用</label>
+                        <div class="col-md-6">
+                            <input class="form-control" id="addrepairationtype"name="add_repairationestimatedcost"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">实际费用</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="addrepairationactualcost"name="add_repairationacutalcost" />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">负责人:</div>
-                  <input class="ss-form-control"id="addrepairationaddress"name="add_repairationresperson">
-
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">负责人</label>
+                        <div class="col-md-6">
+                            <input class="form-control" id="addrepairationaddress"name="add_repairationresperson"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">负责人电话</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control"id="addrepairationremark"name="add_repairationresphone" />
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">报修时间</label>
+                        <div class="col-md-6">
+                            <input class="form-control" id="addrepairationremark"name="add_repairationtime"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">竣工时间</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control"id="addrepairationremark"name="add_repairationcomptime" />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">负责人电话：</div>
-                  <input class="ss-form-control"id="addrepairationremark"name="add_repairationresphone">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">审核情况</label>
+                        <div class="col-md-6">
+                            <select class="form-control" id="addrepairationremark"name="add_repairationcheck" >
+                            <option value="否">未审核</option>
+                            <option value="是">已审核</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-lg-10 form-group col-md-10 col-sm-10 col-xs-10">
+                    <label class="col-md-2 control-label">报修内容</label>
+                    <div class="col-md-10">
+                        <input type="text" id="addrepairationtype"name="add_repairationcontent" class="form-control"/>
+                    </div>
+                </div>
             </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">监督人：</div>
-                  <input class="ss-form-control"id="addrepairationremark"name="add_repairationsupervisitor">
+            <div class="form-group">
+                <div class="col-md-5">
+                    <input type="submit" class="btn btn-danger pull-right" id="repairation_validateBtn">
+                </div>
+                <div class="col-md-5">
+                    <input type="reset" class="btn btn-default pull-left" id="repairation_resetBtn">
+                </div>
             </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">报修时间：</div>
-                  <input class="ss-form-control"id="addrepairationremark"name="add_repairationtime">
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">竣工时间：</div>
-                  <input class="ss-form-control"id="addrepairationremark"name="add_repairationcomptime">
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">审核：</div>
-                  <input class="ss-form-control"id="addrepairationremark"name="add_repairationcheck"value="否">
-            </div>
-            </div>
-            <div class="ss-form-body-row ss-form-body-row-btn">
-            <div class="ss-form-group ss-form-gruop-btn">
-                  <input class="ss-form-control"id="reset"name="重置"type="reset">
-                  <input class="ss-form-control"id="repairationname"name="提交"type="submit">
-            </div>
-            </div>
-        </div>
         </form>
         </div>
         {% endblock %}
