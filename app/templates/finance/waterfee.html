@@ -34,17 +34,42 @@
     <ul class="nav nav-tabs">
       <li{% if  charge %} class="active"{% endif %}><a href="{{ url_for('finance.watercharge') }}">生成明细</a></li>
       <li{% if not charge %} class="active"{% endif %}><a href="{{ url_for('finance.waternotcharge') }}">查看历史</a></li>
-
     </ul>
-
     <br>
     {% if charge %}
     <div class="row">
                 <div class="form-group col-md-2">
                     <a href="{{ url_for("finance.waterfee_create") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_create" value="生成明细账单" ></a>
                 </div>
+    </div>
+    {% endif %}
+    {% if not charge %}
+         <form action="" class="form-horizontal"  role="form">
+            <div class="row">
+            <div class="form-group col-md-6">
+                <label for="dtp_input2" class="col-md-5  control-label">上次抄表日期</label>
+                <div class="input-group date form_date col-md-7" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="12" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input type="hidden" id="dtp_input2" value="" />
+            </div>
+                <div class="form-group col-md-6">
+                <label for="dtp_input2" class="col-md-5 control-label">本次抄表时间</label>
+                <div class="input-group date form_date col-md-7" data-date="" name="water_startdate" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="12" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input type="hidden" id="dtp_input2" value="" />
+                </div>
+                <div class="form-group col-md-4">
+                    <input class="btn btn-info form-control " size="12" type="submit" value="提交" >
+                </div>
+            </div>
 
-</div>
+        </form>
     {% endif %}
         <table class="ss-table">
                 <thead class="ss-fixedthead">
