@@ -1,4 +1,4 @@
-from flask import render_template,url_for,redirect,request,make_response
+from flask import render_template,url_for,redirect,request,make_response,flash
 from app.finance import finance
 from app.models import Waterfee,House,Electricfee,Gasfee,Cleaningfee
 import json
@@ -15,10 +15,15 @@ def waterfee():
     for querya  in query_house:
         a.append(querya.houseid)
     charge = bool(request.cookies.get('charge', ''))
+    j=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()
+    n=Waterfee.query.first()
+    l=Waterfee.query.all()
+
     if charge:
-        querys=Waterfee.query.filter_by(pay='是').all()
+        #querys=Waterfee.query.all()
+        querys=Waterfee.query.filter_by(enddate=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()).all()
     else:
-        querys=Waterfee.query.filter_by(pay='否').all()
+        querys=Waterfee.query.all()
     return render_template('/finance/waterfee.html',charge=charge,querys=querys,query_house=a)
 
 @finance.route('/waterfee/charge')
@@ -44,6 +49,31 @@ def waterfee_add():
     db.session.add(waterfee)
     db.session.commit()
     return redirect(url_for('finance.waterfee'))
+@finance.route('/waterfee/create/',methods=['GET','POST'])
+def waterfee_create():
+
+    query_house=House.query.all()
+    query_waterfee=Waterfee.query.first()
+    date=datetime.datetime.now()
+    if query_waterfee is not None:
+        if query_waterfee.startdate.year==date.year and query_waterfee.startdate.month==date.month:
+            flash("已经生成了账单")
+    else:
+        for v in query_house:
+            waterfee=Waterfee(house_houseid=v.houseid,totalprice=0)
+            if  query_waterfee is not None:
+                waterfee.startdate=query_waterfee.enddate
+                waterfee.startdegree=query_waterfee.enddegree
+            else:
+                waterfee.startdate=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()
+                waterfee.startdegree=0
+            waterfee.enddate=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()
+            waterfee.enddegree=waterfee.startdegree
+            waterfee.waterfeeid=str(waterfee.enddate)+str(waterfee.startdate)+waterfee.house_houseid
+            #waterfee.waterfeeid=datetime.datetime.strftime("%Y%m%d",waterfee.startdate)+waterfee.house_houseid
+            db.session.add(waterfee)
+            db.session.commit()
+    return redirect(url_for("finance.waterfee"))
 
 @finance.route('/waterfee/delete/<string:houseid>',methods=['GET','POST'])
 def waterfee_delete(houseid):

@@ -293,6 +293,11 @@ class Waterfee(UserMixin,db.Model):
             except IntegrityError:
                 db.session.rollback()
 
+    '''@property
+    def year(self,enddate):
+        return self.enddate.year
+    def month(self,enddate):
+        return self.enddate.month'''
 
 
 class Electricfee(UserMixin,db.Model):

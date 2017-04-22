@@ -235,3 +235,32 @@ function finance_add(querya){
 	popup(querya);
 	del();
 }
+/*
+function waterfee_create(query_waterfee){
+	function create(query_waterfee){
+		var date = new Date();
+
+		if(query_waterfee){
+			if(parseInt(query_waterfee[0].substr(0,4))==date.getFullYear()&&parseInt(query_waterfee[0].substr(4,2)==date.getMonth()) ){
+					alert('已经生成过本月的明细账单');
+			}
+
+		}
+		else{
+			$.ajax({
+				url:'/finance/waterfee/create',
+				type:'POST',
+				dataType:'JSON',
+				success:function(resp) {
+                    if (resp.status != 1) {
+                        alert("生成失败：" + resp.message);
+                    }
+                    location.reload()
+                }
+				})
+		}
+
+	}
+	 create(query_waterfee);
+
+}*/

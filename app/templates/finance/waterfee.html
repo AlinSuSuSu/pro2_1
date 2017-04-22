@@ -28,39 +28,24 @@
 {% endblock %}
 {% block page_content_right %}
     <div id="right-side">
-        <form action="" class="form-horizontal"  role="form">
-            <div class="row">
-            <div class="form-group col-md-5">
-                <label for="dtp_input2" class="col-md-4  control-label">上次抄表日期</label>
-                <div class="input-group date form_date col-md-7" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" size="12" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
-                <input type="hidden" id="dtp_input2" value="" />
-            </div>
-                <div class="form-group col-md-5">
-                <label for="dtp_input2" class="col-md-4 control-label">本次抄表时间</label>
-                <div class="input-group date form_date col-md-7" data-date="" name="water_startdate" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" size="12" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
-                <input type="hidden" id="dtp_input2" value="" />
-                </div>
-                <div class="form-group col-md-1">
-                    <input class="btn btn-info form-control " size="12" type="submit" value="提交" >
-                </div>
-            </div>
 
-        </form>
 <br>
     <div id="right-side-tabs">
     <ul class="nav nav-tabs">
-      <li{% if  charge %} class="active"{% endif %}><a href="{{ url_for('finance.watercharge') }}">已收取</a></li>
-      <li{% if not charge %} class="active"{% endif %}><a href="{{ url_for('finance.waternotcharge') }}">未收取</a></li>
+      <li{% if  charge %} class="active"{% endif %}><a href="{{ url_for('finance.watercharge') }}">生成明细</a></li>
+      <li{% if not charge %} class="active"{% endif %}><a href="{{ url_for('finance.waternotcharge') }}">查看历史</a></li>
 
     </ul>
+
+    <br>
+    {% if charge %}
+    <div class="row">
+                <div class="form-group col-md-2">
+                    <a href="{{ url_for("finance.waterfee_create") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_create" value="生成明细账单" ></a>
+                </div>
+
+</div>
+    {% endif %}
         <table class="ss-table">
                 <thead class="ss-fixedthead">
                     <th class="ss-td">序号</th>
@@ -78,7 +63,7 @@
                 <tbody class="ss-scrolltbody">
                 {% for query in querys %}
                     <tr class="ss-tr">
-                        <td class="ss-td">{{ 1 }}</td>
+                        <td class="ss-td">{{ query.waterfeeid}}</td>
                         <td class="ss-td">{{ query.house_houseid}}</td>
                         <td class="ss-td">{{ query.item }}</td>
                         <td class="ss-td">{{ query.startdegree }}</td>
@@ -88,7 +73,6 @@
                         <td class="ss-td">{{ query.priceperdegree }}</td>
                         <td class="ss-td">{{ query.totalprice }}</td>
                         <td class="ss-td">{{ query.pay }}<td>
-
                         <a href="#"class="ss-table-detail"id="{{ query.house_houseid }}">编辑</a>
                         <a href="{{ url_for("finance.waterfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-waterfee"id="{{ query.house_houseid }}">删除</a>
 
