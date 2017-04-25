@@ -354,3 +354,6 @@ a:hover,a:focus{color:#74777b;}
     #left-side{
     width:230px;}
 }
+table th{
+    overflow: hidden;
+}

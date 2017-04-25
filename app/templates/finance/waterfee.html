@@ -44,32 +44,12 @@
     </div>
     {% endif %}
     {% if not charge %}
-         <form action="" class="form-horizontal"  role="form">
-            <div class="row">
-            <div class="form-group col-md-6">
-                <label for="dtp_input2" class="col-md-5  control-label">上次抄表日期</label>
-                <div class="input-group date form_date col-md-7" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" size="12" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
-                <input type="hidden" id="dtp_input2" value="" />
-            </div>
-                <div class="form-group col-md-6">
-                <label for="dtp_input2" class="col-md-5 control-label">本次抄表时间</label>
-                <div class="input-group date form_date col-md-7" data-date="" name="water_startdate" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" size="12" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
-                <input type="hidden" id="dtp_input2" value="" />
-                </div>
-                <div class="form-group col-md-4">
-                    <input class="btn btn-info form-control " size="12" type="submit" value="提交" >
-                </div>
-            </div>
-
-        </form>
+        <div class="form-group col-md-2">
+            <a href="{{ url_for("finance.orderdesc") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_orderdesc" value="按时间倒序" ></a>
+        </div>
+        <div class="form-group col-md-2">
+            <a href="{{ url_for("finance.orderasc") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_orderasc" value="按时间顺序" ></a>
+        </div>
     {% endif %}
         <table class="ss-table">
                 <thead class="ss-fixedthead">
@@ -83,24 +63,25 @@
                     <th class="ss-td">每单位价格</th>
                     <th class="ss-td">总共费用</th>
                     <th class="ss-td">是否缴纳</th>
-                    <th class="ss-td"><input class='finance-bt 'onclick="finance_add({{query_house}})" type='button'name="添加"value="添加"/><a href="#"class="ss-table-detail"id="">编辑</a></th>
+                    <th class="ss-td">{% if not charge %}<input class='btn 'onclick="finance_add({{query_house}})" type='button'name="添加"value="添加"/>{% else %}<input class="btn"onclick="waterfee_modify()" type="button"name="编辑全部"value="编辑">{% endif %}</th>
                 </thead>
                 <tbody class="ss-scrolltbody">
+
                 {% for query in querys %}
                     <tr class="ss-tr">
                         <td class="ss-td">{{ query.waterfeeid}}</td>
                         <td class="ss-td">{{ query.house_houseid}}</td>
                         <td class="ss-td">{{ query.item }}</td>
-                        <td class="ss-td">{{ query.startdegree }}</td>
+                        <td class="ss-td"id="input_td"><input style="border:none;background:transparent"value="{{ query.startdegree }}" type="text"id="{{ query.waterfeeid }}" readonly="true"name="waterfee_startdegree_input"onfocus="waterfee_focus({{ query.waterfeeid }})" onblur="waterfee_save({{ query.waterfeeid }})"/></td>
                         <td class="ss-td">{{ query.enddegree }}</td>
                         <td class="ss-td">{{ query.startdate }}</td>
                         <td class="ss-td">{{ query.enddate }}</td>
                         <td class="ss-td">{{ query.priceperdegree }}</td>
                         <td class="ss-td">{{ query.totalprice }}</td>
-                        <td class="ss-td">{{ query.pay }}<td>
-                        <a href="#"class="ss-table-detail"id="{{ query.house_houseid }}">编辑</a>
+                        <td class="ss-td">{{ query.pay }}</td>
+                        <td><a href="{{ url_for("finance.waterfee_modify",houseid=query.house_houseid) }}" class="btn">编辑</a>
                         <a href="{{ url_for("finance.waterfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-waterfee"id="{{ query.house_houseid }}">删除</a>
-
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

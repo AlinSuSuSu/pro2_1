@@ -54,40 +54,41 @@
               </div>
               </div>
           </form>
-
-            <table class="ss-table">
-                <thead class="ss-fixedthead">
-                    <th class="ss-td">序号</th>
-                    <th class="ss-td">门牌编号</th>
-                    <th class="ss-td">业主姓名</th>
-                    <th class="ss-td">户型</th>
-                    <th class="ss-td">房屋面积</th>
-                    <th class="ss-td">房屋状态</th>
-                    <th class="ss-td">产权年限</th>
-                    <th class="ss-td">小区名称</th>
-                    <th class="ss-td">具体地址</th>
-                    <th class="ss-td">备注</th>
-                    <th class="ss-td"><a href="{{ url_for('house.house_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
+              <div class="table-responsive">
+                  <table class="table table-hover table-condensed table-bordered ">
+                      <thead >
+                    <th>序号</th>
+                    <th>门牌编号</th>
+                    <th>业主姓名</th>
+                    <th>户型</th>
+                    <th>房屋面积</th>
+                    <th>房屋状态</th>
+                    <th>产权年限</th>
+                    <th>小区名称</th>
+                    <th>具体地址</th>
+                    <th>备注</th>
+                    <th><a href="{{ url_for('house.house_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
                 </thead>
-                <tbody class="ss-scrolltbody">
+                <tbody>
                 {% for query in querys %}
-                    <tr class="ss-tr">
-                        <td class="ss-td">{{ 1 }}</td>
-                        <td class="ss-td">{{ query.houseid }}</td>
-                        <td class="ss-td">{{ query.owner_ownername}}</td>
-                        <td class="ss-td">{{ query.housetype }}</td>
-                        <td class="ss-td">{{ query.housespace }}</td>
-                        <td class="ss-td">{{ query.housestatus }}</td>
-                        <td class="ss-td">{{ query.houseyears }}</td>
-                        <td class="ss-td">{{ query.housecommunity }}</td>
-                        <td class="ss-td">{{ query.houseaddress }}</td>
-                        <td class="ss-td">{{ query.houseremark }}<td>
-                        <td class="ss-td"><a href="{{ url_for('house.house_delete',house_id=query.houseid) }}"class="ss-table-delete-house"id="{{ query.houseid }}">删除</a>
+                    <tr>
+                        <td>{{ 1 }}</td>
+                        <td>{{ query.houseid }}</td>
+                        <td>{{ query.owner_ownername}}</td>
+                        <td>{{ query.housetype }}</td>
+                        <td>{{ query.housespace }}</td>
+                        <td>{{ query.housestatus }}</td>
+                        <td>{{ query.houseyears }}</td>
+                        <td>{{ query.housecommunity }}</td>
+                        <td>{{ query.houseaddress }}</td>
+                        <td>{{ query.houseremark }}<td>
+                        <td><a href="{{ url_for('house.house_delete',house_id=query.houseid) }}"class="ss-table-delete-house"id="{{ query.houseid }}">删除</a>
                             <a href="{{ url_for('house.house_detail',house_id=query.houseid) }}"class="ss-table-detail"id="{{ query.houseid }}">详情</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+              </div>
       </div>
 
   </div>

@@ -235,6 +235,21 @@ function finance_add(querya){
 	popup(querya);
 	del();
 }
+function waterfee_modify(waterfeeid){
+	$("#input_td input").attr("readonly",false);
+	$("#input_td input").css("background","#aaddee");
+
+
+}
+function waterfee_save(waterfeeid){
+	startdegree=document.getElementById(waterfeeid).setAttribute('background','#eeeeaa');
+}
+function waterfee_focus(waterfeeid){
+	startdegree=document.getElementById(waterfeeid).setAttribute('background','#aeeef');
+
+
+
+}
 /*
 function waterfee_create(query_waterfee){
 	function create(query_waterfee){
