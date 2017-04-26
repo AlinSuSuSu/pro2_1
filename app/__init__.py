@@ -2,12 +2,14 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from config import config
+from flask_uploads import IMAGES,patch_request_class, UploadSet,configure_uploads
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 bootstrap = Bootstrap()
 moment = Moment()
 db = SQLAlchemy()
+photos=UploadSet('photos',IMAGES)
 #登录
 login_manager = LoginManager()
 login_manager.session_protection = "Strong"
@@ -17,10 +19,11 @@ login_manager.login_view = 'auth.login'
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+    configure_uploads(app, photos)
+    patch_request_class(app)
     bootstrap.init_app(app)
     moment.init_app(app)
     db.init_app(app)
-
     login_manager.init_app(app)
 
     #附加路由和自定义的错误页面

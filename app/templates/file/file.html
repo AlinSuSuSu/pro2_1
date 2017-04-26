@@ -3,11 +3,25 @@
 {% block title %}下载{% endblock %}
 
 {% block page_content %}
-    <div class ='col-md-3'>
-    {{ wtf.quick_form(form) }}
-    <br>
+    <form method="POST" enctype="multipart/form-data">
+     {{ form.hidden_tag() }}
+     {{ form.photo }}
+     {% for error in form.photo.errors %}
+         <span style="color: red;">{{ error }}</span>
+     {% endfor %}
+     {{ form.submit }}
+</form>
 
-    </div>
+{% if file_url %}
+<br><img src="{{ file_url }}">
+{% endif %}
+    <ul>
+    {% for q in query %}
+
+        <li>{{ q.filename }}<input type="button"value="下载"></li>
+
+    {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block footer %}

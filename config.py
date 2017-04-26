@@ -6,7 +6,10 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
                               'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
+    UPLOADS_DEFAULT_DEST='F:PythonLearning/pro2_1/uploads'
 
+    ALLOWED_EXTENSIONS=set(['txt','pdf','png','jpg','jpeg','gif','doc','xls'])
+    MAX_CONTENT_LENGTH=16*2014*1024
     @staticmethod
     def init_app(app):
         pass

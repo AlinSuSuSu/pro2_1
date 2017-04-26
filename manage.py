@@ -7,6 +7,7 @@ app = create_app(os.getenv("FLASK_CONFIG") or 'default')
 manager = Manager(app)
 migrate = Migrate(app,db)
 
+
 def make_shell_context():
     return dict(app = app, db = db,Staff=Staff,Role=Role,Reimbursement=Reimbursement,Holiday=Holiday,House=House,Owner=Owner,Waterfee=Waterfee,Patrol=Patrol,Repairation=Repairation)
 manager.add_command("shell",Shell(make_context=make_shell_context))

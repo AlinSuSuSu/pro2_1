@@ -426,3 +426,7 @@ class Cleaningfee(UserMixin,db.Model):
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
+class File(UserMixin,db.Model):
+    __tablename__='files'
+    id=db.Column(db.Integer,primary_key=True,index=True)
+    filename=db.Column(db.String(128))
