@@ -1,12 +1,13 @@
 from flask import url_for,render_template,request,redirect
 from app import db
-from app.models import Repairation,Patrol,Staff,Infrastructure,Complaint
+from app.models import Repairation,Patrol,Staff,Infrastructure,Complaint,Owner,House
 from app.community import community
 import json
 from datetime import datetime
 @community.route('/repairation/',methods=['GET','POST'])
 def repairation():
     queryall=Repairation.query.all()
+
     repairationid=request.args.get('repairationid')
     houseid=request.args.get('houseid')
     if (houseid != '' and houseid is not None) or (repairationid is not None and repairationid != ''):
@@ -22,15 +23,41 @@ def repairation():
 
 @community.route('/repairation/apply',methods=['GET','POST'])
 def repairation_apply():
-    return render_template('community/repairation_apply.html')
+    query_owner=Owner.query.all()
+    query_house=House.query.all()
+    query_staff=Staff.query.all()
+    return render_template('community/repairation_apply.html',query_owner=query_owner)
 
 @community.route('/repairation/apply/post',methods=['POST','GET'])
 def repairation_apply_post():
-    repairation=Repairation(repairationid=request.form.get('add_repairationid'),house_houseid=request.form.get('add_house_houseid'),owner_ownername=request.form.get('add_ownername'),
+    repairation=Repairation(house_houseid=request.form.get('add_house_houseid'),
                 repairationcontent=request.form.get('add_repairationcontent'),repairationestimatedcost=request.form.get('add_repairationestimatedcost'),
                 repairationactualcost=request.form.get('add_repairationactualcost'),repairationresperson=request.form.get('add_repairationresperson'),
-                        repairationresphone=request.form.get('add_repairationresphone'),repairationsupervisitor=request.form.get('add_repairationsupervisitor'),repairationtime=request.form.get('add_repairationtime'),
-                        repairationcomptime=request.form.get('add_repairationcomptime'),repairationcheck=request.form.get('add_repairationcheck'))
+                        repairationresphone=request.form.get('add_repairationresphone'),repairationsupervisitor=request.form.get('add_repairationsupervisitor'),repairationtime=datetime.strptime((request.form.get('add_repairationtime')).strip(),"%Y-%m-%d"),
+                        repairationcomptime=datetime.strptime((request.form.get('add_repairationcomptime')).strip(),"%Y-%m-%d"),repairationcheck=request.form.get('add_repairationcheck'))
+    repairation.repairationreplytime=datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M:%S'),'%Y-%m-%d %H:%M:%S')
+    repairation.repairationid=str(repairation.repairationreplytime)+repairation.house_houseid
+    query= Owner.query.filter_by(house_houseid=repairation.house_houseid).first()
+    if query is not None:
+        repairation.owner_ownername = query.ownername
+    else:
+        repairation.owner_ownername = ''
+    db.session.add(repairation)
+    db.session.commit()
+    return redirect(url_for('community.repairation'))
+@community.route('/repairation/detail/post',methods=['POST','GET'])
+def repairation_detail_post():
+    repairation=Repairation.query.filter_by(repairationid=request.form.get("add_repairationid")).first()
+    repairation.repairationcontent=request.form.get('add_repairationcontent')
+    repairation.repairationestimatedcost=request.form.get('add_repairationestimatedcost')
+    repairation.repairationactualcost=request.form.get('add_repairationactualcost')
+    repairation.repairationresperson=request.form.get('add_repairationresperson')
+    repairation.repairationresphone=request.form.get('add_repairationresphone')
+    repairation.repairationsupervisitor=request.form.get('add_repairationsupervisitor')
+    repairation.repairationtime=datetime.strptime((request.form.get('add_repairationtime')).strip(),"%Y-%m-%d")
+    repairation.repairationcomptime=datetime.strptime((request.form.get('add_repairationcomptime')).strip(),"%Y-%m-%d")
+    repairation.repairationcheck=request.form.get('add_repairationcheck')
+
     db.session.add(repairation)
     db.session.commit()
     return redirect(url_for('community.repairation'))
@@ -47,9 +74,9 @@ def repairation_delete(repairationid):
     db.session.commit()
     return json.dumps(res)
 
-@community.route('/repairation/detail/<int:repairationid>',methods=['GET','POST'])
+@community.route('/repairation/detail/<string:repairationid>',methods=['GET','POST'])
 def repairation_detail(repairationid):
-    query=Repairation.query.filter_by(repairationid=repairation)
+    query=Repairation.query.filter_by(repairationid=repairationid).first()
     return render_template('community/repairation_detail.html',query=query)
 
 @community.route('/patrol',methods=['GET','POST'])

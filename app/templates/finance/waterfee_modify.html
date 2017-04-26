@@ -1,17 +1,38 @@
-{% extends 'house/house_message.html' %}
-{% block title %}添加房产{% endblock %}
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}水费{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
+{% endblock %}
 
 {% block page_content %}
-    <div id="wrapper">
-    {% block page_content_left %}
-        {{ super() }}
-        {% endblock %}
-    {% block page_content_right %}
+<div id="wrapper">
+{% block page_content_left %}
+  <div id="left-side">
+   <ul>
+       <li class="pm-staffmessage active"><a href="{{ url_for('finance.waterfee') }}">水费</a></li>
+       <li class="pm-staffmessage active"><a href="{{ url_for('finance.electricfee') }}">电费</a></li>
+       <li class="pm-staffmessage active"><a href="{{ url_for('finance.gasfee') }}">天然气费</a></li>
+       <li class="pm-staffmessage active"><a href="{{ url_for('finance.cleaningfee') }}">卫生费</a></li>
+       <li class="pm-staffbonus"><a href="{{ url_for('community.patrol') }}">其他收费</a></li>
+
+   </ul>
+  </div>
+  <div id="border">
+   <div id="line" class="one"></div>
+  </div>
+
+{% endblock %}
+{% block page_content_right %}
+    <div id="right-side">
         <div id="right-side">
             <div class="row">
                 <div class="col-md-10">
                     <div class="page-header">
-                        <h4>添加房产</h4>
+                        <h4>编辑</h4>
                     </div>
                 </div>
             </div>
@@ -19,7 +40,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label class="col-md-4 control-label">房产编号:</label>
+                        <label class="col-md-4 control-label">水费记录编号:</label>
                         <div class="col-md-6">
                             <input type="text" class="form-control" name="add_houseid" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
                         </div>
@@ -27,7 +48,7 @@
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label class="col-md-4 control-label">业主姓名:</label>
+                        <label class="col-md-4 control-label">房产编号:</label>
                         <div class="col-md-6">
                             <select class="form-control" name="add_ownername"id="addhouseid" >
                                 <option value=""></option>
@@ -42,7 +63,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label class="col-md-4 control-label">房屋面积:</label>
+                        <label class="col-md-4 control-label">上月度数:</label>
                         <div class="col-md-6">
                             <input type="text" class="form-control" placeholder="单位:平方米" id="addhousespace"name="add_housespace" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
                         </div>
@@ -50,7 +71,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">户型:</label>
+                        <label class="col-md-3 control-label">本月度数:</label>
                         <div class="col-md-8">
                             <div class="col-sm-3">
                             <input type="text" class="form-control" placeholder="室" id="addhousetype1"name="add_housetype1" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
@@ -71,7 +92,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label class="col-md-4 control-label">房屋状态:</label>
+                        <label class="col-md-4 control-label">上月抄表时间:</label>
                         <div class="col-md-6">
                             <select class="form-control"id="addhousestatus"name="add_housestatus">
                                 <option value="已售">已售</option>
@@ -83,7 +104,7 @@
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label class="col-md-4 control-label">产权年限:</label>
+                        <label class="col-md-4 control-label">本月抄表时间:</label>
                         <div class="col-md-6">
                             <input class="form-control"id="addhouseyears"name="add_houseyears">
                         </div>
@@ -93,7 +114,15 @@
             <div class="row">
                 <div class="col-md-10">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">小区名称:</label>
+                        <label class="col-md-2 control-label">物业收费项目:</label>
+                        <div class="col-md-10">
+                            <input class="form-control"id="addhousecommunity"name="add_housecommunity">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">每单位价格:</label>
                         <div class="col-md-10">
                             <input class="form-control"id="addhousecommunity"name="add_housecommunity">
                         </div>
@@ -103,17 +132,16 @@
             <div class="row">
                 <div class="col-md-10">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">具体地址:</label>
+                        <label class="col-md-2 control-label">总共费用:</label>
                         <div class="col-md-10">
                             <textarea class="form-control"id="addhouseaddress"name="add_houseaddress"rows="2"></textarea>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+
                 <div class="col-md-10">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">备注:</label>
+                        <label class="col-md-2 control-label">是否缴纳:</label>
                         <div class="col-md-10">
                             <textarea class="form-control"id="addhouseremark"name="add_houseremark"></textarea>
                         </div>
@@ -130,6 +158,14 @@
             </div>
         </form>
         </div>
-        {% endblock %}
     </div>
+{% endblock %}
+
+
+</div>
+{% endblock %}
+
+{% block script %}
+    {{ super() }}
+
 {% endblock %}

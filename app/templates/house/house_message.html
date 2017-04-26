@@ -26,53 +26,59 @@
   <div id="right-side">
           <div class = "pm-form">
 
-          <form method="GET" action='/house/house_message/'>
-              <div class="pm-search-form">
-              <div class="ss-form-group">
-                  <div class="ss-name-label">门牌编号</div>
-                  <!--<input class="ss-form-control"id="houseid"name="houseid">-->
-                  <select class="ss-form-control"id="houseid"name="houseid">
-                      <option value=""></option>
-                      {% for query in queryall %}
-                      <option value="{{ query.houseid }}">{{ query.houseid }}</option>
-                      {% endfor %}
-                  </select>
+          <form method="GET" class="form-horizontal"action='/house/house_message/'>
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label class="col-md-3 control-label">门牌编号:</label>
+                          <div class="col-md-6">
+                              <select class="form-control"id="houseid"name="houseid">
+                                  <option value=""></option>
+                                  {% for query in queryall %}
+                                      <option value="{{ query.houseid }}">{{ query.houseid }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label class="col-md-3 control-label">业主姓名:</label>
+                          <div class="col-md-6">
+                              <select class="form-control"id="ownername"name="ownername">
+                                  <option value=""></option>
+                                  {% for query in queryall %}
+                                      <option value="{{ query.owner_ownername }}">{{ query.owner_ownername }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <button id="house_searchmessage" type="submit"class="btn btn-info col-md-5">查询</button>
               </div>
-              <div class="ss-form-group">
-                  <div class="ss-name-label">业主姓名</div>
-                  <!--<input class="ss-form-control"id="ownername"name="ownername">-->
-                  <select class="ss-form-control"id="ownername"name="ownername">
-                      <option value=""></option>
-                      {% for query in queryall %}
-                      <option value="{{ query.owner_ownername }}">{{ query.owner_ownername }}</option>
-                      {% endfor %}
-                  </select>
-              </div>
-
-              <div class="ss-form-group">
-                  <button id="house_searchmessage" type="submit"class="btn">查询</button>
-              </div>
+                  </div>
               </div>
           </form>
-              <div class="table-responsive">
+          <br>
+              <div class="table-responsive ss-scrolltbody">
                   <table class="table table-hover table-condensed table-bordered ">
-                      <thead >
-                    <th>序号</th>
-                    <th>门牌编号</th>
-                    <th>业主姓名</th>
-                    <th>户型</th>
-                    <th>房屋面积</th>
-                    <th>房屋状态</th>
-                    <th>产权年限</th>
-                    <th>小区名称</th>
-                    <th>具体地址</th>
-                    <th>备注</th>
-                    <th><a href="{{ url_for('house.house_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
+                      <thead>
+                    <th class="info">门牌编号</th>
+                    <th class="info">业主姓名</th>
+                    <th class="info">户型</th>
+                    <th class="info">房屋面积</th>
+                    <th class="info">房屋状态</th>
+                    <th class="info">产权年限</th>
+                    <th class="info">小区名称</th>
+                    <th class="info">具体地址</th>
+                    <th class="info">备注</th>
+                    <th class="info"><a href="{{ url_for('house.house_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
                 </thead>
                 <tbody>
                 {% for query in querys %}
                     <tr>
-                        <td>{{ 1 }}</td>
                         <td>{{ query.houseid }}</td>
                         <td>{{ query.owner_ownername}}</td>
                         <td>{{ query.housetype }}</td>
@@ -81,7 +87,7 @@
                         <td>{{ query.houseyears }}</td>
                         <td>{{ query.housecommunity }}</td>
                         <td>{{ query.houseaddress }}</td>
-                        <td>{{ query.houseremark }}<td>
+                        <td>{{ query.houseremark }}</td>
                         <td><a href="{{ url_for('house.house_delete',house_id=query.houseid) }}"class="ss-table-delete-house"id="{{ query.houseid }}">删除</a>
                             <a href="{{ url_for('house.house_detail',house_id=query.houseid) }}"class="ss-table-detail"id="{{ query.houseid }}">详情</a></td>
                     </tr>

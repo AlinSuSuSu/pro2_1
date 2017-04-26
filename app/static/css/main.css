@@ -354,6 +354,17 @@ a:hover,a:focus{color:#74777b;}
     #left-side{
     width:230px;}
 }
-table th{
+th,td{
     overflow: hidden;
 }
+tr{
+    overflow: scroll;
+}
+tr td,th{
+    width:84px;
+
+}
+th{
+    height:30px;
+}
+

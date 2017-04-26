@@ -28,39 +28,46 @@
   <div id="right-side">
           <div class = "pm-form">
 
-          <form method="GET" action='/community/repairation/'>
-              <div class="pm-search-form">
-              <div class="ss-form-group">
-                  <div class="ss-name-label">报修编号</div>
-                  <!--<input class="ss-form-control"id="houseid"name="houseid">-->
-                  <select class="ss-form-control"id="repairationid"name="repairationid">
-                      <option value=""></option>
-                      {% for query in queryall %}
-                      <option value="{{ query.repairationid }}">{{ query.repairationid }}</option>
-                      {% endfor %}
-                  </select>
+          <form method="GET" class="form-horizontal"action='/community/repairation/'>
+          <div class="row">
+              <div class="col-md-4">
+                      <div class="form-group">
+                          <label class="col-md-3 control-label">报修编号:</label>
+                          <div class="col-md-6">
+                              <select class="form-control"id="repairationid"name="repairationid">
+                                  <option value=""></option>
+                                  {% for query in queryall %}
+                                      <option value="{{ query.repairationid }}">{{ query.repairationid }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
               </div>
-              <div class="ss-form-group">
-                  <div class="ss-name-label">门牌编号</div>
-                  <!--<input class="ss-form-control"id="ownername"name="ownername">-->
-                  <select class="ss-form-control"id="houseid"name="houseid">
-                      <option value=""></option>
-                      {% for query in queryall %}
-                      <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
-                      {% endfor %}
-                  </select>
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <label class="col-md-3 control-label">门牌编号:</label>
+                      <div class="col-md-6">
+                          <select class="ss-form-control"id="houseid"name="houseid">
+                              <option value=""></option>
+                              {% for query in queryall %}
+                              <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                  </div>
               </div>
-
-              <div class="ss-form-group">
-                  <button id="house_searchmessage" type="submit"class="btn">查询</button>
+              <div class="col-md-2">
+                  <div class="form-group">
+                      <button id="repairation_searchmessage" type="submit"class="btn btn-info col-md-5">查询</button>
+                  </div>
               </div>
-              </div>
+          </div>
+          <br>
           </form>
-              <div class="table-responsive">
+              <div class="table-responsive ss-scrolltbody">
                   <table class="table table-hover table-condensed table-bordered ">
                       <thead >
-                      <tr >
-                          <th>序号</th>
+                      <tr class="info">
                           <th>报修编号</th>
                           <th>门牌编号</th>
                           <th>业主姓名</th>
@@ -72,13 +79,12 @@
                           <th>实际费用</th>
                           <th>报修时间</th>
                           <th>竣工时间</th>
-                          <th>审核是否通过</th>
+                          <th>审核状态</th>
                           <th><a href="{{ url_for('community.repairation_apply') }}"class="ss-table-add"id="ss-table-add">申请</a></th>
                       </thead>
                       <tbody>
                         {% for query in querys %}
                             <tr >
-                        <td  >{{ 1 }}</td>
                         <td  >{{ query.repairationid }}</td>
                         <td  >{{ query.house_houseid}}</td>
                         <td  >{{ query.owner_ownername}}</td>
@@ -87,10 +93,10 @@
                         <td  >{{ query.repairationresphone }}</td>
                         <td  >{{ query.repairationsupervisitor }}</td>
                         <td  >{{ query.repairationestimatedcost }}</td>
-                        <td  >{{ query.repairationactualcost }}<td>
-                        <td  >{{ query.repairationtime }}<td>
-                        <td  >{{ query.repairationcomptime }}<td>
-                        <td  >{{ query.repairationcheck }}<td>
+                        <td  >{{ query.repairationactualcost }}</td>
+                        <td  >{{ query.repairationtime }}</td>
+                        <td  >{{ query.repairationcomptime }}</td>
+                        <td  >{{ query.repairationcheck }}</td>
                         <td  ><a href="{{ url_for('community.repairation_delete',repairationid=query.repairationid) }}"class="ss-table-delete-repairation"id="{{ query.repairationid }}">删除</a>
                             <a href="{{ url_for('community.repairation_detail',repairationid=query.repairationid) }}"class="ss-table-detail"id="{{ query.repairationid }}">详情</a></td>
                     </tr>
@@ -100,9 +106,10 @@
       </div>
 
   </div>
-    {% endblock %}
-</div>
 
+</div>
+{% endblock %}
+</div>
 {% endblock %}
 {% block script %}
     {{ super() }}

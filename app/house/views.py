@@ -53,7 +53,8 @@ def house_delete(house_id):
 @house.route('/house_message/detail/<string:house_id>',methods=['POST','GET'])
 def house_detail(house_id):
     query=House.query.filter_by(houseid=house_id).first()
-    return render_template('house/house_detail.html',query=query)
+    query_owner=Owner.query.all()
+    return render_template('house/house_detail.html',query=query,query_owner=query_owner)
 
 @house.route('/house_message/detail/post/',methods=['POST','GET'])
 def house_detail_post():
@@ -78,9 +79,10 @@ def house_detail_post():
 
 @house.route('/house_owner/',methods=['POST','GET'])
 def house_owner():
-    house_querys=House.query.all()
+    owner_querys=Owner.query.all()
     houseid = request.args.get('houseid')
     ownername = request.args.get('ownername')
+    #owner_querys=Owner.query.all()
     if (houseid != '' and houseid is not None) or (ownername is not None and ownername != ''):
         if houseid == '' or houseid is None:
             querys = Owner.query.filter_by(ownername=ownername)
@@ -90,8 +92,7 @@ def house_owner():
             querys = Owner.query.filter_by(house_houseid=houseid, ownername=ownername)
     else:
         querys = Owner.query.all()
-
-    return render_template('house/house_owner.html',querys=querys,house_querys=house_querys)
+    return render_template('house/house_owner.html',querys=querys,owner_querys=owner_querys)
 
 @house.route('/house_owner/owner_add',methods=['POST','GET'])
 def owner_add():
@@ -100,11 +101,11 @@ def owner_add():
     return render_template('house/add_owner.html',house_query=house_query)
 
 
-@house.route('/house_owner/add/post', methods=['POST', 'GET'])
+@house.route('/house_owner/add/post/', methods=['POST', 'GET'])
 def owner_add_post():
     owner=Owner(ownername=request.form.get('owner_ownername'),house_houseid=request.form.get('owner_houseid'),
                 ownerphone=request.form.get('owner_ownerphone'),owneridcard=request.form.get('owner_owneridcard'),
-                owneryears=request.form.get('owner_owneryears'),ownerstatus=request.form.get('owner_ownerstatus'),ownerdate=datetime.strptime(request.form.get('owner_ownerdate'), "%Y-%m-%d"))
+                owneryears=request.form.get('owner_owneryears'),ownerstatus=request.form.get('owner_ownerstatus'),ownerdate=datetime.strptime((request.form.get('owner_ownerdate')).strip(), "%Y-%m-%d"))
     db.session.add(owner)
     db.session.commit()
     return redirect(url_for('house.house_owner'))
@@ -123,4 +124,18 @@ def owner_delete(house_id):
 @house.route('/house_owner/detail/<string:house_id>',methods=['POST','GET'])
 def owner_detail(house_id):
     query=Owner.query.filter_by(house_houseid=house_id).first()
-    return render_template('house/owner_detail.html',query=query)
+    query_house = House.query.all()
+    return render_template('house/owner_detail.html',query=query,query_house=query_house)
+@house.route('/house_owner/detail/post/',methods=['POST','GET'])
+def owner_detail_post():
+    a=request.form.get('detail_ownername')
+    owner = Owner.query.filter_by(ownername=a).first()
+    owner.house_houseid=request.form.get('detail_houseid')
+    owner.ownerphone=request.form.get('detail_ownerphone')
+    owner.owneridcard=request.form.get('detail_owneridcard')
+    owner.ownerstatus=request.form.get('detail_ownerstatus')
+    owner.owneryears=request.form.get('detail_owneryears')
+    owner.ownerdate=datetime.strptime((request.form.get('detail_ownerdate')).strip(), "%Y-%m-%d")
+    db.session.add(owner)
+    db.session.commit()
+    return redirect(url_for('house.house_owner'))

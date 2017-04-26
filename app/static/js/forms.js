@@ -100,6 +100,16 @@
 
 
     $(document).ready(function() {
+
+        $("#owner_add_validateBtn").on("click", function(){
+            var bootstrapValidator = $("#ownerForm").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if(bootstrapValidator.isValid()) {
+                document.getElementById("ownerForm").submit(function(ev){ev.preventDefault();});
+
+            }
+            else return;
+        });
         $('#ownerForm').bootstrapValidator({
             message:'输入不合法',
             feedbackIcons: {
@@ -126,7 +136,7 @@
                     message:'输入不合法',
                     validators:{
                         notEmpty:{
-                            message:'不能为空'
+                            message:'编号不能为空'
                         }
 
                     }
@@ -136,7 +146,7 @@
                     message:'输入不合法',
                     validators:{
                         notEmpty:{
-                            message:'不能为空'
+                            message:'手机号不能为空'
                         },
                         stringLength:{
                             max:11,
@@ -146,25 +156,35 @@
 
                     }
                 },
-                owner_ownerdate:{
-                    message:'输入不合法',
-                    validators:{
 
-                    }
-                }
             }
         });
-        $('#validateBtn').click(function() {
-            $('#ownerForm').bootstrapValidator('validate');
-        });
-        $('#resetBtn').click(function() {
-            $('#ownerForm').data('bootstrapValidator').resetForm(true);
-        });
+
         $('#patrol_validateBtn').click(function() {
-            $('#patrolForm').bootstrapValidator('validate');
+            $('#patrolForm').bootstrapValidator("validate")
         });
         $('#patrol_resetBtn').click(function() {
             $('#patrolForm').data('bootstrapValidator').resetForm(true);
         });
+        $('#house_validateBtn').click(function() {
+            $('#houseForm').bootstrapValidator('validate');
+        });
+        $('#house_resetBtn').click(function() {
+            $('#houseForm').data('bootstrapValidator').resetForm(true);
+        });
+        $('#house_detail_validateBtn').click(function() {
+            $('#housedetailForm').bootstrapValidator('validate');
+        });
+        $('#house_detail_resetBtn').click(function() {
+            $('#housedetailForm').data('bootstrapValidator').resetForm(true);
+        });
+        /*$('#owner_add_validateBtn').click(function() {
+            $('#ownerForm').bootstrapValidator('validate');
+        });*/
+        $('#owner_add_resetBtn').click(function() {
+            $('#ownerForm').data('bootstrapValidator').resetForm(true);
+        });
+
     });
+
 

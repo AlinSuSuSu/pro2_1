@@ -12,69 +12,113 @@
             <label id="ss-form-label">房产信息</label>
             <div id="ss-form-line"></div>
         </div>
-        <form method="POST" action="/house/house_message/detail/post/">
-        <div class="ss-form-body">
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">房产编号:</div>
-                  <input class="ss-form-control"id="detailhouseid"name="detail_houseid"value="{{ query.houseid }}"readonly>
+        <form method="POST" id="housedetailForm"class="form-horizontal"action="/house/house_message/detail/post/">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">房产编号:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="detailhouseid"name="detail_houseid"value="{{ query.houseid }}"readonly required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">业主姓名:</label>
+                        <div class="col-md-6">
+                            <select class="form-control" id="detailownername"name="detail_ownername" >
+                                <option class="bg-info"value="{{ query.owner_ownername }}">{{ query.owner_ownername }}</option>
+                                {% for query_o in query_owner %}
+                                    <option value="{{ query_o.ownername }}">{{ query_o.ownername }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">业主姓名:</div>
-                  <input class="ss-form-control"id="detailownername"name="detail_ownername"value="{{ query.owner_ownername }}">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">房屋面积:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="detailhousespace"name="detail_housespace"value="{{ query.housespace }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">房屋户型:</label>
+                        <div class="col-md-8">
+                            <input class="ss-form-control-small ss-form-control"id="addhousetype1"name="detail_housetype1"value="{{ query.housetype[0] }}">室
+                            <input class="ss-form-control-small ss-form-control"id="addhousetype2"name="detail_housetype2"value="{{ query.housetype[2] }}">厅
+                            <input class="ss-form-control-small ss-form-control"id="addhousetype3"name="detail_housetype3"value="{{ query.housetype[4] }}">卫
+                            <input class="ss-form-control-small ss-form-control"id="addhousetype4"name="detail_housetype4"value="{{ query.housetype[6] }}">厨
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">房屋状态:</label>
+                        <div class="col-md-6">
+                            <select class="form-control" id="detailhousestatus"name="detail_housestatus" >
+                                <option class="bg-info"value="{{ query.housestatus }}">{{ query.housestatus }}</option>
+                                <option value="已租">已租</option>
+                                <option value="已售">已售</option>
+                                <option value="闲置">闲置</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">产权年限:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="detailhousedetailyears"name="detail_houseyears"value="{{ query.houseyears }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">房屋面积:</div>
-                  <input class="ss-form-control"id="detailhousespace"name="detail_housespace"value="{{ query.housespace }}">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">小区名称:</label>
+                        <div class="col-md-10">
+                            <input class="form-control"id="detailhousecommunity"name="detail_housecommunity"value="{{ query.housecommunity }}">
+                        </div>
+                    </div>
+                </div>
             </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">房屋户型:</div>
-                  <input class="ss-form-control-small ss-form-control"id="addhousetype1"name="detail_housetype1"value="{{ query.housetype[0] }}">室
-                  <input class="ss-form-control-small ss-form-control"id="addhousetype2"name="detail_housetype2"value="{{ query.housetype[2] }}">厅
-                  <input class="ss-form-control-small ss-form-control"id="addhousetype3"name="detail_housetype3"value="{{ query.housetype[4] }}">卫
-                  <input class="ss-form-control-small ss-form-control"id="addhousetype4"name="detail_housetype4"value="{{ query.housetype[6] }}">厨房
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">具体地址:</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control"id="detailhousedetailadress"name="detail_housedetailaddress"rows="2">{{ query.houseaddress }}</textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">备注:</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control"id="detailhouseremark"name="detail_houseremark">{{ query.houseremark }}</textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                <div class="ss-name-label">房屋状态:</div>
+            <div class="form-group">
+                    <div class="col-md-5">
+                        <input type="submit" class="btn btn-danger pull-right" id="house_detail_validateBtn">
+                    </div>
+                    <div class="col-md-5">
+                        <input type="reset" class="btn btn-default pull-left" id="house_detail_resetBtn">
+                    </div>
+            </div>
 
-                <input class="ss-form-control"id="detailhousestatus"name="detail_housestatus"value="{{ query.housestatus }}">
-
-
-            </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">小区名称:</div>
-                  <input class="ss-form-control"id="detailhousecommunity"name="detail_housecommunity"value="{{ query.housecommunity }}">
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">具体地址:</div>
-                  <input class="ss-form-control"id="detailhousedetailadress"name="detail_housedetailaddress"value="{{ query.houseaddress }}">
-
-            </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">产权年限:</div>
-                  <input class="ss-form-control"id="detailhousedetailyears"name="detail_houseyears"value="{{ query.houseyears }}">
-
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">备注：</div>
-                  <input class="ss-form-control"id="detailhouseremark"name="detail_houseremark"value="{{ query.houseremark }}">
-            </div>
-            </div>
-            <div class="ss-form-body-row ss-form-body-row-btn">
-            <div class="ss-form-group ss-form-gruop-btn">
-                  <input class="ss-form-control"id="reset"name="重置"type="reset">
-                  <input class="ss-form-control"id="housename"name="提交"type="submit">
-            </div>
-            </div>
-        </div>
         </form>
         </div>
         {% endblock %}

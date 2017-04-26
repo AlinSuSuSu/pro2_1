@@ -200,15 +200,21 @@ function finance_add(querya){
 		$('body').append('<div id="mry-opo">' +
 			'<div id="mry-opo-title">' +
 			'</div><div id="mry-opo-content">' +
-			'<form id="finance-form" method="POST" action="/finance/waterfee/add">' +
-			'<div class="col-lg-4"><select class="form-control"id="finance-houseid"name="finance-houseid">' +
+			'<form id="finance-form"class="form-inline"method="POST" action="/finance/waterfee/add">' +
+			'<div class="form-group col-md-9"><label class="col-md-4 control-label">房产编号</label><div class="col-md-6"><select class="form-control"id="finance-houseid"name="finance-houseid">' +
 			'<option></option>' +
-			'</select></div>' +
+			'</select></div></div>' +
+			'<div class="form-group col-md-9"><label class="col-md-4 control-label">起始度数</label><div class="col-md-6"><input class="form-control "name="startdegree"></div></div>' +
 			'</form>' +
 			'</div>' +
 			'</div>')
-		$('#finance-form').append('<div class="col-lg-4"><input class="form-control "name="startdegree"placeholder="起始度数"></div>');
-		$('#finance-form').append('<div class="col-lg-4"><input class="form-control "name="startdate"placeholder="起始时间"></div>');
+		$('#finance-form').append('<div class="col-md-9 form-group"><label class="col-md-4 control-label">进户日期</label>'+
+                        	'<div class="input-group date form_date col-md-7" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">'+
+                            '<input class="form-control" size="12" type="text" name="startdate" readonly>'+
+                            '<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>'+
+                            '<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>'+
+                        '<input type="hidden" id="dtp_input2" value="" />'+
+                    '</div>');
 		$('#finance-form').append('<div id="button-areaa">'+
 			'<input type="reset"class="btn btn-info col-lg-offset-4 button-area"id="water_reset"value="重置">' +
 			'<input type="submit"class="btn btn-info col-lg-offset-1 button-area"id="water_validate"value="确定">' +
@@ -218,8 +224,21 @@ function finance_add(querya){
         for(var k in querya){
 		$('#finance-houseid').append("<option value='"+querya[k]+"'>"+querya[k]+"</option>");
 		}
+		new_element=document.createElement("script");
+		new_element.setAttribute("type","text/javascript");
+		new_element.setAttribute("src","../static/js/bootstrap-datetimepicker.js");
+		document.body.appendChild(new_element);
+		$('body').append("<script>$('.form_date').datetimepicker({"+
+        "weekStart: 1,"+
+        "todayBtn:  1,"+
+		"autoclose: 1,"+
+		"todayHighlight: 1,"+
+		"startView: 2,"+
+		"minView: 2,"+
+		"forceParse: 0"+
+    	"});</script>");
         div.css('width', 500 + 'px');
-        div.css('height', 200 + 'px');
+        div.css('height', 300 + 'px');
         div.css('margin-left', -(parseInt(500) / 2) + 'px');
         div.css('margin-top', -(parseInt(200) / 2) + 'px');
         div.css('background', '#fff');
@@ -241,11 +260,13 @@ function waterfee_modify(waterfeeid){
 
 
 }
+
+/*
 function waterfee_save(waterfeeid){
-	startdegree=document.getElementById(waterfeeid).setAttribute('background','#eeeeaa');
+	document.getElementById(waterfeeid).setAttribute('background','#eeeeaa');
 }
-function waterfee_focus(waterfeeid){
-	startdegree=document.getElementById(waterfeeid).setAttribute('background','#aeeef');
+function waterfee_focus(this){
+	document.getElementById(waterfeeid).setAttribute('background','#aeeef');
 
 
 

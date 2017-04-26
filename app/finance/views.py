@@ -52,7 +52,7 @@ def waternotcharge():
 @finance.route('/waterfee/add',methods=['POST','GET'])
 def waterfee_add():
     waterfee=Waterfee(house_houseid=request.form.get('finance-houseid'),startdegree=float(request.form.get('startdegree')),enddegree=float(request.form.get('startdegree')))
-    a=request.form.get('startdate')
+    a=(request.form.get('startdate')).strip()
     b=datetime.datetime.strptime(a,'%Y-%m-%d').date()
     waterfee.startdate=b
     waterfee.enddate=waterfee.startdate
@@ -96,7 +96,7 @@ def waterfee_delete(houseid):
     return json.dumps(res)
 @finance.route('/waterfee/modify/<string:houseid>',methods=['POST','GET'])
 def waterfee_modify(houseid):
-    return redirect(url_for('finance.waterfee'))
+    return render_template("/finance/waterfee_modify.html")
 
 @finance.route("/waterfeee/save/<string:waterfeeid>",methods=['POST','GET'])
 def waterfee_save(waterfeeid):

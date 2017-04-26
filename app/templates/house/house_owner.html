@@ -25,63 +25,70 @@
   <div id="right-side">
           <div class = "pm-form">
 
-          <form method="GET" action='/house/house_owner/'>
-              <div class="pm-search-form">
-              <div class="ss-form-group">
-                  <div class="ss-name-label">房屋编号</div>
-                  <select class="ss-form-control"id="houseid"name="houseid">
-                      <option value=""></option>
-                      {% for query in house_querys %}
-                      <option value="{{ query.houseid }}">{{ query.houseid }}</option>
-                      {% endfor %}
-                  </select>
-              </div>
-               <div class="ss-form-group">
-                  <div class="ss-name-label">业主姓名</div>
-                  <select class="ss-form-control"id="ownername"name="ownername">
-                      <option value=""></option>
-                      {% for query in querys %}
-                      <option value="{{ query.ownername }}">{{ query.ownername }}</option>
-                      {% endfor %}
-                  </select>
-              </div>
-
-              <div class="ss-form-group">
-                  <button id="house_searchmessage" type="submit"class="btn">查询</button>
-              </div>
+          <form method="GET" class="form-horizontal"action='/house/house_owner/'>
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label class="col-md-3 control-label">业主姓名:</label>
+                          <div class="col-md-6">
+                              <select class="form-control"id="ownername"name="ownername">
+                                  <option value=""></option>
+                                  {% for query in owner_querys %}
+                                      <option value="{{ query.ownername }}">{{ query.ownername }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label class="col-md-3 control-label">门牌编号:</label>
+                          <div class="col-md-6">
+                              <select class="form-control"id="houseid"name="houseid">
+                                  <option value=""></option>
+                                  {% for query in owner_querys %}
+                                      <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="form-group">
+                          <button id="owner_searchmessage" type="submit"class="btn btn-info col-md-5">查询</button>
+                      </div>
+                  </div>
               </div>
           </form>
-
-            <table class="ss-table">
-                <thead class="ss-fixedthead">
-                    <th class="ss-td">序号</th>
-                    <th class="ss-td">房屋编号</th>
-                    <th class="ss-td">业主姓名</th>
-                    <th class="ss-td">联系方式</th>
-                    <th class="ss-td">身份证</th>
-                    <th class="ss-td">产权年限</th>
-                    <th class="ss-td">拥有状态</th>
-                    <th class="ss-td">进户日期</th>
-
-                    <th class="ss-td"><a href="{{ url_for('house.owner_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
+              <div class="table-responsive ss-scrolltbody">
+                  <table class="table table-hover table-condensed table-bordered ">
+                      <thead>
+                    <th class="info">房屋编号</th>
+                    <th class="info">业主姓名</th>
+                    <th class="info">联系方式</th>
+                    <th class="info">身份证</th>
+                    <th class="info">产权年限</th>
+                    <th class="info">拥有状态</th>
+                    <th class="info">进户日期</th>
+                    <th class="info"><a href="{{ url_for('house.owner_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
                 </thead>
-                <tbody class="ss-scrolltbody">
+                <tbody>
                 {% for query in querys %}
-                    <tr class="ss-tr">
-                        <td class="ss-td">{{ 1 }}</td>
-                        <td class="ss-td">{{ query.house_houseid }}</td>
-                        <td class="ss-td">{{ query.ownername}}</td>
-                        <td class="ss-td">{{ query.ownerphone }}</td>
-                        <td class="ss-td">{{ query.owneridcard }}</td>
-                        <td class="ss-td">{{ query.owneryears}}</td>
-                        <td class="ss-td">{{ query.ownerstatus }}</td>
-                        <td class="ss-td">{{ query.ownerdate }}</td>
-                        <td class="ss-td"><a href="{{ url_for('house.owner_delete',house_id=query.house_houseid) }}"class="ss-table-delete-owner"id="{{ query.house_houseid }}">删除</a>
+                    <tr>
+                        <td >{{ query.house_houseid }}</td>
+                        <td >{{ query.ownername}}</td>
+                        <td >{{ query.ownerphone }}</td>
+                        <td>{{ query.owneridcard }}</td>
+                        <td>{{ query.owneryears}}</td>
+                        <td>{{ query.ownerstatus }}</td>
+                        <td>{{ query.ownerdate }}</td>
+                        <td><a href="{{ url_for('house.owner_delete',house_id=query.house_houseid) }}"class="ss-table-delete-owner"id="{{ query.house_houseid }}">删除</a>
                             <a href="{{ url_for('house.owner_detail',house_id=query.house_houseid) }}"class="ss-table-detail"id="{{ query.house_houseid }}">详情</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+              </div>
       </div>
   </div>
     {% endblock %}

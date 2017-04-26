@@ -194,6 +194,31 @@ class Repairation(UserMixin,db.Model):
     repairationreplytime=db.Column(db.DateTime)#申请时间
     repairationcheck=db.Column(db.String(4),nullable=False,default='未审核')#进度，分为未审核，审核通过，审核失败，默认未审核
 
+    @staticmethod
+    def generate_fake(count=50):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            u = Repairation(owner_ownername=forgery_py.internet.user_name(False),
+                            repairationcontent=forgery_py.internet.user_name(False),
+                            house_houseid=forgery_py.basic.text(length=10, digits=True),
+                            repairationid=forgery_py.basic.text(length=10, digits=True),
+                            repairationestimatedcost=forgery_py.basic.text(length=8, digits=True),
+                            repairationactualcost=forgery_py.basic.text(length=8, digits=True),
+                            repairationresphone=forgery_py.basic.text(length=11, digits=True),
+                            repairationresperson=forgery_py.internet.user_name(False),
+                            repairationsupervisitor=forgery_py.internet.user_name(False),
+                            repairationtime=datetime.strptime('2017-01-01', "%Y-%m-%d"),
+                            repairationcomptime=datetime.strptime('2017-01-01', "%Y-%m-%d"),
+                            repairationreplytime=datetime.strptime('2017-01-01', "%Y-%m-%d"),
+                            repairationcheck='未审核')
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
 
 class Patrol(UserMixin,db.Model):
     __tablename__='patrols'
