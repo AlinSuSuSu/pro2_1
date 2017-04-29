@@ -1,23 +1,19 @@
-<html>
-<head>
-    <title>
-        首页
-    </title>
-    <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
+{% extends "bootstrap/base.html" %}
+{% block title %}首页
+{% endblock %}
 
-</head>
-<body>
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/main.css') }}" media="screen"type="text/css"/>
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/buttons.css') }}" media="screen"type="text/css"/>
+{% endblock %}
+{% block content %}
 <div class="banner">
 </div>
-<div class="footer">
-    <ul clas="footer-wrap">
-        <li class=" footer-box footer-staff"><a href="#" class="footer-a">员工登录</a></li>
-        <li class="footer-box footer-owner"><a href="#" class="footer-a">业主登录</a></li>
-        <li class="footer-box footer-admin"><a href="#" class="footer-a">管理员入口</a></li>
-    </ul>
-</div>
 
-</body>
+<button class="button button-large button-plain button-border button-box"><i class="fa fa-star"></i></button>
 
 
-</html>
+{% endblock %}
