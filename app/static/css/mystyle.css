@@ -83,15 +83,13 @@ table.table.table-hover.table-bordered {
     border: 1px solid #ccc;
 }
 .ss-form-group{
-    height:40px;
-    width:300px;
-    display:flex;
-    margin:5px 0 0 15px;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -ms-flex-direction: row;
-    align-items: center;
+    margin:40px auto;
+    width:350px;
 
+
+}
+.ss-form-group a{
+    margin-left:20px;
 }
 
 .ss-form-header ,.ss-form-body,.ss-detail-div{
@@ -168,6 +166,8 @@ input{
 .button-area{
     margin-top:20px;
 }
+/*
+
 @media (min-width:1000px){
     .banner {
 
@@ -190,7 +190,7 @@ input{
 .banner{
     width:100%;
     background-image:url(../picture/wood.jpg);
-}
+}*/
 .footer{
     background: #f7f7f6;
     padding-top:25px;
@@ -245,4 +245,35 @@ input{
     .footer{
         padding-left:5%;
     }
+}
+.main {
+    background: #fefefe;
+    /* border-top: none; */
+    box-shazdow: 1px 1px 1px #eaeaea;
+    margin-top:60px;
+}
+.user-pass form {
+    margin: 0;
+    padding: 0;
+    padding-right: 8px;
+}
+
+.user-name {
+    background: url(../picture/login-locked-icon.png) no-repeat 15px center;
+}
+.login-user{
+background: #fefefe;
+    border: 1px solid #eaeaea;
+    border-bottom: 1px solid #cbcbcb;
+    /* border-top: none; */
+    box-shazdow: 1px 1px 1px #eaeaea;
+}
+body{
+    background-color: #fff;
+}
+.line {
+    background: #eee;
+    height: 1px;
+    margin-top: 40px;
+
 }

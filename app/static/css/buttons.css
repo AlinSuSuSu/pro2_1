@@ -102,13 +102,13 @@
   background-color: #EEE;
   border-color: #EEE;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 15px;
   font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   text-decoration: none;
   text-align: center;
   line-height: 40px;
-  height: 40px;
-  padding: 0 40px;
+  height: 95px;
+  padding: 25px 30px;
   margin: 0;
   display: inline-block;
   appearance: none;

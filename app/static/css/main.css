@@ -1,12 +1,5 @@
-.footer{
-    background-color: #333;
-    width:100%;
-    postion:fixed;
-    bottom:0;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;;
-    height:60px;
+footer{
+    background:#38393b;
 }
 
 .profile-content{
@@ -19,7 +12,9 @@
 }
 
 
-
+.index-margin{
+    margin: 0 auto;
+}
 
 
 .aa {
