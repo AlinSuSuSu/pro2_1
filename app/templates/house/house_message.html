@@ -89,7 +89,7 @@
                         <td>{{ query.houseaddress }}</td>
                         <td>{{ query.houseremark }}</td>
                         <td><a href="{{ url_for('house.house_delete',house_id=query.houseid) }}"class="ss-table-delete-house"id="{{ query.houseid }}">删除</a>
-                            <a href="{{ url_for('house.house_detail',house_id=query.houseid) }}"class="ss-table-detail"id="{{ query.houseid }}">详情</a></td>
+                            <a href="{{ url_for('house.house_detail',houseid=query.houseid) }}"class="ss-table-detail"id="{{ query.houseid }}">详情</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

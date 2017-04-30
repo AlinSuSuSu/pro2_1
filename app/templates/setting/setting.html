@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}系统设置{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/buttons.css') }}" media="screen"type="text/css"/>
+
+{% endblock %}
+{% block page_content %}
+
+  <div class="row">
+  <div class="col-md-5">
+     <a href="{{ url_for("auth.register") }}" class="button button-primary button-rounded button-large">业主账户生成</a>
+  </div>
+  </div>
+
+{% endblock %}

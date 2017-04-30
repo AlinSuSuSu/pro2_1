@@ -6,7 +6,7 @@ from app import db
 from app.staff import staff
 from app.models import Staff,Holiday,Reimbursement
 from app.staff.forms import StaffBonusForm,StaffHolidayForm,StaffReimbursementForm
-from app.decorators import staff_required
+from app.decorators import owner_required
 #员工管理主页
 @staff.route('/',methods=['GET','POST'])
 def index():

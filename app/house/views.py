@@ -50,9 +50,9 @@ def house_delete(house_id):
     db.session.commit()
     return json.dumps(res)
 
-@house.route('/house_message/detail/<string:house_id>',methods=['POST','GET'])
-def house_detail(house_id):
-    query=House.query.filter_by(houseid=house_id).first()
+@house.route('/house_message/detail/<string:houseid>',methods=['POST','GET'])
+def house_detail(houseid):
+    query=House.query.filter_by(houseid=houseid).first_or_404()
     query_owner=Owner.query.all()
     return render_template('house/house_detail.html',query=query,query_owner=query_owner)
 

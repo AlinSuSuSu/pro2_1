@@ -48,6 +48,8 @@ def create_app(config_name):
     from .file import file as file_blueprint
     app.register_blueprint(file_blueprint, url_prefix='/file')
 
+    from .setting import setting as setting_blueprint
+    app.register_blueprint(setting_blueprint, url_prefix='/setting')
     return app
 
 

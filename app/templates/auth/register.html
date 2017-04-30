@@ -3,8 +3,27 @@
 
 {% block title %}注册{% endblock %}
 {% block page_content %}
-<div class="page-header">注册</div>
-<div class="col-md-4">
-    {{ wtf.quick_form(form) }}
+<div class="page-header"><h4>业主用户生成</h4></div>
+    <form method="post" class="form-horizontal"action="/auth/register">
+
+        <div class="col-md-4">
+    <div class="form-group">
+        <label class="col-md-4 control-label">业主账户生成</label>
+
+        <div class="col-md-6">
+            <select name="houseid"class="form-control">
+                {% for query in query_house %}
+                <option value="{{ query.houseid }}"></option>
+                {% endfor %}
+            </select>
+        </div>
 </div>
+</div>
+
+    <div class="form-group">
+        <div class="col-lg-2">
+            <input type="submit" class="col-md-6 btn btn-info" id="validateBtn"value="生成">
+        </div>
+    </div>
+    </form>
 {% endblock %}

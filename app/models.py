@@ -1,5 +1,5 @@
 from . import db
-from flask_login import UserMixin
+from flask_login import UserMixin,AnonymousUserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
 from . import login_manager
@@ -10,8 +10,8 @@ def load_user(user_username):
     return User.query.get(user_username)
 
 class Permission:
-    HOUSEOWNER=0x02
-    ADMIN=0x01
+    HOUSEOWNER=0x03
+    ADMIN=0x02
 
 
 class Role(db.Model):
@@ -64,20 +64,29 @@ class User(UserMixin,db.Model):
         super(User, self).__init__(**kwargs)
         if self.role is None:
             if self.house_houseid == '000':
-                self.role = Role.query.filter_by(permissions=0x01).first()
+                self.role = Role.query.filter_by(permissions=Permission.ADMIN).first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
-
-    #检查用户是否有指定的权限
     def can(self,permissions):
-        return self.role is not None and (self.role.permissions & permissions) == permissions
+        aa=self.role.permissions
+        return self.role is not None and (self.role.permissions) == permissions
     def is_administrator(self):
         return self.can(Permission.ADMIN)
 
-    # 刷新用户的最后访问时间,每次用户请求时都要调用ping()方法。
-    def ping(self):
-        self.last_seen = datetime.utcnow()
-        db.session.add(self)
+        # 刷新用户的最后访问时间,每次用户请求时都要调用ping()方法。
+        def ping(self):
+            self.last_seen = datetime.utcnow()
+            db.session.add(self)
+
+class AnonymouseUser(AnonymousUserMixin):
+    #检查用户是否有指定的权限
+    def can(self,permissions):
+        return False
+    def is_administrator(self):
+        return False
+login_manager.anonymous_user=AnonymouseUser
+
+
 
 class Staff(UserMixin, db.Model):
     __tablename__ = 'staffs'

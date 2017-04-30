@@ -1468,10 +1468,10 @@
   padding: 0 60px; }
 
 .button-large {
-  font-size: 20px;
+  font-size: 16px;
   height: 50px;
   line-height: 50px;
-  padding: 0 50px; }
+  padding: 0 25px; }
 
 .button-normal {
   font-size: 16px;
