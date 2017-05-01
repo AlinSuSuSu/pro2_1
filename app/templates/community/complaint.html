@@ -28,6 +28,7 @@
                 <caption>投诉建议</caption>
                 <thead>
                 <tr>
+                    <th class="td-center"><a href="{{ url_for('community.complaint_add') }}"><i class="icon-plus"></i> 添加</a></th>
                     <th>建议/投诉编号</th>
                     <th>业主门牌号</th>
                     <th>类型</th>
@@ -36,12 +37,13 @@
                     <th>受理时间</th>
                     <th>受理员工</th>
                     <th>建议/投诉内容</th>
-                    <th><a href="{{ url_for('community.complaint_add') }}">添加</a> </th>
+
                 </tr>
                 </thead>
                 <tbody>
                 {% for query in query_patrol %}
                 <tr>
+                    <th class="td-center"><a href="{{ url_for('community.complaint_detail',complaintid=query.complaintid) }}"><i class="icon-edit"></i> 编辑</a><br><a href="{{ url_for('community.complaint_delete',complaintid=query.complaintid) }}"class="ss-table-delete-complaint" id="{{ query.complaintid }}"><i class="icon-minus"></i> 删除</a></th>
                     <th>{{ query.complaintid }}</th>
                     <th>{{ query.house_houseid }}</th>
                     <th>{{ query.complaintcontenttype }}</th>
@@ -50,7 +52,6 @@
                     <th>{{ query.replytime }}</th>
                     <th>{{ query.replystaff }}</th>
                     <th>{{ query.complaintdetail }}</th>
-                    <th><a href="{{ url_for('community.complaint_delete',complaintid=query.complaintid) }}"class="ss-table-delete-complaint" id="{{ query.complaintid }}">删除</a><a href="{{ url_for('community.complaint_detail',complaintid=query.complaintid) }}">详情</a></th>
                 </tr>
                 {% endfor %}
                 </tbody>

@@ -65,6 +65,7 @@
               <div class="table-responsive ss-scrolltbody">
                   <table class="table table-hover table-condensed table-bordered ">
                       <thead>
+                      <th class="td-center info"><a href="{{ url_for('house.house_add') }}"class="ss-table-add"id="ss-table-add"><i class="icon-plus"></i> 添加</a></th>
                     <th class="info">门牌编号</th>
                     <th class="info">业主姓名</th>
                     <th class="info">户型</th>
@@ -74,11 +75,13 @@
                     <th class="info">小区名称</th>
                     <th class="info">具体地址</th>
                     <th class="info">备注</th>
-                    <th class="info"><a href="{{ url_for('house.house_add') }}"class="ss-table-add"id="ss-table-add">添加</a></th>
                 </thead>
                 <tbody>
                 {% for query in querys %}
                     <tr>
+                    <td class="td-center"><a href="{{ url_for('house.house_detail',houseid=query.houseid) }}"class="ss-table-detail"id="{{ query.houseid }}"><i class="icon-edit"></i> 编辑</a><br>
+                        <a href="{{ url_for('house.house_delete',house_id=query.houseid) }}"class="ss-table-delete-house"id="{{ query.houseid }}"><i class="icon-minus"></i> 删除</a>
+                        </td>
                         <td>{{ query.houseid }}</td>
                         <td>{{ query.owner_ownername}}</td>
                         <td>{{ query.housetype }}</td>
@@ -88,8 +91,6 @@
                         <td>{{ query.housecommunity }}</td>
                         <td>{{ query.houseaddress }}</td>
                         <td>{{ query.houseremark }}</td>
-                        <td><a href="{{ url_for('house.house_delete',house_id=query.houseid) }}"class="ss-table-delete-house"id="{{ query.houseid }}">删除</a>
-                            <a href="{{ url_for('house.house_detail',houseid=query.houseid) }}"class="ss-table-detail"id="{{ query.houseid }}">详情</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -31,6 +31,7 @@
                 <caption>绿化基建</caption>
                 <thead>
                 <tr>
+                    <th class="td-center"><a href="{{ url_for('community.infrastructure_add') }}"><i class="icon-plus"></i> 添加</a> </th>
                     <th>基建编号</th>
                     <th>类型</th>
                     <th>时间</th>
@@ -40,12 +41,13 @@
                     <th>监督人</th>
                     <th>验收</th>
                     <th>描述</th>
-                    <th><a href="{{ url_for('community.infrastructure_add') }}">添加</a> </th>
+
                 </tr>
                 </thead>
                 <tbody>
                 {% for query in query_patrol %}
                 <tr>
+                    <th class="td-center"><a href="{{ url_for('community.infrastructureid_detail',infrastructureid=query.infrastructureid) }}"><i class="icon-edit"></i> 编辑</a><br><a href="{{ url_for('community.infrastructure_delete',infrastructureid=query.infrastructureid) }}"class="ss-table-delete-infrastructure" id="{{ query.infrastructureid }}"><i class="icon-minus"></i> 删除</a></th>
                     <th>{{ query.infrastructureid }}</th>
                     <th>{{ query.infrastructuretype }}</th>
                     <th>{{ query.infrastructuretime }}</th>
@@ -55,7 +57,6 @@
                     <th>{{ query.supervisitor }}</th>
                     <th>{{ query.check }}</th>
                     <th>{{ query.detail }}</th>
-                    <th><a href="{{ url_for('community.infrastructure_delete',infrastructureid=query.infrastructureid) }}"class="ss-table-delete-infrastructure" id="{{ query.infrastructureid }}">删除</a><a href="{{ url_for('community.infrastructureid_detail',infrastructureid=query.infrastructureid) }}">详情</a></th>
                 </tr>
                 {% endfor %}
                 </tbody>

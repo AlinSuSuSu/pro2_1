@@ -57,6 +57,7 @@
                   <table class="table table-hover table-condensed table-bordered ">
                       <thead >
                       <tr class="info">
+                          <th class="td-center">{% if not charge %}<i class="  icon-plus" onclick="finance_add({{query_house}})"> 添加</i>{% else %}<span>操作</span>{% endif %}</th>
                     <th>水费记录编号</th>
                     <th>门牌编号</th>
                     <th>物业项目</th>
@@ -67,12 +68,13 @@
                     <th>每单位价格</th>
                     <th>总共费用</th>
                     <th>是否缴纳</th>
-                    <th>{% if not charge %}<input class='btn 'onclick="finance_add({{query_house}})" type='button'name="添加"value="添加"/>{% endif %}</th>
                 </thead>
                 <tbody >
 
                 {% for query in querys %}
                     <tr>
+                    <td class="td-center"><a href="{{ url_for("finance.waterfee_modify",houseid=query.house_houseid) }}" class="btn"><i class="icon-edit"></i> 编辑</a><br>
+                        <a href="{{ url_for("finance.waterfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-waterfee"id="{{ query.house_houseid }}"><i class="icon-minus"></i> 删除</a></td>
                         <td>{{ query.waterfeeid}}</td>
                         <td>{{ query.house_houseid}}</td>
                         <td>{{ query.item }}</td>
@@ -83,9 +85,6 @@
                         <td>{{ query.priceperdegree }}</td>
                         <td>{{ query.totalprice }}</td>
                         <td>{{ query.pay }}</td>
-                        <td><a href="{{ url_for("finance.waterfee_modify",houseid=query.house_houseid) }}" class="btn">编辑</a>
-                        <a href="{{ url_for("finance.waterfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-waterfee"id="{{ query.house_houseid }}">删除</a>
-                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
