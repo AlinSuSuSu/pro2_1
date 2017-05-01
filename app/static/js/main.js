@@ -1,13 +1,11 @@
 /**
  * Created by Administrator on 2017-03-17.
  */
+/*
 
-
-$('.pm-staffmessage').click(function () {
-	$('.pm-staffmessage').addClass('active');
-	$('.pm-staffbonus').removeClass('active');
-	$('.pm-holiday').removeClass('active');
-	$('.pm-reimbursement').removeClass('active');
+$('.house').click(function () {
+	$('.house').addClass('nav-active');
+	$('.owner').removeClass('nav-active');
 	$('#line').addClass('one');
 	$('#line').removeClass('two');
 	$('#line').removeClass('three');
@@ -67,6 +65,7 @@ $('.pm-reimbursement').click(function () {
 	$('#third').removeClass('active');
 	$('#fourth').addClass('active');
 });
+*/
 
 $('a.ss-table-delete-staff').on('click',function(evt){
 	evt.preventDefault();

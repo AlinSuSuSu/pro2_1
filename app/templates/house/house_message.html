@@ -13,13 +13,13 @@
 {% block page_content_left %}
   <div id="left-side">
    <ul>
-       <li class="pm-staffmessage active"><a href="{{ url_for('house.house_message') }}">房产信息</a></li>
-       <li class="pm-staffbonus"><a href="{{ url_for('house.house_owner') }}">业主管理</a></li>
+       <li class="menu-active"><a href="{{ url_for('house.house_message') }}" class="menu-font-active" >房产信息</a></li>
+       <li class="owner"><a href="{{ url_for('house.house_owner') }}">业主管理</a></li>
 
    </ul>
   </div>
   <div id="border">
-   <div id="line" class="one"></div>
+
   </div>
 {% endblock %}
 {% block page_content_right %}
@@ -98,7 +98,8 @@
       </div>
 
   </div>
-    {% endblock %}
+{% endblock %}
 </div>
 
 {% endblock %}
+
