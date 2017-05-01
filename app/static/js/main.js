@@ -203,6 +203,7 @@ function finance_add(querya){
 			'<div class="form-group col-md-9"><label class="col-md-4 control-label">房产编号</label><div class="col-md-6"><select class="form-control"id="finance-houseid"name="finance-houseid">' +
 			'<option></option>' +
 			'</select></div></div>' +
+			'<div class="form-group col-md-9"><label class="col-md-4 control-label">收费</label><div class="col-md-6"><select class="form-control"name="type"><option value="水费">水费</option><option value="电费">电费</option><option value="天然气费">天然气费</option><option value="卫生费">卫生费</option></select></div></div>'+
 			'<div class="form-group col-md-9"><label class="col-md-4 control-label">起始度数</label><div class="col-md-6"><input class="form-control "name="startdegree"></div></div>' +
 			'</form>' +
 			'</div>' +
@@ -219,7 +220,7 @@ function finance_add(querya){
 			'<input type="submit"class="btn btn-info col-lg-offset-1 button-area"id="water_validate"value="确定">' +
 			'</div>')
 		var div = $('#mry-opo');
-        $('#mry-opo-title').text('添加业主水费记录');
+        $('#mry-opo-title').text('添加收费记录');
         for(var k in querya){
 		$('#finance-houseid').append("<option value='"+querya[k]+"'>"+querya[k]+"</option>");
 		}

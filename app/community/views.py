@@ -7,16 +7,18 @@ from datetime import datetime
 @community.route('/repairation/',methods=['GET','POST'])
 def repairation():
     queryall=Repairation.query.all()
-
-    repairationid=request.args.get('repairationid')
+    repairationcheck=request.args.getlist('repairationcheck')
     houseid=request.args.get('houseid')
-    if (houseid != '' and houseid is not None) or (repairationid is not None and repairationid != ''):
-        if houseid == '' or houseid is  None:
-            querys = Repairation.query.filter_by(repairationid=repairationid)
-        elif repairationid == '' or repairationid is None:
+    if (houseid != '' and houseid is not None) or (repairationcheck is not None and len(repairationcheck)!=0):
+        if (houseid == '' or houseid is  None) and len(repairationcheck)==1:
+            querys = Repairation.query.filter_by(repairationcheck=repairationcheck[0])
+        elif ((len(repairationcheck) ==0 or repairationcheck is None)) or (len(repairationcheck)==2 and (houseid != '' and houseid is not None)) :
+
             querys = Repairation.query.filter_by(house_houseid=houseid)
+        elif len(repairationcheck)==1:
+            querys = Repairation.query.filter_by(house_houseid=houseid,repairationcheck=repairationcheck[0])
         else:
-            querys = Repairation.query.filter_by(house_houseid=houseid,repairationid=repairationid)
+            querys=Repairation.query.all()
     else:
         querys = Repairation.query.all()
     return render_template('community/repairation.html',querys=querys,queryall=queryall)
@@ -81,8 +83,13 @@ def repairation_detail(repairationid):
 
 @community.route('/patrol',methods=['GET','POST'])
 def patrol():
-    query_patrol=Patrol.query.all()
-    return render_template('community/patrol.html',query_patrol=query_patrol)
+    eventtype = request.args.get('eventtype')
+    query_all=Patrol.query.all()
+    if eventtype != '' and eventtype is not None:
+        query_patrol =Patrol.query.filter_by(eventtype=eventtype)
+    else:
+        query_patrol=Patrol.query.all()
+    return render_template('community/patrol.html',query_patrol=query_patrol,query_all=query_all)
 
 @community.route('/patrol/add',methods=['GET','POST'])
 def patrol_add():
@@ -115,11 +122,22 @@ def patrol_detail(patrolid):
 
 @community.route('/infrastructure',methods=['GET','POST'])
 def infrastructure():
-    return render_template('community/infrastructure.html')
+    query_all=Infrastructure.query.all()
+    infrastructuretype=request.args.get('infrastructuretype')
+    if infrastructuretype is not None and infrastructuretype !='':
+        query_infrastructure=Infrastructure.query.filter_by(infrastructuretype=infrastructuretype)
+    else:
+        query_infrastructure=Infrastructure.query.all()
+    return render_template('community/infrastructure.html',query_all=query_all,query_infrastructure=query_infrastructure)
 
 @community.route('/infrastructure/add',methods=['GET','POST'])
 def infrastructure_add():
+
     return render_template('community/add_infrastructure.html')
+
+
+
+
 
 @community.route('/infrastructure/delete/<string:infrastructureid>',methods=['GET','POST'])
 def infrastructure_delete(infrastructureid):
@@ -153,7 +171,13 @@ def infrastructure_add_post():
 
 @community.route('/complaint',methods=['GET','POST'])
 def complaint():
-    return render_template('community/complaint.html')
+    query_all= Complaint.query.all()
+    complainttype=request.args.get('complainttype')
+    if complainttype is not None or complainttype !='':
+        query_complaint=Complaint.query.filter_by(complainttype=complainttype)
+    else:
+        query_complaint=Complaint.query.all()
+    return render_template('community/complaint.html',query_all=query_all,query_complaint=query_complaint)
 
 @community.route('/complaint/delete/<string:complaintid>',methods=['GET','POST'])
 def complaint_delete(complaintid):

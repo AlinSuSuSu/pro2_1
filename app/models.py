@@ -188,7 +188,7 @@ class House(UserMixin,db.Model):
 
 class Repairation(UserMixin,db.Model):
     __tablename__ = 'repairations'
-    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),nullable=False,unique=True)
+    house_houseid = db.Column(db.String(10),nullable=False)
     owner_ownername=db.Column(db.String(16))
     repairationid = db.Column(db.String(16),primary_key=True,index=True)
     repairationcontent=db.Column(db.String(128))
@@ -222,7 +222,7 @@ class Repairation(UserMixin,db.Model):
                             repairationtime=datetime.strptime('2017-01-01', "%Y-%m-%d"),
                             repairationcomptime=datetime.strptime('2017-01-01', "%Y-%m-%d"),
                             repairationreplytime=datetime.strptime('2017-01-01', "%Y-%m-%d"),
-                            repairationcheck='未审核')
+                            repairationcheck='是')
             db.session.add(u)
             try:
                 db.session.commit()
@@ -337,7 +337,7 @@ class Waterfee(UserMixin,db.Model):
 class Electricfee(UserMixin,db.Model):
     __tablename__='electricfees'
     electricfeeid=db.Column(db.String(10),primary_key=True,index=True)
-    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),)
+    house_houseid = db.Column(db.String(10))
     startdegree=db.Column(db.Float)#月初度数
     enddegree=db.Column(db.Float)#月末度数
     priceperdegree=db.Column(db.Float,default='1.0')#每度价格
@@ -373,7 +373,7 @@ class Electricfee(UserMixin,db.Model):
 class Gasfee(UserMixin,db.Model):
     __tablename__='gasfees'
     gasfeeid=db.Column(db.String(10),primary_key=True,index=True)
-    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),)
+    house_houseid = db.Column(db.String(10))
     startdegree=db.Column(db.Float)#月初度数
     enddegree=db.Column(db.Float)#月末度数
     priceperdegree=db.Column(db.Float,default='1.0')#每度价格
@@ -409,7 +409,7 @@ class Gasfee(UserMixin,db.Model):
 class Cleaningfee(UserMixin,db.Model):
     __tablename__='cleaningfees'
     cleaningfeeid=db.Column(db.String(10),primary_key=True,index=True)
-    house_houseid = db.Column(db.String(10),db.ForeignKey('houses.houseid'),)
+    house_houseid = db.Column(db.String(10))
     priceperyear=db.Column(db.Float,default='20')#每度价格
     item=db.Column(db.String(8),default='卫生费')
     recordeyear=db.Column(db.String(8))

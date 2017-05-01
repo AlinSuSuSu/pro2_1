@@ -25,13 +25,30 @@
 {% endblock %}
     {% block page_content_right %}
         <div id="right-side">
-        <div class="row">
-        <div class="col-md-10">
-                    <div class="page-header">
-                        <h4>巡逻档案</h4>
-                    </div>
-                </div>
-        </div>
+        <form method="GET" class="form-horizontal"action='/community/patrol'>
+          <div class="row">
+
+              <div class="col-md-5">
+                  <div class="form-group">
+                      <label class="col-md-3 control-label">事件类型:</label>
+                      <div class="col-md-6">
+                          <select class="form-control"id="eventtype"name="eventtype">
+                              <option value=""></option>
+                              {% for query in query_all %}
+                              <option value="{{ query.eventtype }}">{{ query.eventtype }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                  </div>
+              </div>
+           <div class="col-md-2">
+                  <div class="form-group">
+                      <button id="patrol_searchmessage" type="submit"class="btn btn-info col-md-5">查询</button>
+                  </div>
+              </div>
+          </div>
+        </form>
+
         <div class="table-responsive ss-scrolltbody">
 
             <table class="table table-hover table-condensed table-bordered ">

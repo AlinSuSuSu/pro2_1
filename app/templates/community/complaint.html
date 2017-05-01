@@ -13,7 +13,7 @@
   <div id="left-side">
    <ul>
        <li class=""><a href="{{ url_for('community.repairation') }}">故障报修</a></li>
-       <li class="pm-staffbonus"><a href="{{ url_for('community.patrol') }}">保安巡逻</a></li>
+       <li class=""><a href="{{ url_for('community.patrol') }}">保安巡逻</a></li>
        <li class=""><a href="{{ url_for('community.infrastructure') }}">绿化基建</a></li>
        <li class="menu-active"><a href="{{ url_for('community.complaint') }}"class="menu-font-active">投诉建议</a></li>
 
@@ -24,10 +24,34 @@
         {% endblock %}
     {% block page_content_right %}
         <div id="right-side">
-            <table class="table table-hover">
-                <caption>投诉建议</caption>
+            <form method="GET" class="form-horizontal"action='/community/infrastructure'>
+          <div class="row">
+
+              <div class="col-md-5">
+                  <div class="form-group">
+                      <label class="col-md-3 control-label">类型:</label>
+                      <div class="col-md-6">
+                          <select class="form-control"id="complainttype"name="complainttype">
+                              <option value=""></option>
+                              {% for query in query_all %}
+                              <option value="{{ query.complainttype }}">{{ query.complainttype }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                  </div>
+              </div>
+           <div class="col-md-2">
+                  <div class="form-group">
+                      <button id="patrol_searchmessage" type="submit"class="btn btn-info col-md-5">查询</button>
+                  </div>
+              </div>
+          </div>
+        </form>
+           <div class="table-responsive ss-scrolltbody">
+
+            <table class="table table-hover table-condensed table-bordered ">
                 <thead>
-                <tr>
+                <tr class="info">
                     <th class="td-center"><a href="{{ url_for('community.complaint_add') }}"><i class="icon-plus"></i> 添加</a></th>
                     <th>建议/投诉编号</th>
                     <th>业主门牌号</th>
@@ -41,7 +65,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for query in query_patrol %}
+                {% for query in query_complaint %}
                 <tr>
                     <th class="td-center"><a href="{{ url_for('community.complaint_detail',complaintid=query.complaintid) }}"><i class="icon-edit"></i> 编辑</a><br><a href="{{ url_for('community.complaint_delete',complaintid=query.complaintid) }}"class="ss-table-delete-complaint" id="{{ query.complaintid }}"><i class="icon-minus"></i> 删除</a></th>
                     <th>{{ query.complaintid }}</th>

@@ -29,24 +29,12 @@
 
           <form method="GET" class="form-horizontal"action='/community/repairation/'>
           <div class="row">
-              <div class="col-md-4">
-                      <div class="form-group">
-                          <label class="col-md-3 control-label">报修编号:</label>
-                          <div class="col-md-6">
-                              <select class="form-control"id="repairationid"name="repairationid">
-                                  <option value=""></option>
-                                  {% for query in queryall %}
-                                      <option value="{{ query.repairationid }}">{{ query.repairationid }}</option>
-                                  {% endfor %}
-                              </select>
-                          </div>
-                      </div>
-              </div>
+
               <div class="col-md-4">
                   <div class="form-group">
                       <label class="col-md-3 control-label">门牌编号:</label>
                       <div class="col-md-6">
-                          <select class="ss-form-control"id="houseid"name="houseid">
+                          <select class="form-control"id="houseid"name="houseid">
                               <option value=""></option>
                               {% for query in queryall %}
                               <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
@@ -55,6 +43,24 @@
                       </div>
                   </div>
               </div>
+              <div class="col-md-4">
+
+              <div class="form-group">
+                  <label class="col-md-3 control-label">审核状态:</label>
+                  <div class="col-md-6 ">
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox" id="repairationcheck"name="repairationcheck"value="否">未审核
+                          </label>
+                          <label>
+                              <input type="checkbox" id="repairationcheck"name="repairationcheck"value="是">已审核
+                          </label>
+                      </div>
+                  </div>
+              </div>
+              </div>
+
+
               <div class="col-md-2">
                   <div class="form-group">
                       <button id="repairation_searchmessage" type="submit"class="btn btn-info col-md-5">查询</button>

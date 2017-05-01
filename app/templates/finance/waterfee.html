@@ -14,27 +14,28 @@
 {% block page_content_left %}
   <div id="left-side">
    <ul>
-       <li class="pm-staffmessage active"><a href="{{ url_for('finance.waterfee') }}">水费</a></li>
-       <li class="pm-staffmessage active"><a href="{{ url_for('finance.electricfee') }}">电费</a></li>
-       <li class="pm-staffmessage active"><a href="{{ url_for('finance.gasfee') }}">天然气费</a></li>
-       <li class="pm-staffmessage active"><a href="{{ url_for('finance.cleaningfee') }}">卫生费</a></li>
-       <li class="pm-staffbonus"><a href="{{ url_for('community.patrol') }}">其他收费</a></li>
+       <li class="menu-active"><a href="{{ url_for('finance.waterfee') }}"class="menu-font-active">水费</a></li>
+       <li class=""><a href="{{ url_for('finance.electricfee') }}">电费</a></li>
+       <li class=""><a href="{{ url_for('finance.gasfee') }}">天然气费</a></li>
+       <li class=""><a href="{{ url_for('finance.cleaningfee') }}">卫生费</a></li>
 
    </ul>
   </div>
   <div id="border">
-   <div id="line" class="one"></div>
+
   </div>
 {% endblock %}
 {% block page_content_right %}
     <div id="right-side">
-
-<br>
-    <div id="right-side-tabs">
+<div id="right-side-tabs">
     <ul class="nav nav-tabs">
+
+        <br>
       <li{% if  charge %} class="active"{% endif %}><a href="{{ url_for('finance.watercharge') }}">生成明细</a></li>
       <li{% if not charge %} class="active"{% endif %}><a href="{{ url_for('finance.waternotcharge') }}">查看历史</a></li>
     </ul>
+
+</div>
     <br>
     {% if charge %}
     <div class="row">
@@ -57,7 +58,7 @@
                   <table class="table table-hover table-condensed table-bordered ">
                       <thead >
                       <tr class="info">
-                          <th class="td-center">{% if not charge %}<i class="  icon-plus" onclick="finance_add({{query_house}})"> 添加</i>{% else %}<span>操作</span>{% endif %}</th>
+                          <th class="td-center">{% if not charge %}<i class="i-color icon-plus" onclick="finance_add({{query_house}})"> 添加</i>{% else %}<span>操作</span>{% endif %}</th>
                     <th>水费记录编号</th>
                     <th>门牌编号</th>
                     <th>物业项目</th>

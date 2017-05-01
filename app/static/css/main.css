@@ -253,7 +253,7 @@ div.pagination {
 
 #border {
   height: 288px;
-  width: 2px;
+  width: 1px;
     margin-left:-3px;
   background-color: #66afe9;
 }
@@ -387,6 +387,7 @@ th{
 .td-center{
     text-align: center;
 }
-.i-cursor:hover{
-    cursor: hand;
+
+.i-color{
+    color:#337ab7;
 }

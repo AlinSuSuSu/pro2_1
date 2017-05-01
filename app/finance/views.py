@@ -15,11 +15,11 @@ def waterfee():
     for querya  in query_house:
         a.append(querya.houseid)
     charge = bool(request.cookies.get('charge', ''))
-    j=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()
-    n=Waterfee.query.first()
-    l=Waterfee.query.all()
+    #j=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()
+    #n=Waterfee.query.first()
+    #l=Waterfee.query.all()
     #order=False
-    order=bool(request.cookies.get('order',''))
+    order=bool(request.cookies.get('waterfeeorder',''))
     if charge:
         #querys=Waterfee.query.all()
         querys=Waterfee.query.filter_by(enddate=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()).all()
@@ -32,12 +32,12 @@ def waterfee():
 @finance.route('/waterfee/orderdesc')
 def orderdesc():
     resp=make_response(redirect(url_for('finance.waterfee')))
-    resp.set_cookie('order','1',max_age=30 * 24 * 60 * 60)
+    resp.set_cookie('waterfeeorder','1',max_age=30 * 24 * 60 * 60)
     return resp
 @finance.route('/waterfee/orderasc')
 def orderasc():
     resp=make_response(redirect(url_for('finance.waterfee')))
-    resp.set_cookie('order','',max_age=30 * 24 * 60 * 60)
+    resp.set_cookie('waterfeeorder','',max_age=30 * 24 * 60 * 60)
     return resp
 @finance.route('/waterfee/charge')
 def watercharge():
@@ -113,10 +113,17 @@ def electricfee():
     for querya  in query_house:
         a.append(querya.houseid)
     charge = bool(request.cookies.get('charge', ''))
+    order = bool(request.cookies.get('electricfeeorder', ''))
     if charge:
-        querys=Electricfee.query.filter_by(pay='是').all()
+        # querys=Waterfee.query.all()
+        querys = Electricfee.query.filter_by(enddate=datetime.datetime.strptime(
+            str(datetime.datetime.now().year) + str(datetime.datetime.now().month) + "01", "%Y%m%d").date()).all()
     else:
-        querys=Electricfee.query.filter_by(pay='否').all()
+        if order:
+            querys = Electricfee.query.order_by(Electricfee.enddate.desc()).all()
+        else:
+            querys = Electricfee.query.order_by(Electricfee.enddate.asc()).all()
+
     return render_template('/finance/electricfee.html',charge=charge,querys=querys,query_house=a)
 
 @finance.route('/electricfee/charge')
@@ -129,6 +136,37 @@ def electricnotcharge():
     resp = make_response(redirect(url_for('finance.electricfee')))
     resp.set_cookie('charge', '', max_age=30 * 24 * 60 * 60)
     return resp
+@finance.route('/electric/orderdesc')
+def electricorderdesc():
+    resp=make_response(redirect(url_for('finance.electricfee')))
+    resp.set_cookie('electricfeeorder','1',max_age=30 * 24 * 60 * 60)
+    return resp
+@finance.route('/electric/orderasc')
+def electricorderasc():
+    resp=make_response(redirect(url_for('finance.electricfee')))
+    resp.set_cookie('electricfeeorder','',max_age=30 * 24 * 60 * 60)
+    return resp
+@finance.route('/electric/create/',methods=['GET','POST'])
+def electricfee_create():
+
+    query_house=House.query.all()
+    query_electricfee=Electricfee.query.first()
+    date=datetime.datetime.now()
+    if query_electricfee is not None:
+        if query_electricfee.startdate.year==date.year and query_electricfee.startdate.month==date.month-1:
+            flash("已经生成了账单")
+    else:
+        for v in query_house:
+            electricfee=Electricfee(house_houseid=v.houseid,totalprice=0)
+            electricfee.startdate=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month-1)+"01","%Y%m%d").date()
+            electricfee.startdegree=0
+            electricfee.enddate=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()
+            electricfee.enddegree=electricfee.startdegree
+            electricfee.electricfeeid=str(electricfee.enddate)+str(electricfee.startdate)+electricfee.house_houseid
+            #waterfee.waterfeeid=datetime.datetime.strftime("%Y%m%d",waterfee.startdate)+waterfee.house_houseid
+            db.session.add(electricfee)
+            db.session.commit()
+    return redirect(url_for("finance.electricfee"))
 @finance.route('/electricfee/add',methods=['POST','GET'])
 def electricfee_add():
     electricfee=Electricfee(house_houseid=request.form.get('finance-houseid'),startdegree=request.form.get('startdegree'),enddegree=request.form.get('enddegree'))
