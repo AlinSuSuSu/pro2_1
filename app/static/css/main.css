@@ -338,7 +338,7 @@ div.pagination {
 }
 
 body{
-	background: #f9f7f6;
+	background: #fff;
 	color: #404d5b;
 	font-weight: 500;
 	font-size: 1.05em;
@@ -390,4 +390,10 @@ th{
 
 .i-color{
     color:#337ab7;
+}
+.login-div-margin{
+    height:200px;
+}
+.login-div-margin a{
+    margin-top:20px;
 }

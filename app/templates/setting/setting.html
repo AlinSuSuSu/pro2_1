@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
 {% block title %}系统设置{% endblock %}
 {% block head %}
     {{ super() }}
@@ -12,7 +13,7 @@
      <a href="{{ url_for("auth.register") }}" class="button button-primary button-rounded button-large">业主账户生成</a>
   </div>
   <div class="col-md-2">
-           <a href="{{ url_for("auth.register") }}" class="button button-primary button-rounded button-large">服务员工添加</a>
+           <a href="{{ url_for("auth.register") }}" class="button button-primary button-rounded button-large">服务员工配置</a>
 
   </div>
    <div class="col-md-2">

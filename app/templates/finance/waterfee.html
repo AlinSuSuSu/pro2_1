@@ -45,14 +45,48 @@
     </div>
     {% endif %}
     {% if not charge %}
-        <div class="row">
-        <div class="form-group col-md-2">
-            <a href="{{ url_for("finance.orderdesc") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_orderdesc" value="按时间倒序" ></a>
-        </div>
-        <div class="form-group col-md-2">
-            <a href="{{ url_for("finance.orderasc") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_orderasc" value="按时间顺序" ></a>
-        </div>
-        </div>
+        <form method="GET" class="form-horizontal"action='/finance/waterfee'>
+          <div class="row">
+
+              <div class="col-md-5">
+                  <div class="form-group">
+                      <label class="col-md-3 control-label">门牌编号:</label>
+                      <div class="col-md-6">
+                          <select class="form-control"id="houseid"name="houseid">
+                              <option value=""></option>
+                              {% for query in query_all %}
+                              <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+
+              <div class="form-group">
+                  <label class="col-md-4 control-label">是否缴纳:</label>
+                  <div class="col-md-6 ">
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox" id="waterfeepay"name="waterfeepay"value="否">否
+                          </label>
+                          <label>
+                              <input type="checkbox" id="waterfeepay"name="waterfeepay"value="是">是
+                          </label>
+                      </div>
+                  </div>
+              </div>
+              </div>
+
+
+              <div class="col-md-2">
+                  <div class="form-group">
+                      <button id="repairation_searchmessage" type="submit"class="btn btn-info col-md-5">查询</button>
+                  </div>
+              </div>
+          </div>
+          <br>
+          </form>
     {% endif %}
         <div class="table-responsive ss-scrolltbody">
                   <table class="table table-hover table-condensed table-bordered ">

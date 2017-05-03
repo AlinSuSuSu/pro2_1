@@ -193,6 +193,51 @@ $('a.ss-table-delete-waterfee').on('click',function(evt){
 })
 
 
+$('a.ss-table-delete-electricfee').on('click',function(evt){
+	evt.preventDefault();
+	var electricfeeid = $(this).attr('id');
+	$.ajax({
+		url:'/finance/electricfee/delete/'+electricfeeid,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
+$('a.ss-table-delete-gasfee').on('click',function(evt){
+	evt.preventDefault();
+	var gasfeeid = $(this).attr('id');
+	$.ajax({
+		url:'/finance/gasfee/delete/'+gasfeeid,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
+$('a.ss-table-delete-cleaningfee').on('click',function(evt){
+	evt.preventDefault();
+	var cleaningfeeid = $(this).attr('id');
+	$.ajax({
+		url:'/finance/cleaningfee/delete/'+cleaningfeeid,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
 function finance_add(querya){
 
 	function popup(querya){

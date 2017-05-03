@@ -410,9 +410,10 @@ class Cleaningfee(UserMixin,db.Model):
     __tablename__='cleaningfees'
     cleaningfeeid=db.Column(db.String(10),primary_key=True,index=True)
     house_houseid = db.Column(db.String(10))
-    priceperyear=db.Column(db.Float,default='20')#每度价格
+    pricepermonth=db.Column(db.Float,default='20')#每度价格
     item=db.Column(db.String(8),default='卫生费')
-    recordeyear=db.Column(db.String(8))
+    startdate = db.Column(db.Date)
+    enddate = db.Column(db.Date)
     pay=db.Column(db.String(4),default='否')#是否缴纳
 
     @staticmethod

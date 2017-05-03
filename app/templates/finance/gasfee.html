@@ -39,7 +39,7 @@
     {% if charge %}
     <div class="row">
                 <div class="form-group col-md-2">
-                    <a href="{{ url_for("finance.waterfee_create") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_create" value="生成明细账单" ></a>
+                    <a href="{{ url_for("finance.gasfee_create") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_create" value="生成本月明细账单" ></a>
                 </div>
     </div>
     {% endif %}
@@ -72,10 +72,10 @@
                 <tbody>
                 {% for query in querys %}
                     <tr>
-
+                        <td class="td-center">
                         <a href="#"class="ss-table-detail"id="{{ query.house_houseid }}"><i class="icon-edit"></i> 编辑</a><br>
                         <a href="{{ url_for("finance.gasfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-gasfee"id="{{ query.house_houseid }}"><i class="icon-minus"></i> 删除</a>
-
+                        </td>
                         <td >{{ query.gasfeeid}}</td>
                         <td >{{ query.house_houseid}}</td>
                         <td >{{ query.item }}</td>

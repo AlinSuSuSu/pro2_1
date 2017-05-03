@@ -30,15 +30,15 @@
     <ul class="nav nav-tabs">
 
         <br>
-      <li{% if  charge %} class="active"{% endif %}><a href="{{ url_for('finance.gascharge') }}">生成明细</a></li>
-      <li{% if not charge %} class="active"{% endif %}><a href="{{ url_for('finance.gasnotcharge') }}">查看历史</a></li>
+      <li{% if  charge %} class="active"{% endif %}><a href="{{ url_for('finance.cleaningcharge') }}">生成明细</a></li>
+      <li{% if not charge %} class="active"{% endif %}><a href="{{ url_for('finance.cleaningnotcharge') }}">查看历史</a></li>
     </ul>
     </div>
     <br>
     {% if charge %}
     <div class="row">
                 <div class="form-group col-md-2">
-                    <a href="{{ url_for("finance.waterfee_create") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_create" value="生成明细账单" ></a>
+                    <a href="{{ url_for("finance.cleaningfee_create") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_create" value="生成本月明细账单" ></a>
                 </div>
     </div>
     {% endif %}
@@ -60,22 +60,25 @@
                     <th >编号</th>
                     <th >门牌编号</th>
                     <th >物业项目</th>
-                    <th >记录年份</th>
-                    <th >每年收费</th>
+                    <th >上月收取时间</th>
+                    <th >本月收取时间</th>
+                    <th >金额</th>
                     <th >是否缴纳</th>
                 </thead>
                 <tbody>
                 {% for query in querys %}
                     <tr>
-                     <a href="#"class="ss-table-detail"id="{{ query.house_houseid }}"><i class="icon-edit"></i> 编辑</a><br>
+                    <td class="td-center">
+                        <a href="#"class="ss-table-detail"id="{{ query.house_houseid }}"><i class="icon-edit"></i> 编辑</a><br>
                         <a href="{{ url_for("finance.cleaningfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-cleaningfee"id="{{ query.house_houseid }}"><i class="icon-minus"></i> 删除</a>
-
+                    </td>
                         <td >{{ query.cleaningfeeid}}</td>
                         <td >{{ query.house_houseid}}</td>
                         <td >{{ query.item }}</td>
-                        <td >{{ query.recordyear }}</td>
-                        <td >{{ query.priceperyear}}</td>
-                        <td >{{ query.pay }}<td>
+                        <td >{{ query.startdate }}</td>
+                        <td >{{ query.enddate}}</td>
+                        <td >{{ query.pricepermonth}}</td>
+                        <td >{{ query.pay }}</td>
 
 
                     </tr>
