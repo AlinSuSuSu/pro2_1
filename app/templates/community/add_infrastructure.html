@@ -28,12 +28,9 @@
                             <label class="col-lg-2 control-label">事件类型</label>
                             <div class="col-lg-4">
                                 <select class="form-control" name="add_infrastructuretype" >
-                                    <option value="社区杀菌">社区杀菌</option>
-                                    <option value="植树">植树</option>
-                                    <option value="种花">种花</option>
-                                    <option value="种草坪">种草坪</option>
-                                    <option value="维修">维修</option>
-                                    <option value="其他">其他</option>
+                                    {% for query in query_choice %}
+                                    <option value="{{ query.choicename }}">{{ query.choicename }}</option>
+                                   {% endfor %}
                                 </select>
                             </div>
 

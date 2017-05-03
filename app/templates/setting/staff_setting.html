@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block title %}系统设置{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/buttons.css') }}" media="screen"type="text/css"/>
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
+
+{% endblock %}
+{% block page_content %}
+<div id="wrapper">
+{% block page_content_left %}
+  <div id="left-side">
+   <ul>
+       <li class="menu-active"><a href="{{ url_for('setting.staff_setting') }}" class="menu-font-active" >员工配置</a></li>
+              <li class=""><a href="{{ url_for('setting.choice_setting') }}">系统基础项目配置</a></li>
+
+   </ul>
+  </div>
+  <div id="border">
+
+  </div>
+{% endblock %}
+{% block page_content_right %}
+  <div id="right-side">
+  <div class="pm-form">
+ <form method="GET" class="form-horizontal"action='/setting/staff_setting'>
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label class="col-md-3 control-label">员工姓名:</label>
+                          <div class="col-md-6">
+                              <select class="form-control"id="staffname"name="staffname">
+                                  <option value=""></option>
+                                  {% for query in queryall %}
+                                      <option value="{{ query.staffname }}">{{ query.staffname }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label class="col-md-3 control-label">职位类型:</label>
+                          <div class="col-md-6">
+                              <div class="checkbox">
+                                  <label>
+                                      <input type="checkbox" id="job"name="job"value="保安">保安
+                                  </label>
+                                  <label>
+                                      <input type="checkbox" id="job"name="job"value="保洁">保洁
+                                  </label>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <button id="house_searchmessage" type="submit"class="btn btn-info col-md-5">查询</button>
+              </div>
+                  </div>
+              </div>
+          </form>
+   <br>
+              <div class="table-responsive ss-scrolltbody">
+                  <table class="table table-hover table-condensed table-bordered ">
+                      <thead>
+                      <th class="td-center info"><a href="{{ url_for('setting.staff_add') }}"class="ss-table-add"id="ss-table-add"><i class="icon-plus"></i> 添加</a></th>
+                    <th class="info">员工编号</th>
+                    <th class="info">员工姓名</th>
+                    <th class="info">性别</th>
+                    <th class="info">年龄</th>
+                    <th class="info">职位</th>
+                    <th class="info">电话</th>
+                    <th class="info">身份证</th>
+                    <th class="info">入职日期</th>
+                </thead>
+                <tbody>
+                {% for query in querys %}
+                    <tr>
+                    <td class="td-center"><a href="{{ url_for('setting.staff_detail',staffid=query.staffid) }}"class="ss-table-detail"id="{{ query.staffid }}"><i class="icon-edit"></i> 编辑</a><br>
+                        <a href="{{ url_for('setting.staff_delete',staffid=query.staffid) }}"class="ss-table-delete-staff"id="{{ query.staffid }}"><i class="icon-minus"></i> 删除</a>
+                        </td>
+                        <td>{{ query.staffid }}</td>
+                        <td>{{ query.staffname}}</td>
+                        <td>{{ query.gender }}</td>
+                        <td>{{ query.age }}</td>
+                        <td>{{ query.job }}</td>
+                        <td>{{ query.phone }}</td>
+                        <td>{{ query.idcard }}</td>
+                        <td>{{ query.enterdate }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+              </div>
+  </div>
+  </div>
+{% endblock %}
+</div>
+{% endblock %}

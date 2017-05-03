@@ -175,6 +175,13 @@
         $('#house_detail_validateBtn').click(function() {
             $('#housedetailForm').bootstrapValidator('validate');
         });
+
+        $('#choice_patrol_validateBtn').click(function() {
+            $('#choicepatrolForm').bootstrapValidator('validate');
+        });
+        $('#choice_infrastructure_validateBtn').click(function() {
+            $('#choiceinfrastructureForm').bootstrapValidator('validate');
+        });
         $('#house_detail_resetBtn').click(function() {
             $('#housedetailForm').data('bootstrapValidator').resetForm(true);
         });

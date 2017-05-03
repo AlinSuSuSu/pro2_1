@@ -7,23 +7,23 @@
 
 {% endblock %}
 {% block page_content %}
-
-  <div class="row">
-  <div class="col-md-2">
-     <a href="{{ url_for("auth.register") }}" class="button button-primary button-rounded button-large">业主账户生成</a>
+<div id="wrapper">
+{% block page_content_left %}
+  <div id="left-side">
+   <ul>
+       <li class="menu-active"><a href="#" class="menu-font-active" >员工配置</a></li>
+       <li class="owner"><a href="#">系统选择项目配置</a></li>
+       <li class="owner"><a href="#">收费单位价格配置</a></li>
+       <li class="owner"><a href="#">业主账户配置</a></li>
+   </ul>
   </div>
-  <div class="col-md-2">
-           <a href="{{ url_for("auth.register") }}" class="button button-primary button-rounded button-large">服务员工配置</a>
-
-  </div>
-   <div class="col-md-2">
-
-     <a href="{{ url_for("auth.register") }}" class="button button-primary button-rounded button-large">事件类型配置</a>
-  </div>
-  <div class="col-md-2">
-           <a href="{{ url_for("auth.register") }}" class="button button-primary button-rounded button-large">其他</a>
+  <div id="border">
 
   </div>
+{% endblock %}
+{% block page_content_right %}
+  <div id="right-side">
   </div>
-
+{% endblock %}
+</div>
 {% endblock %}

@@ -54,7 +54,7 @@
                       <div class="col-md-6">
                           <select class="form-control"id="houseid"name="houseid">
                               <option value=""></option>
-                              {% for query in query_all %}
+                              {% for query in querys %}
                               <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
                               {% endfor %}
                           </select>
@@ -92,7 +92,7 @@
                   <table class="table table-hover table-condensed table-bordered ">
                       <thead >
                       <tr class="info">
-                          <th class="td-center">{% if not charge %}<i class="i-color icon-plus" onclick="finance_add({{query_house}})"> 添加</i>{% else %}<span>操作</span>{% endif %}</th>
+                          <th class="td-center" >{% if not charge %}<i class="icon-plus i-color"onclick="finance_add({{query_house}})"> 添加</i>{% else %}<span>操作</span>{% endif %}</th>
                     <th>水费记录编号</th>
                     <th>门牌编号</th>
                     <th>物业项目</th>

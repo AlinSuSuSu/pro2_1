@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block title %}系统设置{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/buttons.css') }}" media="screen"type="text/css"/>
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
+
+{% endblock %}
+{% block page_content %}
+<div id="wrapper">
+{% block page_content_left %}
+  <div id="left-side">
+   <ul>
+       <li class=""><a href="{{ url_for('setting.staff_setting') }}"  >员工配置</a></li>
+       <li class="menu-active"><a href="{{ url_for('setting.choice_setting') }}" class="menu-font-active">系统基础项目配置</a></li>
+   </ul>
+  </div>
+  <div id="border">
+
+  </div>
+{% endblock %}
+{% block page_content_right %}
+  <div id="right-side">
+  <div id="right-side-tabs">
+      <ul class="nav nav-tabs">
+          <br>
+          <li{% if  choicecharge %} class="active"{% endif %}><a href="{{ url_for('setting.choicecharge') }}">选择项配置</a></li>
+          <li{% if not choicecharge %} class="active"{% endif %}><a href="{{ url_for('setting.choicenotcharge') }}">业主账户配置</a></li>
+      </ul>
+
+  </div>
+  <br>
+  {% if choicecharge %}
+      <div class="row">
+      <div class="col-md-4 choice-border">
+          <h5>保安巡逻事件类型</h5>
+          <table class="table table-hover">
+              <thead>
+              <td>操作</td>
+              <td>事件序号</td>
+              <td>事件类型</td>
+              </thead>
+              <tbody>
+              {% for q in query_patrol %}
+              <tr>
+                  <td><a href="{{ url_for('setting.choice_delete',id=q.id) }}"class="ss-table-delete-choice" id="{{ q.id }}"><i class="icon-minus"></i> 删除</a></td>
+                  <td>{{ q.id }}</td>
+                  <td>{{ q.choicename }}</td>
+              </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+      <form id='choicepatrolForm' method="POST"action="/setting/choice/add">
+      <div class="row">
+      <div class="form-group">
+          <div class="col-md-6">
+              <input type='text'class="form-control col-md-4"id="patrol_add"name="patrol_add"></div>
+      </div>
+          <div class="col-md-5">
+              <button type="submit" class="btn col-md-8 btn-info icon-plus"id="choicepatrol_validateBtn"> 添加</button>
+          </div>
+      </div>
+      </form>
+      </div>
+      <div class="col-md-4 choice-border">
+          <h5>绿化基建事件类型</h5>
+          <table class="table table-hover">
+              <thead>
+              <td>操作</td>
+              <td>事件序号</td>
+              <td>事件类型</td>
+              </thead>
+              <tbody>
+              {% for q in query_infrastructure %}
+              <tr>
+                  <td><a href="{{ url_for('setting.choice_delete',id=q.id) }}"class="ss-table-delete-choice" id="{{ q.id }}"><i class="icon-minus"></i> 删除</a></td>
+                  <td>{{ q.id }}</td>
+                  <td>{{ q.choicename }}</td>
+              </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+          <form id='choiceinfrastructureForm'method="post"action="/setting/choice/add">
+              <div class="row">
+                  <div class="form-group">
+                      <div class="col-md-6">
+                          <input type='text'class="form-control col-md-4"id="infrastructure_add"name="infrastructure_add"></div>
+                      <div class="col-md-5">
+                          <button type="submit" class="btn icon-plus col-md-8 btn-info"id="choiceinfrastructure_validateBtn"> 添加</button>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
+
+      </div>
+  {% else %}
+      <form class="form-horizontal"method="post"action="/setting/choice/price_setting">
+          <div class="row">
+           <div class="col-md-5">
+               <div class="form-group">
+                   <label class="col-md-4 control-label">配置项目:</label>
+                   <div class="col-md-6">
+                       <select class="form-control" name="setitem" >
+                          <option value="水费">水费</option>
+                          <option value="电费">电费</option>
+                          <option value="燃气费">燃气费</option>
+                          <option value="卫生费">卫生费</option>
+                       </select>
+                   </div>
+               </div>
+           </div>
+          </div>
+          <div class="row">
+              <div class="col-md-5">
+               <div class="form-group">
+                   <label class="col-md-4 control-label">单位价格/元:</label>
+                   <div class="col-md-6">
+                       <input class="form-control"name="price">
+                   </div>
+               </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="form-group">
+          <div class="col-md-5 col-md-offset-2">
+              <button type="submit" class="btn icon-plus btn-info"id="choiceset_validateBtn"> 设置</button>
+          </div>
+          </div>
+      </div>
+      </form>
+  {% endif %}
+  </div>
+{% endblock %}
+</div>
+{% endblock %}

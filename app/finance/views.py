@@ -55,18 +55,39 @@ def waternotcharge():
     resp = make_response(redirect(url_for('finance.waterfee')))
     resp.set_cookie('charge', '', max_age=30 * 24 * 60 * 60)
     return resp
-@finance.route('/waterfee/add',methods=['POST','GET'])
-def waterfee_add():
-    waterfee=Waterfee(house_houseid=request.form.get('finance-houseid'),startdegree=float(request.form.get('startdegree')),enddegree=float(request.form.get('startdegree')))
-    a=(request.form.get('startdate')).strip()
-    b=datetime.datetime.strptime(a,'%Y-%m-%d').date()
-    waterfee.startdate=b
-    waterfee.enddate=waterfee.startdate
-    waterfee.waterfeeid=str(waterfee.enddate)+str(waterfee.startdate)+waterfee.house_houseid
-    waterfee.priceperdegree=1.0
-    waterfee.totalprice=0
-    db.session.add(waterfee)
-    db.session.commit()
+@finance.route('/add',methods=['POST','GET'])
+def fee_add():
+    type=request.form.get('type')
+    if type is not None and type != '':
+        if type =='水费':
+            addfee=Waterfee(house_houseid=request.form.get('finance-houseid'),startdegree=0,enddegree=0)
+            addfee.startdate = datetime.datetime.strptime(request.form.get('startdate').strip(), '%Y-%m-%d').date()
+            addfee.enddate = addfee.startdate
+            addfee.waterfeeid = str(addfee.enddate) + str(addfee.startdate) + addfee.house_houseid
+            addfee.totalprice = 0
+            db.session.add(addfee)
+            db.session.commit()
+            return redirect(url_for('finance.waterfee'))
+        elif type=='电费':
+            addfee=Electricfee(house_houseid=request.form.get('finance-houseid'),startdegree=0,enddegree=0)
+            addfee.startdate = datetime.datetime.strptime(request.form.get('startdate').strip(), '%Y-%m-%d').date()
+            addfee.enddate = addfee.startdate
+            addfee.electricfeeid = str(addfee.enddate) + str(addfee.startdate) + addfee.house_houseid
+            return redirect(url_for('finance.electricfee'))
+        elif type=='天然气费':
+            addfee=Gasfee(house_houseid=request.form.get('finance-houseid'),startdegree=0,enddegree=0)
+            addfee.startdate = datetime.datetime.strptime(request.form.get('startdate').strip(), '%Y-%m-%d').date()
+            addfee.enddate = addfee.startdate
+            addfee.gasfeeid = str(addfee.enddate) + str(addfee.startdate) + addfee.house_houseid
+            return redirect(url_for('finance.gasfee'))
+        elif type=='卫生费':
+            addcleaningfee=Cleaningfee(house_houseid=request.form.get('finance-houseid'))
+            addcleaningfee.startdate=datetime.datetime.strftime(request.form.get('startdate').strip(),"%Y-%m-%d").date()
+            addcleaningfee.enddate=addcleaningfee.startdate
+            addcleaningfee.cleaningfeeid=str(waterfee.enddate)+str(waterfee.startdate)+waterfee.house_houseid
+            db.session.add(addcleaningfee)
+            db.session.commit()
+            return redirect(url_for('finance.cleaningfee'))
     return redirect(url_for('finance.waterfee'))
 @finance.route('/waterfee/create/',methods=['GET','POST'])
 def waterfee_create():

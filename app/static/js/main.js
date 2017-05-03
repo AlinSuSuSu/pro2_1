@@ -69,9 +69,25 @@ $('.pm-reimbursement').click(function () {
 
 $('a.ss-table-delete-staff').on('click',function(evt){
 	evt.preventDefault();
-	var staff_id = $(this).attr('id');
+	var staffid = $(this).attr('id');
 	$.ajax({
-		url:'/staff/staff_message/delete/'+staff_id,
+		url:'/setting/staff/delete/'+staffid,
+		type:'POST',
+		dataType:'JSON',
+		success:function(resp){
+			if(resp.status != 1){
+				alert("删除失败："+resp.message);
+			}
+			location.reload()
+		}
+	})
+})
+
+$('a.ss-table-delete-choice').on('click',function(evt){
+	evt.preventDefault();
+	var id = $(this).attr('id');
+	$.ajax({
+		url:'/setting/choice/delete/'+id,
 		type:'POST',
 		dataType:'JSON',
 		success:function(resp){
@@ -244,12 +260,11 @@ function finance_add(querya){
 		$('body').append('<div id="mry-opo">' +
 			'<div id="mry-opo-title">' +
 			'</div><div id="mry-opo-content">' +
-			'<form id="finance-form"class="form-inline"method="POST" action="/finance/waterfee/add">' +
+			'<form id="finance-form"class="form-inline"method="POST" action="/finance/add">' +
 			'<div class="form-group col-md-9"><label class="col-md-4 control-label">房产编号</label><div class="col-md-6"><select class="form-control"id="finance-houseid"name="finance-houseid">' +
 			'<option></option>' +
 			'</select></div></div>' +
 			'<div class="form-group col-md-9"><label class="col-md-4 control-label">收费</label><div class="col-md-6"><select class="form-control"name="type"><option value="水费">水费</option><option value="电费">电费</option><option value="天然气费">天然气费</option><option value="卫生费">卫生费</option></select></div></div>'+
-			'<div class="form-group col-md-9"><label class="col-md-4 control-label">起始度数</label><div class="col-md-6"><input class="form-control "name="startdegree"></div></div>' +
 			'</form>' +
 			'</div>' +
 			'</div>')

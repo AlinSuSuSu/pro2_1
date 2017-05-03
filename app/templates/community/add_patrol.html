@@ -30,9 +30,9 @@
                             <label class="col-md-4 control-label">事件类型</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="patrol_eventtype" >
-                                    <option value="物品丢失">物品丢失</option>
-                                    <option value="打架斗殴">打架斗殴</option>
-                                    <option value="其他事件">其他事件</option>
+                                    {% for query in query_choice %}
+                                    <option value="{{ query.choicename }}">{{ query.choicename }}</option>
+                                   {% endfor %}
                                 </select>
                             </div>
                         </div>

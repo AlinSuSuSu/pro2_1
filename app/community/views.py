@@ -1,6 +1,6 @@
 from flask import url_for,render_template,request,redirect
 from app import db
-from app.models import Repairation,Patrol,Staff,Infrastructure,Complaint,Owner,House
+from app.models import Repairation,Patrol,Staff,Infrastructure,Complaint,Owner,House,Choice
 from app.community import community
 import json
 from datetime import datetime
@@ -28,6 +28,7 @@ def repairation_apply():
     query_owner=Owner.query.all()
     query_house=House.query.all()
     query_staff=Staff.query.all()
+
     return render_template('community/repairation_apply.html',query_owner=query_owner)
 
 @community.route('/repairation/apply/post',methods=['POST','GET'])
@@ -94,7 +95,8 @@ def patrol():
 @community.route('/patrol/add',methods=['GET','POST'])
 def patrol_add():
     query_staff=Staff.query.all()
-    return render_template('community/add_patrol.html',query_staff=query_staff)
+    query_choice = Choice.query.filter_by(choicetype="保安巡逻")
+    return render_template('community/add_patrol.html',query_staff=query_staff,query_choice=query_choice)
 
 @community.route('/patrol/add/post',methods=['GET','POST'])
 def patrol_add_post():
@@ -132,12 +134,8 @@ def infrastructure():
 
 @community.route('/infrastructure/add',methods=['GET','POST'])
 def infrastructure_add():
-
-    return render_template('community/add_infrastructure.html')
-
-
-
-
+    query_choice=Choice.query.filter_by(choicetype="绿化基建")
+    return render_template('community/add_infrastructure.html',query_choice=query_choice)
 
 @community.route('/infrastructure/delete/<string:infrastructureid>',methods=['GET','POST'])
 def infrastructure_delete(infrastructureid):

@@ -37,6 +37,9 @@ class Role(db.Model):
             role.default = roles[r][1]
             db.session.add(role)
         db.session.commit()
+        user = User(house_houseid='000', username='000', password='111111')
+        db.session.add(user)
+        db.session.commit()
 
     def __repr__(self):
         return '<Role %r>' % self.name
@@ -98,6 +101,28 @@ class Staff(UserMixin, db.Model):
     idcard = db.Column(db.String(18),unique=True)#身份证号
     job = db.Column(db.String(18))#工种
     enterdate=db.Column(db.Date)#入职时间
+
+    @staticmethod
+    def generate_fake(count=50):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            u = Staff(staffname=forgery_py.internet.user_name(False),
+                      staffid=forgery_py.basic.text(length=10, digits=False),
+                      phone=forgery_py.address.phone(),
+                      idcard=forgery_py.basic.text(length=18, digits=True),
+                      age=35,
+                      gender=random.choice(['男','女']),
+                      job=random.choice(['保安', '保洁']),
+                      enterdate=forgery_py.date.date(True))
+
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
 
 class Holiday(UserMixin, db.Model):
     __tablename__='holidays'
@@ -327,12 +352,9 @@ class Waterfee(UserMixin,db.Model):
             except IntegrityError:
                 db.session.rollback()
 
-    '''@property
-    def year(self,enddate):
-        return self.enddate.year
-    def month(self,enddate):
-        return self.enddate.month'''
 
+    def pricesetter(self,price):
+        self.priceperdegree.default=price
 
 class Electricfee(UserMixin,db.Model):
     __tablename__='electricfees'
@@ -440,3 +462,8 @@ class File(UserMixin,db.Model):
     __tablename__='files'
     id=db.Column(db.Integer,primary_key=True,index=True)
     filename=db.Column(db.String(128))
+class Choice(UserMixin,db.Model):
+    __tablename__='choices'
+    id=db.Column(db.Integer,primary_key=True,index=True)
+    choicetype=db.Column(db.String(20))
+    choicename=db.Column(db.String(32))
