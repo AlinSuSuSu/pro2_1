@@ -4,7 +4,10 @@
 {% block page_content %}
     <div id="wrapper">
     {% block page_content_left %}
-
+        {% if current_user.is_administrator() %}
+        {{ super() }}
+        {% else %}
+        {% endif %}
         {% endblock %}
     {% block page_content_right %}
         <div id="right-side">

@@ -64,8 +64,8 @@ def choice_setting():
     query_patrol=Choice.query.filter_by(choicetype='保安巡逻')
     query_infrastructure=Choice.query.filter_by(choicetype='绿化基建')
     query_house=House.query.all()
-
-    return render_template('/setting/choice_setting.html',choicecharge=choicecharge,query_infrastructure=query_infrastructure,query_house=query_house,query_patrol=query_patrol)
+    query_user=User.query.all()
+    return render_template('/setting/choice_setting.html',choicecharge=choicecharge,query_infrastructure=query_infrastructure,query_user=query_user,query_house=query_house,query_patrol=query_patrol)
 
 @setting.route('/choice/choicecharge')
 def choicecharge():
@@ -111,3 +111,11 @@ def price_setting():
         c=Waterfee()
         c.pricesetter(float(price))
     return  redirect(url_for('setting.choice_setting'))
+
+@setting.route('/choice/register',methods=['POST','GET'])
+def register():
+    houseid=request.args.get('houseid')
+    user=User(house_houseid=houseid,username=houseid,password='111111')
+    db.session.add(user)
+    db.session.commit()
+    return redirect(url_for('setting.choice_setting'))

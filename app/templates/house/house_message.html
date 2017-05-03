@@ -13,8 +13,8 @@
 {% block page_content_left %}
   <div id="left-side">
    <ul>
-       <li class="menu-active"><a href="{{ url_for('house.house_message') }}" class="menu-font-active" >房产信息</a></li>
-       <li class="owner"><a href="{{ url_for('house.house_owner') }}">业主管理</a></li>
+       <li class="menu-active"><a href="{% if current_user.is_administrator() %}{{ url_for('house.house_message') }}{% else %}{{ url_for('house.house_detail',houseid=current_user.house_houseid) }}{% endif %}" class="menu-font-active" >房产信息</a></li>
+       <li class="owner"><a href="{% if current_user.is_administrator() %}{{ url_for('house.house_owner') }}{% else %}{{ url_for('house.owner_detail',house_id=current_user.house_houseid) }}{% endif %}">业主管理</a></li>
 
    </ul>
   </div>
