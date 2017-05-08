@@ -1,5 +1,5 @@
-{% extends 'finance/waterfee.html' %}
-{% block title %}水费信息{% endblock %}
+{% extends 'finance/electricfee.html' %}
+{% block title %}天然气费{% endblock %}
 
 {% block page_content %}
     <div id="wrapper">
@@ -17,13 +17,13 @@
                     </div>
                 </div>
             </div>
-        <form id="waterfeemodifyForm" method="POST" class="form-horizontal"action="/finance/waterfee/modify/post">
+        <form id="waterfeemodifyForm" method="POST" class="form-horizontal"action="/finance/gasfee/modify/post">
             <div class="row">
                 <div class="col-md-10">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">水费记录编号:</label>
+                        <label class="col-md-2 control-label">天然气费记录编号:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" value="{{ query.waterfeeid }}"name="detail_waterfeeid" readonly />
+                            <input type="text" class="form-control" value="{{ query.gasfeeid }}"name="detail_waterfeeid" readonly />
                         </div>
                     </div>
                 </div>

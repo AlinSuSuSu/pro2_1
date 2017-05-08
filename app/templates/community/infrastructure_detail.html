@@ -1,10 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "community/infrastructure.html" %}
+{% block title %}绿化基建{% endblock %}
 
-</body>
-</html>
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+        {{ super() }}
+        {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="page-header">
+                        <h4>绿化基建</h4>
+                    </div>
+                </div>
+            </div>
+            <form id="infrastructuredetailForm" method="post" class='form-horizontal'action="/community/infrastructure/detail/post">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">基建编号</label>
+                            <div class="col-md-6">
+                                <input class="form-control"name="detail_infrastructureid" value="{{ query.infrastructureid }}"readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">事件类型</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="detail_infrastructuretype" required data-bv-trigger="blur" data-bv-notempty-message="不能为空">
+                                    <option value="{{ query.infrastructuretype }}">{{ query.infrastructuretype }}</option>
+                                    {% for q_c in query_choice %}
+                                        {% if q_c.choicename != query.infrastructuretype %}
+                                        <option value="{{ q_c.choicename }}">{{ q_c.choicename }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">负责人</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" value="{{ query.resperson }}"name="detail_resperson"required data-bv-trigger="blur" data-bv-notempty-message="不能为空" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">负责人电话</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" value="{{ query.resphone }}"name="detail_resphone" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">发生时间</label>
+                        <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control" size="12" type="text" name="detail_infrastructuretime"value="{{ query.infrastructuretime }}" readonly >
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input2" value="" />
+
+                    </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">监督人</label>
+                            <div class="col-md-6">
+                                <select class="form-control"name="detail_supervisitor"required data-bv-trigger="blur" data-bv-notempty-message="不能为空">
+                                    <option value="{{ query.supervisitor }}">{{ query.supervisitor }}</option>
+                                    {% for q_s in query_staff %}
+                                        {% if q_s.staffname != query.supervisitor %}
+                                        <option value="{{ q_s.staffname }}">{{ q_s.staffname }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">区域</label>
+                        <div class="col-md-10">
+                            <input class="form-control" name="detail_infrastructurearea"value="{{ query.infrastructurearea }}"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">描述</label>
+                            <div class="col-md-10">
+                                <textarea type="text" rows='3'class="form-control" name="detail_detail"required data-bv-trigger="blur" data-bv-notempty-message="不能为空" >{{ query.detail }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">验收</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="detail_check">
+                                    <option value="{{ query.check }}">{{ query.check }}</option>
+                                    {% if  query.check=='不合格' %}
+                                    <option value="合格">合格</option>
+                                    {% else %}
+                                    <option value="不合格">不合格</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <input type="submit" class="btn btn-danger pull-right" id="infrastructure_validateBtn">
+                    </div>
+
+                </div>
+
+                    </form>
+                </div>
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}

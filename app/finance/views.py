@@ -73,18 +73,24 @@ def fee_add():
             addfee.startdate = datetime.datetime.strptime(request.form.get('startdate').strip(), '%Y-%m-%d').date()
             addfee.enddate = addfee.startdate
             addfee.electricfeeid = str(addfee.enddate) + str(addfee.startdate) + addfee.house_houseid
+            addfee.totalprice = 0
+            db.session.add(addfee)
+            db.session.commit()
             return redirect(url_for('finance.electricfee'))
         elif type=='天然气费':
             addfee=Gasfee(house_houseid=request.form.get('finance-houseid'),startdegree=0,enddegree=0)
             addfee.startdate = datetime.datetime.strptime(request.form.get('startdate').strip(), '%Y-%m-%d').date()
             addfee.enddate = addfee.startdate
             addfee.gasfeeid = str(addfee.enddate) + str(addfee.startdate) + addfee.house_houseid
+            addfee.totalprice = 0
+            db.session.add(addfee)
+            db.session.commit()
             return redirect(url_for('finance.gasfee'))
         elif type=='卫生费':
             addcleaningfee=Cleaningfee(house_houseid=request.form.get('finance-houseid'))
-            addcleaningfee.startdate=datetime.datetime.strftime(request.form.get('startdate').strip(),"%Y-%m-%d").date()
+            addcleaningfee.startdate=datetime.datetime.strptime(request.form.get('startdate').strip(),"%Y-%m-%d").date()
             addcleaningfee.enddate=addcleaningfee.startdate
-            addcleaningfee.cleaningfeeid=str(waterfee.enddate)+str(waterfee.startdate)+waterfee.house_houseid
+            addcleaningfee.cleaningfeeid=str(addcleaningfee.enddate)+str(addcleaningfee.startdate)+addcleaningfee.house_houseid
             db.session.add(addcleaningfee)
             db.session.commit()
             return redirect(url_for('finance.cleaningfee'))
@@ -122,7 +128,23 @@ def waterfee_delete(houseid):
     return json.dumps(res)
 @finance.route('/waterfee/modify/<string:houseid>',methods=['POST','GET'])
 def waterfee_modify(houseid):
-    return render_template("/finance/waterfee_modify.html")
+    query=Waterfee.query.filter_by(house_houseid=houseid).first()
+    return render_template("/finance/waterfee_modify.html",query=query)
+@finance.route('/waterfee/modify/post',methods=['POST','GET'])
+def waterfee_modify_post():
+    waterfee=Waterfee.query.filter_by(waterfeeid=request.form.get('detail_waterfeeid')).first()
+    waterfee.startdegree=request.form.get('detail_startdegree')
+    waterfee.enddegree=request.form.get('detail_enddegree')
+    waterfee.startdate=datetime.datetime.strptime(request.form.get('detail_startdate').strip(),"%Y-%m-%d")
+    waterfee.enddate=datetime.datetime.strptime(request.form.get('detail_enddate').strip(),"%Y-%m-%d")
+    waterfee.pay=request.form.get("detail_pay")
+    if float(waterfee.enddegree) - float(waterfee.startdegree) > 0:
+        waterfee.totalprice=float('%0.2f'%((float(waterfee.enddegree)-float(waterfee.startdegree))*float(waterfee.priceperdegree)))
+    else:
+        waterfee.totalprice=0
+    db.session.add(waterfee)
+    db.session.commit()
+    return redirect(url_for('finance.waterfee'))
 
 @finance.route("/waterfeee/save/<string:waterfeeid>",methods=['POST','GET'])
 def waterfee_save(waterfeeid):
@@ -135,6 +157,9 @@ def waterfee_save(waterfeeid):
 def electricfee():
     charge=True
     query_house = House.query.all()
+    query_all = Electricfee.query.all()
+    waterfeepay = request.args.getlist('electricfeepay')
+    houseid = request.args.get('houseid')
     a=[]
     for querya  in query_house:
         a.append(querya.houseid)
@@ -144,9 +169,21 @@ def electricfee():
         querys = Electricfee.query.filter_by(enddate=datetime.datetime.strptime(
             str(datetime.datetime.now().year) + str(datetime.datetime.now().month) + "01", "%Y%m%d").date()).all()
     else:
-        querys = Electricfee.query.all()
+        if (houseid != '' and houseid is not None) or (waterfeepay is not None and len(waterfeepay) != 0):
+            if (houseid == '' or houseid is None) and len(waterfeepay) == 1:
+                querys = Electricfee.query.filter_by(pay=waterfeepay[0])
+            elif ((len(waterfeepay) == 0 or waterfeepay is None)) or (
+                            len(waterfeepay) == 2 and (houseid != '' and houseid is not None)):
 
-    return render_template('/finance/electricfee.html',charge=charge,querys=querys,query_house=a)
+                querys = Electricfee.query.filter_by(house_houseid=houseid)
+            elif len(waterfeepay) == 1:
+                querys = Electricfee.query.filter_by(house_houseid=houseid, pay=waterfeepay[0])
+            else:
+                querys = Electricfee.query.all()
+        else:
+            querys = Electricfee.query.all()
+
+    return render_template('/finance/electricfee.html',charge=charge,querys=querys,query_house=a,query_all=query_all)
 
 @finance.route('/electricfee/charge')
 def electriccharge():
@@ -198,11 +235,34 @@ def electricfee_delete(houseid):
     db.session.delete(electricfee)
     db.session.commit()
     return json.dumps(res)
+@finance.route('/electricfee/modify/<string:houseid>',methods=['POST','GET'])
+def electric_modify(houseid):
+    query=Electricfee.query.filter_by(house_houseid=houseid).first()
+    return render_template("/finance/electricfee_modify.html",query=query)
+@finance.route('/electricfee/modify/post',methods=['POST','GET'])
+def electric_modify_post():
+    electricfee=Electricfee.query.filter_by(electricfeeid=request.form.get('detail_waterfeeid')).first()
+    electricfee.startdegree=request.form.get('detail_startdegree')
+    electricfee.enddegree=request.form.get('detail_enddegree')
+    electricfee.startdate=datetime.datetime.strptime(request.form.get('detail_startdate').strip(),"%Y-%m-%d")
+    electricfee.enddate=datetime.datetime.strptime(request.form.get('detail_enddate').strip(),"%Y-%m-%d")
+    electricfee.pay=request.form.get("detail_pay")
+    if float(electricfee.enddegree) - float(electricfee.startdegree) > 0:
+        electricfee.totalprice=float('%0.2f'%((float(electricfee.enddegree)-float(electricfee.startdegree))*float(electricfee.priceperdegree)))
+    else:
+        electricfee.totalprice=0
+    db.session.add(electricfee)
+    db.session.commit()
+    return redirect(url_for('finance.electricfee'))
+
 
 @finance.route('/gasfee')
 def gasfee():
     charge=True
     query_house = House.query.all()
+    query_all = Electricfee.query.all()
+    waterfeepay = request.args.getlist('gasfeepay')
+    houseid = request.args.get('houseid')
     a=[]
     for querya  in query_house:
         a.append(querya.houseid)
@@ -212,8 +272,21 @@ def gasfee():
         querys = Gasfee.query.filter_by(enddate=datetime.datetime.strptime(
             str(datetime.datetime.now().year) + str(datetime.datetime.now().month) + "01", "%Y%m%d").date()).all()
     else:
-        querys=Gasfee.query.all()
-    return render_template('/finance/gasfee.html',charge=charge,querys=querys,query_house=a)
+        if (houseid != '' and houseid is not None) or (waterfeepay is not None and len(waterfeepay) != 0):
+            if (houseid == '' or houseid is None) and len(waterfeepay) == 1:
+                querys = Gasfee.query.filter_by(pay=waterfeepay[0])
+            elif ((len(waterfeepay) == 0 or waterfeepay is None)) or (
+                            len(waterfeepay) == 2 and (houseid != '' and houseid is not None)):
+
+                querys = Gasfee.query.filter_by(house_houseid=houseid)
+            elif len(waterfeepay) == 1:
+                querys = Gasfee.query.filter_by(house_houseid=houseid, pay=waterfeepay[0])
+            else:
+                querys = Gasfee.query.all()
+        else:
+            querys = Gasfee.query.all()
+
+    return render_template('/finance/gasfee.html',charge=charge,querys=querys,query_house=a,query_all=query_all)
 
 @finance.route('/gasfee/charge')
 def gascharge():
@@ -264,6 +337,27 @@ def gasfee_delete(houseid):
     db.session.delete(gasfee)
     db.session.commit()
     return json.dumps(res)
+
+@finance.route('/gasfee/modify/<string:houseid>',methods=['POST','GET'])
+def gas_modify(houseid):
+    query=Gasfee.query.filter_by(house_houseid=houseid).first()
+    return render_template("/finance/gasfee_modify.html",query=query)
+@finance.route('/gasfee/modify/post',methods=['POST','GET'])
+def gas_modify_post():
+    gasfee=Gasfee.query.filter_by(gasfeeid=request.form.get('detail_waterfeeid')).first()
+    gasfee.startdegree=request.form.get('detail_startdegree')
+    gasfee.enddegree=request.form.get('detail_enddegree')
+    gasfee.startdate=datetime.datetime.strptime(request.form.get('detail_startdate').strip(),"%Y-%m-%d")
+    gasfee.enddate=datetime.datetime.strptime(request.form.get('detail_enddate').strip(),"%Y-%m-%d")
+    gasfee.pay=request.form.get("detail_pay")
+    if float(gasfee.enddegree) - float(gasfee.startdegree) > 0:
+        gasfee.totalprice=float('%0.2f'%((float(gasfee.enddegree)-float(gasfee.startdegree))*float(gasfee.priceperdegree)))
+    else:
+        gasfee.totalprice=0
+    db.session.add(gasfee)
+    db.session.commit()
+    return redirect(url_for('finance.gasfee'))
+
 #############天然气费
 
 ###
@@ -271,6 +365,9 @@ def gasfee_delete(houseid):
 def cleaningfee():
     charge=True
     query_house = House.query.all()
+    query_all = Electricfee.query.all()
+    waterfeepay = request.args.getlist('cleaningfeepay')
+    houseid = request.args.get('houseid')
     a=[]
     for querya  in query_house:
         a.append(querya.houseid)
@@ -279,8 +376,20 @@ def cleaningfee():
         querys = Cleaningfee.query.filter_by(enddate=datetime.datetime.strptime(
             str(datetime.datetime.now().year) + str(datetime.datetime.now().month) + "01", "%Y%m%d").date()).all()
     else:
-        querys=Cleaningfee.query.all()
-    return render_template('/finance/cleaningfee.html',charge=charge,querys=querys,query_house=a)
+        if (houseid != '' and houseid is not None) or (waterfeepay is not None and len(waterfeepay) != 0):
+            if (houseid == '' or houseid is None) and len(waterfeepay) == 1:
+                querys = Cleaningfee.query.filter_by(pay=waterfeepay[0])
+            elif ((len(waterfeepay) == 0 or waterfeepay is None)) or (
+                            len(waterfeepay) == 2 and (houseid != '' and houseid is not None)):
+
+                querys = Cleaningfee.query.filter_by(house_houseid=houseid)
+            elif len(waterfeepay) == 1:
+                querys = Cleaningfee.query.filter_by(house_houseid=houseid, pay=waterfeepay[0])
+            else:
+                querys = Cleaningfee.query.all()
+        else:
+            querys = Cleaningfee.query.all()
+    return render_template('/finance/cleaningfee.html',charge=charge,querys=querys,query_house=a,query_all=query_all)
 
 @finance.route('/cleaningfee/charge')
 def cleaningcharge():
@@ -331,7 +440,23 @@ def cleaningfee_delete(houseid):
     db.session.delete(cleaningfee)
     db.session.commit()
     return json.dumps(res)
+@finance.route('/cleaningfee/modify/<string:houseid>',methods=['POST','GET'])
+def cleaningfee_modify(houseid):
+    query=Cleaningfee.query.filter_by(house_houseid=houseid).first()
+    return render_template("/finance/cleaningfee_modify.html",query=query)
+@finance.route('/cleaningfee/modify/post',methods=['POST','GET'])
+def cleaningfee_modify_post():
+    cleaningfee=Cleaningfee.query.filter_by(cleaningfeeid=request.form.get('detail_waterfeeid')).first()
+    cleaningfee.startdate=datetime.datetime.strptime(request.form.get('detail_startdate').strip(),"%Y-%m-%d")
+    cleaningfee.enddate=datetime.datetime.strptime(request.form.get('detail_enddate').strip(),"%Y-%m-%d")
+    cleaningfee.pay=request.form.get("detail_pay")
+    db.session.add(cleaningfee)
+    db.session.commit()
+    return redirect(url_for('finance.cleaningfee'))
 
+
+
+#业主个人缴费情况
 @finance.route('/charge/personal/<string:houseid>',methods=['POST','GET'])
 def personal_charge(houseid):
     query_water=Waterfee.query.filter_by(house_houseid=houseid)

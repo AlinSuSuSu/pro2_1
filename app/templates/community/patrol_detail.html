@@ -1,10 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "community/patrol.html" %}
+{% block title %}保安巡逻{% endblock %}
 
-</body>
-</html>
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+        {{ super() }}
+        {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="page-header">
+                        <h4>事件详情</h4>
+                    </div>
+                </div>
+            </div>
+            <form id="patroldetailForm" method="post" class='form-horizontal'action="/community/patrol/detail/post">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">事件编号</label>
+                            <div class="col-md-6">
+                                <input class="form-control" value="{{ query.patrolid }}" name="patrol_detail_patrolid"readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">事件类型</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="patrol_detail_eventtype"required  data-bv-trigger="blur" data-bv-notempty-message="不能为空">
+                                    <option value="{{ query.eventtype }}">{{ query.eventtype }}</option>
+                                    {% for q_c in query_choice %}
+                                    <option value="{{ q_c.choicename }}">{{ q_c.choicename }}</option>
+                                   {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">处理人</label>
+                            <div class="col-md-6">
+                                <input class="form-control" name="patrol_detail_solveperson"value="{{ query.solveperson }}"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-5">
+                      <div class="form-group">
+                            <label class="col-md-4 control-label">当事人</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="patrol_detail_personinvolved"value="{{ query.personinvolved }}"required data-bv-trigger="blur" data-bv-notempty-message="不能为空" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">当事人电话</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="patrol_detail_phoneinvolved" value="{{ query.phoneinvolved}}"data-bv-trigger="blur" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">发生时间</label>
+                            <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control" size="12" type="text" name="patrol_detail_eventtime"value="{{ query.eventtime }}" readonly >
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input2" value="" />
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-10 form-group col-md-10 col-sm-10 col-xs-10">
+                        <label class="col-md-2 control-label">处理结果</label>
+                        <div class="col-md-10">
+                        <input type="text" name="patrol_detail_eventresult" class="form-control"value="{{query.eventresult}}"data-bv-trigger="blur"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-10 form-group col-md-10 col-sm-10 col-xs-10">
+                            <label class="col-md-2 control-label">事件概要</label>
+                            <div class="col-md-10">
+                                <textarea  class="form-control" name="patrol_detail_eventdetail"rows="3"value="{{ query.eventdetail }}" data-bv-trigger="blur">{{ query.eventdetail }}</textarea>
+                            </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <input type="submit" class="btn btn-danger pull-right" id="patrol_detail_validateBtn">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+
+        {% endblock %}
+    </div>
+{% endblock %}

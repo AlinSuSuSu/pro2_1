@@ -37,7 +37,7 @@ class Role(db.Model):
             role.default = roles[r][1]
             db.session.add(role)
         db.session.commit()
-        user = User(house_houseid='000', username='000', password='111111')
+        user = User(house_houseid='admin', username='admin', password='admin')
         db.session.add(user)
         db.session.commit()
 
@@ -66,7 +66,7 @@ class User(UserMixin,db.Model):
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
         if self.role is None:
-            if self.house_houseid == '000':
+            if self.house_houseid == 'admin':
                 self.role = Role.query.filter_by(permissions=Permission.ADMIN).first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
@@ -93,8 +93,8 @@ login_manager.anonymous_user=AnonymouseUser
 
 class Staff(UserMixin, db.Model):
     __tablename__ = 'staffs'
-    staffid = db.Column(db.String(64),primary_key=True,index=True)#员工编号
-    staffname = db.Column(db.String(64),unique=True,index=True)#员工姓名
+    staffid = db.Column(db.String(16),primary_key=True,index=True)#员工编号
+    staffname = db.Column(db.String(32),unique=True,index=True)#员工姓名
     age= db.Column(db.Integer)#年龄
     gender = db.Column(db.String(4))#性别
     phone = db.Column(db.String(11),unique=True)#联系方式
@@ -226,7 +226,7 @@ class Repairation(UserMixin,db.Model):
     # 报修时间
     repairationcomptime=db.Column(db.Date)#竣工时间
     repairationreplytime=db.Column(db.DateTime)#申请时间
-    repairationcheck=db.Column(db.String(4),nullable=False,default='未审核')#进度，分为未审核，审核通过，审核失败，默认未审核
+    repairationcheck=db.Column(db.String(4),nullable=False,default='否')#进度，分为未审核，审核通过，审核失败，默认未审核
 
     @staticmethod
     def generate_fake(count=50):
@@ -256,13 +256,13 @@ class Repairation(UserMixin,db.Model):
 
 class Patrol(UserMixin,db.Model):
     __tablename__='patrols'
-    patrolid = db.Column(db.String(10),primary_key=True,index=True)
+    patrolid = db.Column(db.Integer,primary_key=True,index=True)
     eventtype = db.Column(db.String(32),nullable=False)
-    eventtime = db.Column(db.DateTime,nullable=False)
+    eventtime = db.Column(db.Date,nullable=False)
     solveperson = db.Column(db.String(16),nullable=False)#处理人
     #solvephone = db.Column(db.String(16),nullable=False)#处理人电话
     personinvolved = db.Column(db.String(16),nullable=False)#当事人
-    phoneinvolved = db.Column(db.String(16),nullable=False)#当事人电话
+    phoneinvolved = db.Column(db.String(16))#当事人电话
     eventresult = db.Column(db.String(32),nullable=False)#处理结果
     eventdetail = db.Column(db.String(200),nullable=False)#事件概要
 
@@ -273,16 +273,14 @@ class Patrol(UserMixin,db.Model):
         import forgery_py
         seed()
         for i in range(count):
-            u = Patrol(patrolid=forgery_py.basic.text(length=10,digits=False),
-                       eventtype=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
+            u = Patrol(eventtype=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
                        solveperson=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
                        personinvolved=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
                        phoneinvolved=forgery_py.basic.text(at_most=16,at_least=2, digits=False),
                        eventresult=forgery_py.basic.text(at_most=32,at_least=2, digits=False),
-                       eventtime=datetime.strptime('2017-01-01-12', "%Y-%m-%d-%H"),
+                       eventtime=datetime.strptime('2017-01-01', "%Y-%m-%d"),
                        eventdetail=forgery_py.basic.text(at_most=200,at_least=20, digits=False),
                        )
-            u.totalprice = 200.00
             db.session.add(u)
             try:
                 db.session.commit()
@@ -293,7 +291,7 @@ class Patrol(UserMixin,db.Model):
 
 class Infrastructure(UserMixin,db.Model):
     __tablename__='infrastructures'
-    infrastructureid=db.Column(db.String(10),primary_key=True,index=True)
+    infrastructureid=db.Column(db.Integer,primary_key=True,index=True)
     infrastructuretype=db.Column(db.String(32),nullable=False)
     infrastructuretime=db.Column(db.Date,nullable=False)
     infrastructurearea=db.Column(db.String(32),nullable=False)
@@ -304,13 +302,13 @@ class Infrastructure(UserMixin,db.Model):
     detail=db.Column(db.String(200),nullable=False)
 class Complaint(UserMixin,db.Model):
     __tablename__='complaints'
-    complaintid=db.Column(db.String(10),primary_key=True,index=True)
+    complaintid=db.Column(db.Integer,primary_key=True,index=True)
     complainttime=db.Column(db.DateTime,nullable=False)
     house_houseid=db.Column(db.String(32),db.ForeignKey('houses.houseid'),nullable=False)
     complainttype=db.Column(db.String(32),nullable=False)
-    complaintstatus=db.Column(db.String(16),nullable=False)
-    complainttime=db.Column(db.DateTime,nullable=False)
-    replystaff=db.Column(db.String(16),nullable=False)
+    complaintstatus=db.Column(db.String(16),nullable=False,default='未审核')#分为未审核，已审核，已处理
+    complaintsolvetime=db.Column(db.Date)
+    replystaff=db.Column(db.String(16))
     complaintdetail=db.Column(db.String(200),nullable=False)
 
 

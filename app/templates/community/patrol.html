@@ -34,8 +34,8 @@
                       <div class="col-md-6">
                           <select class="form-control"id="eventtype"name="eventtype">
                               <option value=""></option>
-                              {% for query in query_all %}
-                              <option value="{{ query.eventtype }}">{{ query.eventtype }}</option>
+                              {% for query in query_choice %}
+                              <option value="{{ query.choicename }}">{{ query.choicename }}</option>
                               {% endfor %}
                           </select>
                       </div>

@@ -13,6 +13,24 @@
             }
             else return;
         });
+        $("#patrol_validateBtn").on("click", function(){
+            var bootstrapValidator = $("#patrolForm").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if(bootstrapValidator.isValid()) {
+                document.getElementById("patrolForm").submit(function(ev){ev.preventDefault();});
+
+            }
+            else return;
+        });
+        $("#waterfee_validateBtn").on("click", function(){
+            var bootstrapValidator = $("#waterfeemodifyForm").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if(bootstrapValidator.isValid()) {
+                document.getElementById("waterfeemodifyForm").submit(function(ev){ev.preventDefault();});
+
+            }
+            else return;
+        });
 
 
         $('#ownerForm').bootstrapValidator({
@@ -363,7 +381,659 @@
 
             }
         });
+        ////故障报修详情表单
 
+        $('#repairationdetailForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                detail_repairationestimatedcost: {
+                    message:'输入不合法',
+                    validators: {
+                        stringLength:{
+                            min:0,
+                            max:8,
+                            message:''
+                        },
+                        regexp:{
+                            regexp:/^[1-9][0-9]*$/,
+                            message:'输入整数'
+
+                        }
+
+
+                    }
+
+                },
+                detail_repairationactualcost:{
+                     message:'输入不合法',
+                    validators: {
+                        stringLength:{
+                            min:0,
+                            max:8,
+                            message:''
+                        },
+                        regexp:{
+                            regexp:/^[1-9][0-9]*$/,
+                            message:'输入整数'
+
+                        }
+
+
+                    }
+                },
+                detail_repairationresperson:{
+                     message:'输入不合法',
+                    validators: {
+                        stringLength: {
+                            min: 0,
+                            max: 16,
+                            message: '最多16位'
+                        }
+                    }
+                },
+                detail_repairationresphone: {
+                    message: '输入不合法',
+                    validators: {
+
+                        stringLength: {
+                            min: 0,
+                            max: 11,
+                            message: '11位'
+                        },
+                        regexp:{
+                            regexp:/^[0-9]{11}$/,
+                            message:'11位数字'
+
+                        }
+
+                    }
+                },
+                detail_repairationcontent:{
+                    message:"输入不合法",
+                    validators:{
+
+                        stringLength: {
+                            min: 0,
+                            max: 128,
+                            message: '不能超过128个字符'
+                        },
+
+
+                    },
+
+                }
+            }
+        });
+        ///故障报修详情
+        ///////////////////////////////////////////////////////////
+        ///故障报修页面
+        $('#repairationForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                add_repairationestimatedcost: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:8,
+                            message:''
+                        },
+                        regexp:{
+                            regexp:/^[1-9][0-9]*$/,
+                            message:'输入整数'
+
+                        }
+
+
+                    }
+
+                },
+
+                add_repairationcontent:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 128,
+                            message: '不能超过128个字符'
+                        },
+
+
+                    },
+
+                },
+                add_repairationtime:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:"不能为空"
+                        }
+
+
+                    },
+
+                },
+
+
+            }
+        });
+        ///故障报修页面
+        ///////////////////////
+        ///保安巡逻
+        $('#patrolForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                patrol_eventtype: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:32,
+                            message:'最多32个字符'
+                        },
+
+                    }
+
+                },
+                patrol_solveperson: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:16,
+                            message:'最多16个字符'
+                        },
+
+                    }
+
+                },
+
+                patrol_personinvolved:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 16,
+                            message: '最多16个字符'
+                        },
+
+
+                    },
+
+                },
+                patrol_phoneinvolved:{
+                    message:"输入不合法",
+                    validators:{
+                        regexp:{
+                            regexp:/^[1-9][0-9]*$/,
+                            message:'11位整数'
+
+                        }
+
+                    },
+
+                },
+                patrol_eventresult: {
+                    message: "输入不合法",
+                    validators: {
+                        notEmpty: {
+                            message: "不能为空"
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 32,
+                            message: '最多32个字符'
+                        },
+                    }
+                },
+                patrol_eventdetail: {
+                    message: "输入不合法",
+                    validators: {
+                        notEmpty: {
+                            message: "不能为空"
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 200,
+                            message: '最多200个字符'
+                        },
+                    }
+                }
+
+
+            }
+        });
+        ///保安巡逻页面
+        ///////////////////////
+        ///保安巡逻
+        $('#patroldetailForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                patrol_detail_eventtype: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:32,
+                            message:'最多32个字符'
+                        },
+
+                    }
+
+                },
+                patrol__detail_solveperson: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:16,
+                            message:'最多16个字符'
+                        },
+
+                    }
+
+                },
+
+                patrol_detail_personinvolved:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 16,
+                            message: '最多16个字符'
+                        },
+
+
+                    },
+
+                },
+                patrol_detail_phoneinvolved:{
+                    message:"输入不合法",
+                    validators:{
+                        regexp:{
+                            regexp:/^[1-9][0-9]*$/,
+                            message:'11位整数'
+
+                        }
+
+                    },
+
+                },
+                patrol_detail_eventresult: {
+                    message: "输入不合法",
+                    validators: {
+                        notEmpty: {
+                            message: "不能为空"
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 32,
+                            message: '最多32个字符'
+                        },
+                    }
+                },
+                patrol_detail_eventdetail: {
+                    message: "输入不合法",
+                    validators: {
+                        notEmpty: {
+                            message: "不能为空"
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 200,
+                            message: '最多200个字符'
+                        },
+                    }
+                }
+
+
+            }
+        });
+        //////////////////////////////////
+         ///绿化基建
+        $('#infrastructureForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                add_resperson: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:16,
+                            message:'最多16个字符'
+                        },
+
+                    }
+
+                },
+                add_infrastructurearea: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:32,
+                            message:'最多32个字符'
+                        },
+
+                    }
+
+                },
+
+                add_detail:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 200,
+                            message: '最多16个字符'
+                        },
+
+
+                    },
+
+                },
+                add_resphone:{
+                    message:"输入不合法",
+                    validators:{
+                        regexp:{
+                            regexp:/^[1-9][0-9]*$/,
+                            message:'11位整数'
+
+                        }
+
+                    },
+
+                },
+
+
+
+            }
+        });
+
+        ///////////////////////////
+        ///绿化基建详情页
+        $('#infrastructuredetailForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                detail_resperson: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:16,
+                            message:'最多16个字符'
+                        },
+
+                    }
+
+                },
+                detail_infrastructurearea: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:32,
+                            message:'最多32个字符'
+                        },
+
+                    }
+
+                },
+
+                detail_detail:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 200,
+                            message: '最多16个字符'
+                        },
+
+
+                    },
+
+                },
+                detail_resphone:{
+                    message:"输入不合法",
+                    validators:{
+                        regexp:{
+                            regexp:/^[1-9][0-9]{10}$/,
+                            message:'11位整数'
+
+                        }
+
+                    },
+
+                },
+
+
+
+            }
+        });
+        $('#waterfeemodifyForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                detail_startdegree: {
+                    message:'输入不合法',
+                    validators: {
+
+                        regexp:{
+                            regexp:/^[0-9]+.?[0-9]*$/,
+                            message:'输入整数'
+
+                        }
+
+
+                    }
+
+                },
+                detail_enddegree: {
+                    message:'输入不合法',
+                    validators: {
+                        regexp:{
+                            regexp:/^[0-9]+.?[0-9]*$/,
+                            message:'输入整数'
+                        }
+                    }
+                }
+            }
+        });
+        ////////////////////////
+         ///员工添加
+        $('#staffaddForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                add_staffid: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:16,
+                            message:'最多16个字符'
+                        },
+                        regexp:{
+                            regexp:/^[0-9]+$/,
+                            message:"只能是数字"
+
+                        }
+
+                    }
+
+                },
+                add_staffname: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:32,
+                            message:'最多32个字符'
+                        },
+
+                    }
+
+                },
+
+                add_phone:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        regexp:{
+                            regexp:/^[0-9]{11}$/,
+                            message:"11位数字"
+
+                        }
+
+
+                    },
+
+                },
+                add_idcard:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        regexp:{
+                            regexp:/^[0-9]{17}([0-9]|[a-z])$/,
+                            message:"18位数字"
+
+                        }
+
+
+                    },
+
+                },
+                add_age:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:2,
+                            message:'最多2位数'
+                        },
+                        regexp:{
+                            regexp:/^[1-9][0-9]*$/,
+                            message:'2位整数'
+
+                        }
+
+                    },
+
+                },
+                add_job:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:"不能为空"
+                        },
+                        stringLength:{
+                            min:0,
+                            max:18,
+                            message:'最多18个字符'
+                        },
+
+
+                    },
+
+                },
+
+
+
+            }
+        });
         $('#patrol_validateBtn').click(function() {
             $('#patrolForm').bootstrapValidator("validate")
         });
@@ -372,6 +1042,10 @@
         });
         $('#house_validateBtn').click(function() {
             $('#houseForm').bootstrapValidator('validate');
+        });
+
+        $('#waterfee_validateBtn').click(function() {
+            $('#waterfeemodifyForm').bootstrapValidator('validate');
         });
         $('#house_resetBtn').click(function() {
             $('#houseForm').data('bootstrapValidator').resetForm(true);
@@ -392,6 +1066,12 @@
         });*/
         $('#owner_add_resetBtn').click(function() {
             $('#ownerForm').data('bootstrapValidator').resetForm(true);
+        });
+        $('#repairation_resetBtn').click(function() {
+            $('#repairationForm').data('bootstrapValidator').resetForm(true);
+        });
+        $('#infrastructure_resetBtn').click(function() {
+            $('#infrastructureForm').data('bootstrapValidator').resetForm(true);
         });
 
 

@@ -36,8 +36,8 @@
                       <div class="col-md-6">
                           <select class="form-control"id="infrastructuretype"name="infrastructuretype">
                               <option value=""></option>
-                              {% for query in query_all %}
-                              <option value="{{ query.infrastructuretype }}">{{ query.infrastructuretype }}</option>
+                              {% for q_c in query_choice %}
+                              <option value="{{ q_c.choicename }}">{{ q_c.choicename }}</option>
                               {% endfor %}
                           </select>
                       </div>

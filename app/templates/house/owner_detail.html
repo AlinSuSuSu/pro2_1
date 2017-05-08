@@ -8,10 +8,13 @@
         {% endblock %}
     {% block page_content_right %}
         <div id="right-side">
-        <div class="ss-form-header">
-            <label id="ss-form-label">房产信息</label>
-            <div id="ss-form-line"></div>
-        </div>
+        <div class="row">
+                <div class="col-md-10">
+                    <div class="page-header">
+                        <h4>房产信息</h4>
+                    </div>
+                </div>
+            </div>
         <form method="POST" id="ownerdetailForm"class="form-horizontal"action="/house/house_owner/detail/post/">
             <div class="row">
                 <div class="col-md-5">

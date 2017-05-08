@@ -8,6 +8,7 @@
     <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
 {% endblock %}
 
+
 {% block page_content %}
 
 <div id="wrapper">
@@ -47,14 +48,13 @@
     {% if not charge %}
         <form method="GET" class="form-horizontal"action='/finance/waterfee'>
           <div class="row">
-
               <div class="col-md-5">
                   <div class="form-group">
                       <label class="col-md-3 control-label">门牌编号:</label>
                       <div class="col-md-6">
                           <select class="form-control"id="houseid"name="houseid">
                               <option value=""></option>
-                              {% for query in querys %}
+                              {% for query in query_all %}
                               <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
                               {% endfor %}
                           </select>
@@ -70,6 +70,8 @@
                           <label>
                               <input type="checkbox" id="waterfeepay"name="waterfeepay"value="否">否
                           </label>
+                      </div>
+                      <div class="checkbox">
                           <label>
                               <input type="checkbox" id="waterfeepay"name="waterfeepay"value="是">是
                           </label>
@@ -88,6 +90,12 @@
           <br>
           </form>
     {% endif %}
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
         <div class="table-responsive ss-scrolltbody">
                   <table class="table table-hover table-condensed table-bordered ">
                       <thead >

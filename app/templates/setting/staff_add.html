@@ -8,80 +8,102 @@
         {% endblock %}
     {% block page_content_right %}
         <div id="right-side">
-        <div class="ss-form-header">
-            <label id="ss-form-label">添加新职员</label>
-            <div id="ss-form-line"></div>
-        </div>
-            <form method="POST" action="/staff/staff/add/post">
-        <div class="ss-form-body">
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">员工编号:</div>
-                  <input class="ss-form-control"id="addstaffid"name="add-staffid">
+        <div class="row">
+                <div class="col-md-10">
+                    <div class="page-header">
+                        <h4>添加新职员</h4>
+                    </div>
+                </div>
             </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">员工姓名:</div>
-                  <input class="ss-form-control"id="addstaffname"name="add-staffname">
+        <form method="POST" id="staffaddForm"class="form-horizontal"action="/setting/staff/add/post">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">员工编号:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="addstaffid"name="add_staffid" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">员工姓名:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="addstaffname"name="add_staffname" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">手机号:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="addphone"name="add_phone" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">身份证号:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="addidcard"name="add_idcard" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">手机号:</div>
-                  <input class="ss-form-control"id="addphone"name="add-phone">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">性别:</label>
+                        <div class="col-md-6">
+                            <label class="checkbox-inline">
+                                <input type="radio" name="add_gender" id="addgender" value="男" checked>男
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" name="add_gender" id="addgender" value="女" >女
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">年龄:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="addage"name="add_age" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
             </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">身份证号:</div>
-                  <input class="ss-form-control"id="addidcard"name="add-idcard">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">工种:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="addjob"name="add_job" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">入职时间:</label>
+                        <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control" size="12" type="text" name="add_enterdate"value="" readonly >
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input2" name="patrol_eventtime2" value="" />
+
+                    </div>
+                </div>
             </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">银行卡号:</div>
-                  <input class="ss-form-control"id="aa"name="aa">
-            </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">薪资:</div>
-                  <input class="ss-form-control"id="addsalary"name="add-salary">
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">工种:</div>
-                  <input class="ss-form-control"id="addjob"name="add-job">
-            </div>
-                <div class="ss-form-group">
-                  <div class="ss-name-label">年龄:</div>
-                  <input class="ss-form-control"id="addage"name="add-age">
-            </div>
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">密码（默认）:</div>
-                  <input class="ss-form-control"id="addpassword"name="add-password"value="111111">
+           <div class="form-group">
+                    <div class="col-md-5">
+                        <input type="submit" class="btn btn-danger pull-right" id="staff_add_validateBtn">
+                    </div>
 
             </div>
-
-            </div>
-            <div class="ss-form-body-row">
-            <div class="ss-form-group">
-                  <div class="ss-name-label">性别:</div>
-                  <input class="ss-form-control"id="addgender"name="add-gender"value='男'type="radio"checked>男
-                  <input class="ss-form-control"id="addgender"name="add-gender"value='女'type="radio">女
-
-            </div>
-
-            </div>
-            <div class="ss-form-body-row ss-form-body-row-btn">
-            <div class="ss-form-group ss-form-gruop-btn">
-
-                  <input class="ss-form-control"id="reset"name="重置"type="reset">
-                  <input class="ss-form-control"id="staffname"name="提交"type="submit">
-
-            </div>
-
-            </div>
-        </div>
-                </form>
+        </form>
         </div>
         {% endblock %}
     </div>

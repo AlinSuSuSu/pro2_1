@@ -8,89 +8,121 @@
         {% endblock %}
     {% block page_content_right %}
         <div id="right-side">
-            <section>
-                <div class="col-lg-10 ">
+            <div class="row">
+                <div class="col-md-10">
                     <div class="page-header">
-                        <h4>添加事件</h4>
+                        <h4>绿化基建</h4>
                     </div>
+                </div>
+            </div>
+            <form id="infrastructureForm" method="post" class='form-horizontal'action="/community/infrastructure/add/post">
+                <div class="row">
 
-                    <form id="ownerForm" method="post" class='form-horizontal'action="/community/infrastructure/add/post">
+                    <div class="col-md-5">
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">事件编号</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="add_infrastructureid" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">事件类型</label>
-                            <div class="col-lg-4">
-                                <select class="form-control" name="add_infrastructuretype" >
+                            <label class="col-md-4 control-label">事件类型</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="add_infrastructuretype" required data-bv-trigger="blur" data-bv-notempty-message="不能为空">
                                     {% for query in query_choice %}
                                     <option value="{{ query.choicename }}">{{ query.choicename }}</option>
-                                   {% endfor %}
+                                    {% endfor %}
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">监督人</label>
+                            <div class="col-md-6">
+                                <select class="form-control"name="add_supervisitor"required data-bv-trigger="blur" data-bv-notempty-message="不能为空">
+                                    {% for q_s in query_staff %}
+                                    <option value="{{ q_s.staffname }}">{{ q_s.staffname }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                        </div>
+                <div class="row">
+                    <div class="col-md-5">
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">发生时间</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="add_infrastructuretime" />
+                            <label class="col-md-4 control-label">负责人</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="add_resperson"required data-bv-trigger="blur" data-bv-notempty-message="不能为空" />
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-5">
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">区域</label>
-                            <div class="col-lg-4">
-                                <input class="form-control" name="add_infrastructurearea"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">负责人</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="add_resperson" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">负责人电话</label>
-                            <div class="col-lg-4">
+                            <label class="col-md-4 control-label">负责人电话</label>
+                            <div class="col-md-6">
                                 <input type="text" class="form-control" name="add_resphone" />
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">发生时间</label>
+                        <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control" size="12" type="text" name="add_infrastructuretime"value="" readonly >
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input2" value="" />
+
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">区域</label>
+                        <div class="col-md-10">
+                            <input class="form-control" name="add_infrastructurearea"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10">
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">监督人</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="add_supervisitor" />
+                            <label class="col-md-2 control-label">描述</label>
+                            <div class="col-md-10">
+                                <textarea type="text" rows='3'class="form-control" name="add_detail"required data-bv-trigger="blur" data-bv-notempty-message="不能为空" ></textarea>
                             </div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">验收</label>
-                            <div class="col-lg-4">
+                            <label class="col-md-4 control-label">验收</label>
+                            <div class="col-md-6">
                                 <select class="form-control" name="add_check">
                                     <option value="合格">合格</option>
                                     <option value="不合格">不合格</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">描述</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="add_detail" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-9 col-lg-offset-8">
-                                <input type="reset" class="btn btn-info" id="resetBtn">
-                                <input type="submit" class="btn btn-info" id="validateBtn">
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <input type="submit" class="btn btn-danger pull-right" id="infrastructure_validateBtn">
+                    </div>
+                    <div class="col-md-5">
+                        <input type="reset" class="btn btn-default pull-left" id="infrastructure_resetBtn">
+                    </div>
+                </div>
+
                     </form>
                 </div>
-            </section>
         </div>
         {% endblock %}
     </div>

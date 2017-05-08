@@ -19,129 +19,14 @@
                 </div>
             </div>
 
-        <form id="patrolForm"  method="POST" class='form-horizontal' action="/community/repairation/apply/post">
-            {% if current_user.is_administrator() %}
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">门牌编号</label>
-                        <div class="col-md-6">
-                            <select class="form-control"id="addhouse_houseid"name="add_house_houseid">
-                            {% for query in query_owner %}
-                            <option value="{{ query.house_houseid}}">{{ query.house_houseid }}</option>
-                            {% endfor %}
-                        </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">监督人</label>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="addrepairationremark"name="add_repairationsupervisitor" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">预计费用</label>
-                        <div class="col-md-6">
-                            <input class="form-control" id="addrepairationtype"name="add_repairationestimatedcost"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">实际费用</label>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="addrepairationactualcost"name="add_repairationactualcost" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">负责人</label>
-                        <div class="col-md-6">
-                            <input class="form-control" id="addrepairationaddress"name="add_repairationresperson"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">负责人电话</label>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control"id="addrepairationremark"name="add_repairationresphone" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">审核情况</label>
-                        <div class="col-md-6">
-                            <select class="form-control" id="addrepairationremark"name="add_repairationcheck" ><option value="否">未审核</option>
-                                <option value="是">已审核</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5 ">
-                    <div class="form-group">
-                     <label class="col-md-4 control-label">报修时间</label>
-                        <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                            <input class="form-control" size="12" type="text" name="add_repairationtime"value="" readonly>
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                        </div>
-                        <input type="hidden" id="dtp_input2" value="" />
-                </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5">
-                    <div class=" form-group">
-                     <label class="col-md-4 control-label">竣工时间</label>
-                        <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                            <input class="form-control" size="12" type="text" name="add_repairationcomptime"value="" readonly>
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                        </div>
-                        <input type="hidden" id="dtp_input2" value="" />
-                </div>
-                </div>
+        <form id="repairationForm"  method="POST" class='form-horizontal' action="/community/repairation/apply/post">
 
-            </div>
-
-            <div class="row">
-                <div class="col-lg-10 form-group col-md-10 col-sm-10 col-xs-10">
-                    <label class="col-md-2 control-label">报修内容</label>
-                    <div class="col-md-10">
-                        <textarea rows="3" id="addrepairationtype"name="add_repairationcontent" class="form-control"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-5">
-                    <input type="submit" class="btn btn-danger pull-right" id="repairation_validateBtn">
-                </div>
-                <div class="col-md-5">
-                    <input type="reset" class="btn btn-default pull-left" id="repairation_resetBtn">
-                </div>
-            </div>
-            {% else %}
                 <div class="row">
                 <div class="col-md-5">
                     <div class="form-group">
                         <label class="col-md-4 control-label">门牌编号</label>
                         <div class="col-md-6">
-                            <input class="form-control"id="addhouse_houseid"readonly name="add_house_houseid"value="{{ current_user.house_houseid }}">
+                            <input class="form-control"id="addhouse_houseid"readonly name="add_house_houseid"value="{{ current_user.house_houseid }}"required>
                         </input>
                         </div>
                     </div>
@@ -150,7 +35,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">预计费用</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="addrepairationtype"name="add_repairationestimatedcost" />
+                            <input type="text" class="form-control" id="addrepairationtype"data-bv-trigger="blur"name="add_repairationestimatedcost" />
                         </div>
                     </div>
                 </div>
@@ -158,9 +43,9 @@
                 <div class="row">
                 <div class="col-md-5 ">
                     <div class="form-group">
-                     <label class="col-md-4 control-label">报修时间</label>
+                     <label class="col-md-4 control-label">希望维修时间</label>
                         <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                            <input class="form-control" size="12" type="text" name="add_repairationtime"value="" readonly>
+                            <input class="form-control" size="12" type="text" name="add_repairationtime"value="" readonly >
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                         </div>
@@ -173,7 +58,7 @@
                 <div class="col-lg-10 form-group col-md-10 col-sm-10 col-xs-10">
                     <label class="col-md-2 control-label">报修内容</label>
                     <div class="col-md-10">
-                        <textarea rows="3" id="addrepairationtype"name="add_repairationcontent" class="form-control"></textarea>
+                        <textarea rows="3" id="addrepairationtype"name="add_repairationcontent" data-bv-trigger="blur" class="form-control"></textarea>
                     </div>
                 </div>
             </div>
@@ -185,7 +70,6 @@
                     <input type="reset" class="btn btn-default pull-left" id="repairation_resetBtn">
                 </div>
             </div>
-            {% endif %}
         </form>
         </div>
         {% endblock %}

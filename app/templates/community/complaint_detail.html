@@ -1,0 +1,125 @@
+{% extends "community/complaint.html" %}
+{% block title %}投诉建议{% endblock %}
+
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+        {% if current_user.is_administrator() %}
+        {{ super() }}
+        {% else %}
+
+        {% endif %}
+        {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+            <div class="row">
+                    <div class="col-md-10">
+                        <div class="page-header">
+                            <h4>投诉/建议类型</h4>
+                        </div>
+                    </div>
+                </div>
+                    <form id="ownerForm" method="post" class='form-horizontal'action="/community/complaint/detail/post">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">投诉建议编号</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control"value="{{ query.complaintid }}"name="detail_complaintid"readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">房产编号</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control"value="{{ query.house_houseid }}"name="detail_houseid"readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">建议投诉类型</label>
+                                    <div class="col-md-6">
+                                       <input class="form-control" name="detail_complainttype"value="{{ query.complainttype }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">处理状态</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" name="detail_complaintstatus">
+                                            <option value="{{ query.complaintstatus }}">{{ query.complaintstatus }}</option>
+                                            {% if query.complaintstatus=="未审核"  %}
+                                            <option value="已审核">已审核</option>
+                                            <option value="已处理">已处理</option>
+                                            {% elif query.complaintstatus=="已审核" %}
+                                            <option value="已处理">已处理</option>
+
+
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">建议时间</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control"value="{{ query.complainttime }}"name="detail_complainttime"readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">处理人员</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control"value="{{ query.replystaff }}"name="detail_replystaff">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">处理时间</label>
+                                    <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                        <input class="form-control" size="12" type="text" name="detail_complaintsolvetime"value="{{ query.complaintsolvetime}}" readonly >
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                    <input type="hidden" id="dtp_input2" name="patrol_eventtime2" value="" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">投诉建议内容</label>
+                                    <div class="col-md-10">
+                                        <textarea rows="3"class="form-control"name="detail_complaintdetail"readonly>{{ query.complaintdetail }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                           <div class="form-group">
+                            <div class="col-md-3">
+                                <input type="submit" class="btn btn-danger pull-right" id="validateBtn">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="reset" class="btn btn-default pull-left" id="resetBtn">
+                            </div>
+                            </div>
+                    </form>
+                </div>
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}

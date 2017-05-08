@@ -3,6 +3,7 @@ from . import setting
 from ..models import User,Role,Staff,Choice,Waterfee,House
 from flask_login import login_user,logout_user,login_required,current_user
 from app import db
+import datetime
 import json
 
 @setting.route('/',methods=['POST','GET'])
@@ -12,15 +13,15 @@ def set():
 @setting.route('/staff_setting',methods=['POST','GET'])
 def staff_setting():
     queryall = Staff.query.all()
-    job = request.args.getlist('job')
+    job = request.args.getlist('gender')
     staffname = request.args.get('staffname')
     if (len(job) != 0 and job is not None) or (staffname is not None and staffname != ''):
         if (staffname == '' or staffname is None) and len(job)==1:
-            querys = Staff.query.filter_by(job=job[0])
+            querys = Staff.query.filter_by(gender=job[0])
         elif (len(job) == 0 or job is None)or (len(job)==2 and (staffname != '' and staffname is not None)):
             querys = Staff.query.filter_by(staffname=staffname)
         elif len(job)==1:
-            querys = Staff.query.filter_by(staffname=staffname,job=job[0])
+            querys = Staff.query.filter_by(staffname=staffname,gender=job[0])
         else:
          querys = Staff.query.all()
     else:
@@ -33,14 +34,13 @@ def staff_add():
 
 @setting.route('/staff/add/post',methods=['POST','GET'])
 def staff_add_post():
-    password=request.form.get('add-password')
-    staff=Staff(staffid=request.form.get('add-staffid'),staffname=request.form.get('add-staffname'),
-                phone=request.form.get('add-phone'),idcard=request.form.get('add-idcard'),
-                salary=request.form.get('add-salary'),job=request.form.get('add-job'),
-                age=request.form.get('add-age'),password=request.form.get('add-password'),gender=request.form.get('add-gender'),role_id='4')
+    staff=Staff(staffid=request.form.get('add_staffid'),staffname=request.form.get('add_staffname'),
+                phone=request.form.get('add_phone'),idcard=request.form.get('add_idcard'),
+                job=request.form.get('add_job'),age=request.form.get('add_age'),
+                gender=request.form.get('add_gender'),enterdate=datetime.datetime.strptime(request.form.get('add_enterdate').strip(),"%Y-%m-%d"))
     db.session.add(staff)
     db.session.commit()
-    return redirect(url_for('staff.staff_message'))
+    return redirect(url_for('setting.staff_setting'))
 #删除员工
 @setting.route('/staff/delete/<string:staffid>',methods=['POST','GET'])
 def staff_delete(staffid):
@@ -55,8 +55,22 @@ def staff_delete(staffid):
 
 @setting.route('/staff/detail/<string:staffid>',methods=['POST','GET'])
 def staff_detail(staffid):
-    return render_template('setting/staff_detail.html')
+    query=Staff.query.filter_by(staffid=staffid).first()
+    return render_template('setting/staff_detail.html',query=query)
 
+@setting.route('/staff/detail/post',methods=['POST','GET'])
+def staff_detail_post():
+    staff=Staff.query.filter_by(staffid=request.form.get('add_staffid')).first()
+    staff.staffname=request.form.get('add_staffname')
+    staff.phone=request.form.get('add_phone')
+    staff.idcard=request.form.get('add_idcard')
+    staff.job=request.form.get('add_job')
+    staff.age=request.form.get('add_age')
+    staff.gender=request.form.get('add_gender')
+    staff.enterdate=datetime.datetime.strptime(request.form.get('add_enterdate').strip(),"%Y-%m-%d")
+    db.session.add(staff)
+    db.session.commit()
+    return redirect(url_for('setting.staff_setting'))
 @setting.route('/choice_setting',methods=['POST','GET'])
 def choice_setting():
     choicecharge=True

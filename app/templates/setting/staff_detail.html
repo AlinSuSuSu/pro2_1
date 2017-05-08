@@ -1,10 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'setting/staff_setting.html' %}
+{% block title %}添加职员{% endblock %}
 
-</body>
-</html>
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+        {{ super() }}
+        {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+        <div class="row">
+                <div class="col-md-10">
+                    <div class="page-header">
+                        <h4>添加新职员</h4>
+                    </div>
+                </div>
+            </div>
+        <form method="POST" id="staffaddForm"class="form-horizontal"action="/setting/staff/detail/post">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">员工编号:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" value="{{ query.staffid }}" readonly id="addstaffid"name="add_staffid" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">员工姓名:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" value="{{ query.staffname }}"id="addstaffname"name="add_staffname" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">手机号:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control"value="{{ query.phone }}" id="addphone"name="add_phone" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">身份证号:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" value="{{ query.idcard }}"id="addidcard"name="add_idcard" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">性别:</label>
+                        <div class="col-md-6">
+                            <label class="checkbox-inline">
+                                <input type="radio" name="add_gender" id="addgender" value="男" {% if query.gender=='男' %} checked{% endif %}>男
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" name="add_gender" id="addgender" value="女"{% if query.gender=='女' %}checked{% endif %} >女
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">年龄:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="addage"name="add_age"value="{{ query.age }}" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">工种:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="addjob"name="add_job" value="{{ query.job }}"required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">入职时间:</label>
+                        <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control" size="12" type="text" name="add_enterdate"value="{{ query.enterdate }}" readonly >
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input2" name="patrol_eventtime2" value="" />
+
+                    </div>
+                </div>
+            </div>
+           <div class="form-group">
+                    <div class="col-md-5">
+                        <input type="submit" class="btn btn-danger pull-right" id="staff_add_validateBtn">
+                    </div>
+
+            </div>
+        </form>
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}

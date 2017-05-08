@@ -261,14 +261,14 @@ function finance_add(querya){
 			'<div id="mry-opo-title">' +
 			'</div><div id="mry-opo-content">' +
 			'<form id="finance-form"class="form-inline"method="POST" action="/finance/add">' +
-			'<div class="form-group col-md-9"><label class="col-md-4 control-label">房产编号</label><div class="col-md-6"><select class="form-control"id="finance-houseid"name="finance-houseid">' +
+			'<div class="form-group col-md-9"><label class="col-md-4 control-label">收费项目</label><div class="col-md-6"><select class="form-control"name="type"><option value="水费">水费</option><option value="电费">电费</option><option value="天然气费">天然气费</option><option value="卫生费">卫生费</option></select></div></div>' +
+			'<div class="form-group col-md-9"><label class="col-md-4 control-label">房产编号</label><div class="col-md-6"><select class="form-control"id="finance-houseid"name="finance-houseid">'+
 			'<option></option>' +
 			'</select></div></div>' +
-			'<div class="form-group col-md-9"><label class="col-md-4 control-label">收费项目</label><div class="col-md-6"><select class="form-control"name="type"><option value="水费">水费</option><option value="电费">电费</option><option value="天然气费">天然气费</option><option value="卫生费">卫生费</option></select></div></div>'+
 			'</form>' +
 			'</div>' +
 			'</div>')
-		$('#finance-form').append('<div class="col-md-9 form-group"><label class="col-md-4 control-label">进户日期</label>'+
+		$('#finance-form').append('<div class="col-md-9 form-group"><label class="col-md-4 control-label">起始日期</label>'+
                         	'<div class="input-group date form_date col-md-7" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">'+
                             '<input class="form-control" size="12" type="text" name="startdate" readonly>'+
                             '<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>'+
@@ -277,7 +277,7 @@ function finance_add(querya){
                     '</div>');
 		$('#finance-form').append('<div id="button-areaa">'+
 			'<input type="reset"class="btn btn-info col-lg-offset-4 button-area"id="water_reset"value="重置">' +
-			'<input type="submit"class="btn btn-info col-lg-offset-1 button-area"id="water_validate"value="确定">' +
+			'<input type="submit"class="btn btn-danger col-lg-offset-1 button-area"id="water_validate"value="确定">' +
 			'</div>')
 		var div = $('#mry-opo');
         $('#mry-opo-title').text('添加收费记录');

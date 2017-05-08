@@ -52,6 +52,8 @@
                           <label>
                               <input type="checkbox" id="repairationcheck"name="repairationcheck"value="否">未审核
                           </label>
+                      </div>
+                      <div class="checkbox">
                           <label>
                               <input type="checkbox" id="repairationcheck"name="repairationcheck"value="是">已审核
                           </label>
@@ -73,10 +75,9 @@
                   <table class="table table-hover table-condensed table-bordered ">
                       <thead >
                       <tr class="info ">
-                          <th class="td-center"><a href="{{ url_for('community.repairation_apply') }}"class="ss-table-add"id="ss-table-add"><i class="icon-plus"></i> 申请</a></th>
+                          <th class="td-center">操作</th>
                           <th>报修编号</th>
                           <th>门牌编号</th>
-                          <th>业主姓名</th>
                           <th>报修内容</th>
                           <th>负责人</th>
                           <th>负责人电话</th>
@@ -96,7 +97,6 @@
                             </td>
                         <td  >{{ query.repairationid }}</td>
                         <td  >{{ query.house_houseid}}</td>
-                        <td  >{{ query.owner_ownername}}</td>
                         <td  >{{ query.repairationcontent }}</td>
                         <td  >{{ query.repairationresperson }}</td>
                         <td  >{{ query.repairationresphone }}</td>

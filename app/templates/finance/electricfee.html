@@ -43,19 +43,60 @@
     </div>
     {% endif %}
     {% if not charge %}
-        <div class="row">
-        <div class="form-group col-md-2">
-            <a href="{{ url_for("finance.orderdesc") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_orderdesc" value="按时间倒序" ></a>
-        </div>
-        <div class="form-group col-md-2">
-            <a href="{{ url_for("finance.orderasc") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_orderasc" value="按时间顺序" ></a>
-        </div>
-        </div>
-    {% endif %}
+        <form method="GET" class="form-horizontal"action='/finance/electricfee'>
+          <div class="row">
+              <div class="col-md-5">
+                  <div class="form-group">
+                      <label class="col-md-3 control-label">门牌编号:</label>
+                      <div class="col-md-6">
+                          <select class="form-control"id="houseid"name="houseid">
+                              <option value=""></option>
+                              {% for query in query_all %}
+                              <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
 
+              <div class="form-group">
+                  <label class="col-md-4 control-label">是否缴纳:</label>
+                  <div class="col-md-6 ">
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox" id="electricfeepay"name="electricfeepay"value="否">否
+                          </label>
+                      </div>
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox" id="electricfeepay"name="electricfeepay"value="是">是
+                          </label>
+                      </div>
+                  </div>
+              </div>
+              </div>
+
+
+              <div class="col-md-2">
+                  <div class="form-group">
+                      <button id="repairation_searchmessage" type="submit"class="btn btn-info col-md-5">查询</button>
+                  </div>
+              </div>
+          </div>
+          <br>
+          </form>
+    {% endif %}
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
  <div class="table-responsive ss-scrolltbody">
                   <table class="table table-hover table-condensed table-bordered ">
-                <thead class="info">
+                <thead >
+                <tr class="info">
                 <th class="td-center">{% if not charge %}<i class="icon-plus i-color" onclick="finance_add({{query_house}})" > 添加</i>{% else %}<span>操作</span>{% endif %}</th>
 
                     <th >编号</th>
@@ -68,14 +109,13 @@
                     <th >每单位价格</th>
                     <th >总共费用</th>
                     <th >是否缴纳</th>
+                </tr>
                 </thead>
                 <tbody >
                 {% for query in querys %}
                     <tr >
-                        <td class="td-center">
-                        <a href="#"class="ss-table-detail"id="{{ query.house_houseid }}"><i class="icon-edit"></i> 编辑</a><br>
-                        <a href="{{ url_for("finance.electricfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-electricfee"id="{{ query.house_houseid }}"><i class="icon-minus"></i> 删除</a>
-                        </td>
+                       <td class="td-center"><a href="{{ url_for("finance.electric_modify",houseid=query.house_houseid) }}" class="btn"><i class="icon-edit"></i> 编辑</a><br>
+                        <a href="{{ url_for("finance.electricfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-electricfee"id="{{ query.house_houseid }}"><i class="icon-minus"></i> 删除</a></td>
                         <td >{{ query.electricfeeid}}</td>
                         <td >{{ query.house_houseid}}</td>
                         <td >{{ query.item }}</td>
