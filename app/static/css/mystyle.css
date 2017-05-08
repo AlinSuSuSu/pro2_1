@@ -32,7 +32,7 @@ table.table.table-hover.table-bordered {
 
 .ss-scrolltbody{
     display: block;
-    max-height:500px;
+    max-height:400px;
     height:auto;
     overflow: scroll;
     width: auto;
@@ -262,7 +262,7 @@ input{
     background: url(../picture/login-locked-icon.png) no-repeat 15px center;
 }
 .login-user{
-background: #fefefe;
+    background: #fefefe;
     border: 1px solid #eaeaea;
     border-bottom: 1px solid #cbcbcb;
     /* border-top: none; */

@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">房产编号:</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="add_houseid" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                            <input type="text" class="form-control" name="add_houseid" placeholder="10位" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
                         </div>
                     </div>
                 </div>
@@ -48,22 +48,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">户型:</label>
-                        <div class="col-md-8">
-                            <div class="col-sm-3">
-                            <input type="text" class="form-control" placeholder="室" id="addhousetype1"name="add_housetype1" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="厅" id="addhousetype2"name="add_housetype2" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="卫"id="addhousetype3"name="add_housetype3" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="厨"id="addhousetype4"name="add_housetype4" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
-                            </div>
+                        <label class="col-md-4 control-label">户型:</label>
+                        <div class="col-md-6">
+
+                            <input type="text" class="form-control" placeholder="室/厅/卫/厨" id="addhousetype"name="add_housetype" />
+
                             </div>
                     </div>
                 </div>
@@ -85,7 +76,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">产权年限:</label>
                         <div class="col-md-6">
-                            <input class="form-control"id="addhouseyears"name="add_houseyears">
+                            <input class="form-control"id="addhouseyears"placeholder="70" name="add_houseyears">
                         </div>
                     </div>
                 </div>

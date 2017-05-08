@@ -10,6 +10,12 @@
     <link rel="stylesheet"href="{{ url_for('static',filename='css/main.css') }}" media="screen"type="text/css"/>
     <link rel="stylesheet"href="{{ url_for('static',filename='css/mystyle.css') }}" media="screen"type="text/css"/>
     <link rel="stylesheet"href="{{ url_for('static',filename='css/buttons.css') }}" media="screen"type="text/css"/>
+        <link rel="stylesheet"href="{{ url_for('static',filename='css/bootstrap.css') }}" media="screen"type="text/css"/>
+
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/font-awesome.min.css') }}" media="screen"type="text/css"/>
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/bootstrapValidator.css') }}" media="screen"type="text/css"/>
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/bootstrap-datetimepicker.min.css') }}" media="screen"type="text/css"/>
+
 {% endblock %}
 
 
@@ -61,3 +67,15 @@
 <footer>
     fdfad
 </footer>
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/forms.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
+     <script src="{{ url_for('static', filename = 'js/bootstrapValidator.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/bootstrap-datetimepicker.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/bootstrap-datetimepicker.zh-CN.js') }}"></script>
+
+{% endblock %}

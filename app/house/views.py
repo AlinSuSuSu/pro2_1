@@ -28,10 +28,16 @@ def house_add():
 
 @house.route('/house_message/add/post',methods=['POST','GET'])
 def house_add_post():
+    #a=request.form.get('add_housetype')
+    #b=a.replace('/','室',1)
+    #b=b.replace('/','厅',1)
+    #b=b.replace('/','卫',1)
     house=House(houseid=request.form.get('add_houseid'),owner_ownername=request.form.get('add_ownername'),
-                housetype=request.form.get('add_housetype1')+'室'+request.form.get('add_housetype2')+'厅'+request.form.get('add_housetype3')+'卫'+request.form.get('add_housetype4')+'厨',housestatus=request.form.get('add_housestatus'),
-                housespace=request.form.get('add_housespace'),houseyears=request.form.get('add_houseyears'),housecommunity=request.form.get('add_housecommunity'),
+                housetype=request.form.get('add_housetype'),housestatus=request.form.get('add_housestatus'),
+                housespace=request.form.get('add_housespace'),housecommunity=request.form.get('add_housecommunity'),
                 houseaddress=request.form.get('add_houseaddress'),houseremark=request.form.get('add_houseremark'))
+    if request.form.get('add_houseyears') !='' and request.form.get('add_houseyears') is not None:
+        house.houseyears = request.form.get('add_houseyears')
     db.session.add(house)
     #bb=house.houseid
     #aa=house.housetype[0]
@@ -61,9 +67,7 @@ def house_detail_post():
     a=request.form.get('detail_houseid')
     house = House.query.filter_by(houseid=a).first()
     house.owner_ownername=request.form.get('detail_ownername')
-    house.housetype=''+request.form.get('detail_housetype1') + '室' + request.form.get(
-                      'detail_housetype2') + '厅' + request.form.get('detail_housetype3') + '卫' + request.form.get(
-                      'detail_housetype4') + '厨'
+    house.housetype=request.form.get('detail_housetype')
     house.housestatus=request.form.get('detail_housestatus')
     house.housespace=request.form.get('detail_housespace')
     house.houseyears=request.form.get('detail_houseyears')

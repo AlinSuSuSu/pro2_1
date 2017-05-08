@@ -1,103 +1,6 @@
 /**
  * Created by Administrator on 2017-04-04.
  */
-/**
-     window.onload=function(){
-        $("#addhouseid").focus()
-    }
-
-    /*失焦判断
-    $("input").blur(function(){
-        $(".ss-house-span").css("color","#BD362F")
-        if($(this).is("#addhouseid")){
-            var houseid=/^[0-9]{10}$/
-            if($("#addhouseid").val()!=''){
-                if(!(houseid.test($('#addhouseid').val()))){
-                    $(".ss-house-span1").text('请输入10位数字');
-                    $(this).css("border","1px solid #BD362F")
-                    return false;
-                }else if(houseid){
-                    $(".ss-house-span1").text("");
-                    $(this).css("border","1px solid #ccc")
-
-                    return true;
-                }
-            }else{
-                $(".ss-house-span1").text("");
-                $(this).css("border","1px solid #ccc")
-
-            }
-        }
-        if($(this).is("#addhousespace")) {
-            var housespace = /^[0-9]{1,}.?[0-9]{2}/
-            if ($("#addhousespace").val() != '') {
-                if (!(housespace.test($('#addhousespace').val()))) {
-                    $(".ss-house-span2").text('精确到小数点后两位')
-                    $(this).css("border", "1px solid #BD362F")
-                    return false;
-                } else if (housespace) {
-                    $(".ss-house-span2").text("");
-                    $(this).css("border", "1px solid #ccc")
-                    return true;
-                }
-            }else {
-                $(".ss-house-span2").text("");
-                $(this).css("border", "1px solid #ccc")
-            }
-        }
-
-
-        //var atype=["#addhousetype1","#addhousetype2","#addhousetype3","#addhousetype4"]
-
-        /*if($(this).is(atype[i])) {
-            //var i=Math.round(Math.random()*3+1);
-            var housetype = /^[0-5]$/
-            if ($("#addhousetype1").val() != '') {
-                if (!(housetype.test($("#addhousetype1").val()))) {
-                    $(".ss-house-span3").text('一位整数')
-                    $(this).css("border", "1px solid #BD362F")
-                    return false;
-                } else if (housetype) {
-                    $(".ss-house-span3").text("");
-                    $(this).css("border", "1px solid #ccc")
-                    return true;
-                }
-            }else {
-                $(".ss-house-span3").text("");
-                $(this).css("border", "1px solid #ccc")
-            }
-
-        }
-    })
-    $("select").blur(function() {
-     if ($(this).is("#addhouse_houseid")) {
-         var housespace = /^[0-9]{1,}.?[0-9]{2}/
-         if ($("#addhouse_houseid").val() == '' || $("#addhouse_houseid").val() == None) {
-             $(".ss-owner-span2").text('房屋编号不能为空')
-             $(this).css("border", "1px solid #BD362F")
-             return false;
-
-         }
-     }
-    })
-    /**聚焦判断**/
-    /*
-    $("input").focus(function(){
-        if($(this).is("#addhouseid")){
-            $(".ss-house-span1".text("10个数字").css("color","#aaa"))
-            $(this.css("border","1px solid #aaa"))
-        }
-    })*/
-    /*
-    $("#owner_submit").click(function(){
-            if($("#addhouse_houseid").val()=="" || $("#addhouse_houseid").val() == None){
-                $(".ss-owner-span2").text('请选择房屋编号')
-                $(this).css("border", "1px solid #BD362F")
-                return false;
-            }
-
-    })*/
-
 
     $(document).ready(function() {
 
@@ -110,6 +13,8 @@
             }
             else return;
         });
+
+
         $('#ownerForm').bootstrapValidator({
             message:'输入不合法',
             feedbackIcons: {
@@ -152,10 +57,309 @@
                             max:11,
                             min:11,
                             message:"请输入11位"
+                        },
+                        regexp: {
+                            regexp: /^[0-9]{11}$/,
+                            message: '请输入11位数字'
+
                         }
 
                     }
                 },
+                owner_owneridcard:{
+                     message:'输入不合法',
+                    validators:{
+                        notEmpty:{
+                            message:'身份证号不能为空'
+                        },
+                        stringLength:{
+                            max:18,
+                            min:18,
+                            message:"请输入11位"
+                        },
+                        regexp:{
+                            regexp:/^[0-9]{17}[0-9|x]$/,
+                            message:'输入不合法'
+
+                        }
+
+                    }
+                },
+                owner_owneryears:{
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty:{
+                             message:'不能为空'
+                        },
+
+                        stringLength: {
+                            min: 1,
+                            max: 3,
+                            message: '不能超过3位数'
+                        },
+                        regexp: {
+                            regexp: /^[0-9]{1,3}$/,
+                            message: '最多两位整数'
+
+                        }
+
+                    }
+                },
+
+
+
+            }
+        });
+
+
+
+         //提交后页面跳转
+        $("#house_validateBtn").on("click", function(){
+            var bootstrapValidator = $("#houseForm").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if(bootstrapValidator.isValid()) {
+                document.getElementById("houseForm").submit(function(ev){ev.preventDefault();});
+
+            }
+            else return;
+        });
+
+        $('#houseForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                add_housespace: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty: {
+                            message:'不能为空'
+                        },
+                        stringLength:{
+                            min:2,
+                            max:3,
+                            message:'不能大于1000'
+                        },
+                        regexp:{
+                            regexp:/^[1-9]{1,3}.?[1-9]{1,2}$/,
+                            message:'最多两位小数，且不得超过1000'
+
+                        }
+
+
+                    }
+                },
+                add_housetype:{
+                     message:'输入不合法',
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        },
+                        stringLength: {
+                            min: 7,
+                            max: 11,
+                            message:"输入不合法"
+                        },
+                        regexp: {
+                            regexp: /^[1-9]{1,2}\/[0-9]?\/[0-9]?\/[0-9]?$/,
+                            message:"输入不合法"
+
+                        }
+
+                    }
+                },
+                add_houseyears:{
+                     message:'输入不合法',
+                    validators: {
+                        stringLength: {
+                            min: 1,
+                            max: 3,
+                            message: '不能超过3位数'
+                        },
+                        regexp: {
+                            regexp: /^[0-9]{1,3}$/,
+                            message: '最多两位整数'
+
+                        }
+
+                    }
+                },
+                add_housecommunity: {
+                    message: '输入不合法',
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 20,
+                            message: '不能超过20个字符'
+                        },
+                    },
+                },
+                add_houseaddress:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:'不能为空'
+
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 128,
+                            message: '不能超过128个字符'
+                        },
+
+
+                    },
+
+                },
+                add_houseid:{
+                    message:'输入不合法',
+                    validators:{
+                        notEmpty:{
+                            message:'不能为空'
+
+                        },
+                        stringLength: {
+                            min: 10,
+                            max: 10,
+                            message: '必须为10位'
+                        },
+                        regexp: {
+                            regexp: /^[0-9]{10}$/,
+                            message: '10位整数'
+                        }
+
+                    }
+
+                },
+
+                add_houseremark:{
+                    message:"输入不合法",
+                    validators:{
+                         stringLength:{
+                            max:1,
+                            min:64,
+                            message:"不能超过64位"
+                        }
+                    }
+                }
+
+
+            }
+        });
+
+        $('#housedetailForm').bootstrapValidator({
+            message:'输入不合法',
+            feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+            fields: {
+                detail_housespace: {
+                    message:'输入不合法',
+                    validators: {
+                        notEmpty: {
+                            message:'不能为空'
+                        },
+                        stringLength:{
+                            min:2,
+                            max:3,
+                            message:'不能大于1000'
+                        },
+                        regexp:{
+                            regexp:/^[1-9]{1,3}.?[1-9]{1,2}$/,
+                            message:'最多两位小数，且不得超过1000'
+
+                        }
+
+
+                    }
+                },
+                detail_housetype:{
+                     message:'输入不合法',
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        },
+                        stringLength: {
+                            min: 7,
+                            max: 11,
+                            message:"输入不合法"
+                        },
+                        regexp: {
+                            regexp: /^[1-9]{1,2}\/[0-9]?\/[0-9]?\/[0-9]?$/,
+                            message:"输入不合法"
+
+                        }
+
+                    }
+                },
+                detail_houseyears:{
+                     message:'输入不合法',
+                    validators: {
+                        stringLength: {
+                            min: 1,
+                            max: 3,
+                            message: '不能超过3位数'
+                        },
+                        regexp: {
+                            regexp: /^[0-9]{1,3}$/,
+                            message: '最多两位整数'
+
+                        }
+
+                    }
+                },
+                detail_housecommunity: {
+                    message: '输入不合法',
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 20,
+                            message: '不能超过20个字符'
+                        },
+                    },
+                },
+                detail_houseaddress:{
+                    message:"输入不合法",
+                    validators:{
+                        notEmpty:{
+                            message:'不能为空'
+
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 128,
+                            message: '不能超过128个字符'
+                        },
+
+
+                    },
+
+                },
+
+                detail_houseremark:{
+                    message:"输入不合法",
+                    validators:{
+                         stringLength:{
+                            max:1,
+                            min:64,
+                            message:"不能超过64位"
+                        }
+                    }
+                }
+
 
             }
         });
@@ -182,15 +386,14 @@
         $('#choice_infrastructure_validateBtn').click(function() {
             $('#choiceinfrastructureForm').bootstrapValidator('validate');
         });
-        $('#house_detail_resetBtn').click(function() {
-            $('#housedetailForm').data('bootstrapValidator').resetForm(true);
-        });
+
         /*$('#owner_add_validateBtn').click(function() {
             $('#ownerForm').bootstrapValidator('validate');
         });*/
         $('#owner_add_resetBtn').click(function() {
             $('#ownerForm').data('bootstrapValidator').resetForm(true);
         });
+
 
     });
 

@@ -91,7 +91,6 @@ def fee_add():
     return redirect(url_for('finance.waterfee'))
 @finance.route('/waterfee/create/',methods=['GET','POST'])
 def waterfee_create():
-
     query_house=House.query.all()
     query_waterfee=Waterfee.query.first()
     date=datetime.datetime.now()
@@ -332,3 +331,11 @@ def cleaningfee_delete(houseid):
     db.session.delete(cleaningfee)
     db.session.commit()
     return json.dumps(res)
+
+@finance.route('/charge/personal/<string:houseid>',methods=['POST','GET'])
+def personal_charge(houseid):
+    query_water=Waterfee.query.filter_by(house_houseid=houseid)
+    query_electric=Electricfee.query.filter_by(house_houseid=houseid)
+    query_gas=Gasfee.query.filter_by(house_houseid=houseid)
+    query_cleaning=Cleaningfee.query.filter_by(house_houseid=houseid)
+    return render_template('/finance/personal_charge.html',query_water=query_water,query_electric=query_electric,query_gas=query_gas,query_cleaning=query_cleaning)

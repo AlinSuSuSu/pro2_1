@@ -68,7 +68,7 @@
                       <th class="td-center info"><a href="{{ url_for('house.house_add') }}"class="ss-table-add"id="ss-table-add"><i class="icon-plus"></i> 添加</a></th>
                     <th class="info">门牌编号</th>
                     <th class="info">业主姓名</th>
-                    <th class="info">户型</th>
+                    <th class="info">户型(室/厅/卫/厨)</th>
                     <th class="info">房屋面积</th>
                     <th class="info">房屋状态</th>
                     <th class="info">产权年限</th>
@@ -102,5 +102,8 @@
 {% endblock %}
 </div>
 
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
 {% endblock %}
 

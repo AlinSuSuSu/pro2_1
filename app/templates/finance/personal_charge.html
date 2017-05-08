@@ -1,0 +1,93 @@
+{% extends "finance/waterfee.html" %}
+{% block title %}缴费信息{% endblock %}
+
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+
+        {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="page-header">
+                        <h4>缴费信息</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive ss-scrolltbody">
+                  <table class="table table-hover table-condensed table-bordered ">
+                      <thead >
+                    <th>记录编号</th>
+                    <th>收费项目</th>
+                    <th>上月度数</th>
+                    <th>本月度数</th>
+                    <th>上月抄表时间</th>
+                    <th>本月抄表时间</th>
+                    <th>每单位价格</th>
+                    <th>总共费用</th>
+                    <th>是否缴纳</th>
+                </thead>
+                <tbody >
+
+                {% for query in query_water %}
+                    <tr>
+                        <td>{{ query.waterfeeid}}</td>
+                        <td>{{ query.item }}</td>
+                        <td>{{ query.startdegree }}</td>
+                        <td>{{ query.enddegree }}</td>
+                        <td>{{ query.startdate }}</td>
+                        <td>{{ query.enddate }}</td>
+                        <td>{{ query.priceperdegree }}</td>
+                        <td>{{ query.totalprice }}</td>
+                        <td>{{ query.pay }}</td>
+                    </tr>
+                {% endfor %}
+                {% for query in query_electric %}
+                    <tr>
+                        <td>{{ query.electricid}}</td>
+                        <td>{{ query.item }}</td>
+                        <td>{{ query.startdegree }}</td>
+                        <td>{{ query.enddegree }}</td>
+                        <td>{{ query.startdate }}</td>
+                        <td>{{ query.enddate }}</td>
+                        <td>{{ query.priceperdegree }}</td>
+                        <td>{{ query.totalprice }}</td>
+                        <td>{{ query.pay }}</td>
+                    </tr>
+                {% endfor %}
+                {% for query in query_gas %}
+                    <tr>
+                        <td>{{ query.gasfeeid}}</td>
+                        <td>{{ query.item }}</td>
+                        <td>{{ query.startdegree }}</td>
+                        <td>{{ query.enddegree }}</td>
+                        <td>{{ query.startdate }}</td>
+                        <td>{{ query.enddate }}</td>
+                        <td>{{ query.priceperdegree }}</td>
+                        <td>{{ query.totalprice }}</td>
+                        <td>{{ query.pay }}</td>
+                    </tr>
+                {% endfor %}
+                {% for query in query_cleaning %}
+                    <tr>
+                        <td>{{ query.cleaningfeeid}}</td>
+                        <td>{{ query.item }}</td>
+                        <td>/</td>
+                        <td>/</td>
+                        <td>{{ query.startdate }}</td>
+                        <td>{{ query.enddate }}</td>
+                        <td>{{ query.pricepermonth }}</td>
+                        <td>{{ query.totalprice }}</td>
+                        <td>{{ query.pay }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+
+        {% endblock %}
+    </div>
+{% endblock %}

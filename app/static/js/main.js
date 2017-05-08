@@ -264,7 +264,7 @@ function finance_add(querya){
 			'<div class="form-group col-md-9"><label class="col-md-4 control-label">房产编号</label><div class="col-md-6"><select class="form-control"id="finance-houseid"name="finance-houseid">' +
 			'<option></option>' +
 			'</select></div></div>' +
-			'<div class="form-group col-md-9"><label class="col-md-4 control-label">收费</label><div class="col-md-6"><select class="form-control"name="type"><option value="水费">水费</option><option value="电费">电费</option><option value="天然气费">天然气费</option><option value="卫生费">卫生费</option></select></div></div>'+
+			'<div class="form-group col-md-9"><label class="col-md-4 control-label">收费项目</label><div class="col-md-6"><select class="form-control"name="type"><option value="水费">水费</option><option value="电费">电费</option><option value="天然气费">天然气费</option><option value="卫生费">卫生费</option></select></div></div>'+
 			'</form>' +
 			'</div>' +
 			'</div>')

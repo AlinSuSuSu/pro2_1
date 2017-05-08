@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-md-10 ">
                     <div class="page-header">
-                        <h2>注册</h2>
+                        <h4>添加新业主</h4>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">业主姓名</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="owner_ownername" required data-bv-trigger="keyup" data-bv-notempty-message="姓名不能为空" placeholder="姓" />
+                                <input type="text" class="form-control" name="owner_ownername" required data-bv-trigger="keyup" data-bv-notempty-message="姓名不能为空" />
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,6 @@
                             <label class="col-md-4 control-label">门牌编号</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="owner_houseid"required data-bv-trigger="blur" data-bv-notempty-message="编号不能为空"  >
-                                        <option value=""></option>
                                         {% for q in house_query %}
                                         <option value="{{ q.houseid }}">{{ q.houseid }}</option>
                                         {% endfor %}
