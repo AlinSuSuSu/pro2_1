@@ -3,6 +3,7 @@ from app import db
 from app.models import Repairation,Patrol,Staff,Infrastructure,Complaint,Owner,House,Choice
 from app.community import community
 import json
+from flask_login import current_user,login_required
 from datetime import datetime
 @community.route('/repairation/',methods=['GET','POST'])
 def repairation():
@@ -26,9 +27,6 @@ def repairation():
 @community.route('/repairation/apply',methods=['GET','POST'])
 def repairation_apply():
     query_owner=Owner.query.all()
-    query_house=House.query.all()
-    query_staff=Staff.query.all()
-
     return render_template('community/repairation_apply.html',query_owner=query_owner)
 
 @community.route('/repairation/apply/post',methods=['POST','GET'])
@@ -47,7 +45,7 @@ def repairation_apply_post():
         repairation.owner_ownername = ''
     db.session.add(repairation)
     db.session.commit()
-    return redirect(url_for('community.repairation'))
+    return redirect(url_for('community.repairation_apply'))
 @community.route('/repairation/detail/post',methods=['POST','GET'])
 def repairation_detail_post():
     repairation=Repairation.query.filter_by(repairationid=request.form.get("detail_repairationid")).first()
@@ -65,6 +63,11 @@ def repairation_detail_post():
     db.session.add(repairation)
     db.session.commit()
     return redirect(url_for('community.repairation'))
+
+@community.route('/apply/owner',methods=['GET','POST'])
+def repairation_detail_owner():
+    query = Repairation.query.filter_by(house_houseid=current_user.house_houseid)
+    return render_template('community/owner_apply.html',query=query)
 
 
 @community.route('/repairation/delete/<string:repairationid>',methods=['GET','POST'])
@@ -123,8 +126,9 @@ def patrol_delete(patrolid):
 
 @community.route('/patrol/detail/<int:patrolid>',methods=['POST','GET'])
 def patrol_detail(patrolid):
+    query_staff=Staff.query.all()
     query = Patrol.query.filter_by(patrolid=patrolid).first()
-    return render_template('community/patrol_detail.html', query=query)
+    return render_template('community/patrol_detail.html', query=query,query_staff=query_staff)
 
 @community.route('/patrol/detail/post',methods=['POST','GET'])
 def patrol_detail_post():
@@ -249,3 +253,7 @@ def complaint_detail_post():
     db.session.add(complaint)
     db.session.commit()
     return redirect(url_for('community.complaint'))
+@community.route('/complaint/owner',methods=['GET','POST'])
+def complaint_owner():
+    query = Complaint.query.filter_by(house_houseid=current_user.house_houseid)
+    return render_template('community/complaint_owner.html',query=query)

@@ -68,13 +68,8 @@
                 owner_ownerphone:{
                     message:'输入不合法',
                     validators:{
-                        notEmpty:{
-                            message:'手机号不能为空'
-                        },
-                        stringLength:{
-                            max:11,
-                            min:11,
-                            message:"请输入11位"
+                        notEmpty: {
+                            message: '手机号不能为空'
                         },
                         regexp: {
                             regexp: /^[0-9]{11}$/,
@@ -90,14 +85,10 @@
                         notEmpty:{
                             message:'身份证号不能为空'
                         },
-                        stringLength:{
-                            max:18,
-                            min:18,
-                            message:"请输入11位"
-                        },
+
                         regexp:{
-                            regexp:/^[0-9]{17}[0-9|x]$/,
-                            message:'输入不合法'
+                            regexp:/^[0-9]{17}([0-9]|x)$/,
+                            message:'请输入18位身份证号'
 
                         }
 
@@ -111,7 +102,7 @@
                         },
 
                         stringLength: {
-                            min: 1,
+                            min: 0,
                             max: 3,
                             message: '不能超过3位数'
                         },
@@ -157,13 +148,13 @@
                             message:'不能为空'
                         },
                         stringLength:{
-                            min:2,
-                            max:3,
-                            message:'不能大于1000'
+                            min:0,
+                            max:10,
+                            message:'不能超过10个字符'
                         },
                         regexp:{
-                            regexp:/^[1-9]{1,3}.?[1-9]{1,2}$/,
-                            message:'最多两位小数，且不得超过1000'
+                            regexp:/^[1-9]{1,3}(.[0-9]{1,2})?$/,
+                            message:'输入不合法'
 
                         }
 
@@ -177,7 +168,7 @@
                             message: '不能为空'
                         },
                         stringLength: {
-                            min: 7,
+                            min: 0,
                             max: 11,
                             message:"输入不合法"
                         },
@@ -193,9 +184,9 @@
                      message:'输入不合法',
                     validators: {
                         stringLength: {
-                            min: 1,
-                            max: 3,
-                            message: '不能超过3位数'
+                            min: 0,
+                            max: 4,
+                            message: '最多4个字符'
                         },
                         regexp: {
                             regexp: /^[0-9]{1,3}$/,
@@ -243,11 +234,7 @@
                             message:'不能为空'
 
                         },
-                        stringLength: {
-                            min: 10,
-                            max: 10,
-                            message: '必须为10位'
-                        },
+
                         regexp: {
                             regexp: /^[0-9]{10}$/,
                             message: '10位整数'
@@ -261,8 +248,8 @@
                     message:"输入不合法",
                     validators:{
                          stringLength:{
-                            max:1,
-                            min:64,
+                            max:64,
+                            min:0,
                             message:"不能超过64位"
                         }
                     }
@@ -287,14 +274,13 @@
                             message:'不能为空'
                         },
                         stringLength:{
-                            min:2,
-                            max:3,
-                            message:'不能大于1000'
+                            min:0,
+                            max:10,
+                            message:'不能超过10个字符'
                         },
                         regexp:{
-                            regexp:/^[1-9]{1,3}.?[1-9]{1,2}$/,
-                            message:'最多两位小数，且不得超过1000'
-
+                            regexp:/^[1-9]{1,3}(.?[0-9]{1,2})?$/,
+                            message:'输入格式不对'
                         }
 
 
@@ -323,7 +309,7 @@
                      message:'输入不合法',
                     validators: {
                         stringLength: {
-                            min: 1,
+                            min: 0,
                             max: 3,
                             message: '不能超过3位数'
                         },
@@ -343,7 +329,7 @@
 
                         },
                         stringLength: {
-                            min: 1,
+                            min: 0,
                             max: 20,
                             message: '不能超过20个字符'
                         },
@@ -357,7 +343,7 @@
 
                         },
                         stringLength: {
-                            min: 1,
+                            min: 0,
                             max: 128,
                             message: '不能超过128个字符'
                         },
@@ -371,8 +357,8 @@
                     message:"输入不合法",
                     validators:{
                          stringLength:{
-                            max:1,
-                            min:64,
+                            max:64,
+                            min:0,
                             message:"不能超过64位"
                         }
                     }
@@ -595,8 +581,8 @@
                     message:"输入不合法",
                     validators:{
                         regexp:{
-                            regexp:/^[1-9][0-9]*$/,
-                            message:'11位整数'
+                            regexp:/^[1-9][0-9]{10}$/,
+                            message:'请输入11位号码'
 
                         }
 
@@ -695,8 +681,8 @@
                     message:"输入不合法",
                     validators:{
                         regexp:{
-                            regexp:/^[1-9][0-9]*$/,
-                            message:'11位整数'
+                            regexp:/^[1-9][0-9]{10}$/,
+                            message:'请输入11位号码'
 
                         }
 
@@ -794,7 +780,7 @@
                     message:"输入不合法",
                     validators:{
                         regexp:{
-                            regexp:/^[1-9][0-9]*$/,
+                            regexp:/^[1-9][0-9]{10}$/,
                             message:'11位整数'
 
                         }

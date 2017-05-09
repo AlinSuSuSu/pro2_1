@@ -33,7 +33,11 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">处理人</label>
                             <div class="col-md-6">
-                                <input class="form-control" name="patrol_solveperson"required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  >
+                                <select class="form-control" name="patrol_solveperson"required data-bv-trigger="blur">
+                                    {% for q_s in query_staff %}
+                                    <option value="{{ q_s.staffname }}">{{ q_s.staffname }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                     </div>

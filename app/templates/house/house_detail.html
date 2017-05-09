@@ -26,16 +26,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">业主姓名:</label>
                         <div class="col-md-6">
-                        {% if current_user.is_administrator() %}
-                            <select class="form-control"id="detailownername"name="detail_ownername">
-                            <option value="{{ query.owner_ownername }}">{{ query.owner_ownername }}</option>
-                            {% for q in query_owner %}
-                                <option value="{{ q.ownername }}">{{ q.ownername }}</option>
-                            {% endfor %}
-                            </select>
-                        {% else %}
                             <input class="form-control" id="detailownername"value="{{ query.owner_ownername }}"name="detail_ownername" readonly >
-                        {% endif %}
                         </div>
                     </div>
                 </div>
@@ -45,7 +36,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">房屋面积:</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="detailhousespace"name="detail_housespace"value="{{ query.housespace }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空"{% if not current_user.is_administrator() %} readonly {% endif %}  />
+                            <input type="text" class="form-control" id="detailhousespace"name="detail_housespace"value="{{ query.housespace }}"data-bv-trigger="blur" data-bv-notempty-message="不能为空"{% if not current_user.is_administrator() %} readonly {% endif %}  />
                         </div>
                     </div>
                 </div>
@@ -55,7 +46,7 @@
                         {% if current_user.is_administrator() %}
                         <div class="col-md-6">
 
-                            <input class="form-control"id="addhousetype"placeholder="室/厅/卫/厨" name="detail_housetype"value="{{ query.housetype }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空">
+                            <input class="form-control"id="addhousetype"placeholder="室/厅/卫/厨" name="detail_housetype"value="{{ query.housetype }}"data-bv-trigger="blur" data-bv-notempty-message="不能为空">
 
                         {% else %}
                             <div class="col-md-6">
@@ -73,8 +64,8 @@
                             {% if current_user.is_administrator() %}
                             <select class="form-control" id="detailhousestatus"name="detail_housestatus" >
                                 <option class="bg-info"value="{{ query.housestatus }}">{{ query.housestatus }}</option>
-                                <option value="已租">已租</option>
-                                <option value="已售">已售</option>
+                                <option value="购买">购买</option>
+                                <option value="租赁">租赁</option>
                                 <option value="闲置">闲置</option>
                             </select>
                             {% else %}
@@ -87,7 +78,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">产权年限:</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="detailhousedetailyears"name="detail_houseyears"value="{{ query.houseyears }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空"{% if not current_user.is_administrator() %} readonly {% endif %}  />
+                            <input type="text" class="form-control" id="detailhousedetailyears"name="detail_houseyears"value="{{ query.houseyears }}"data-bv-trigger="blur" data-bv-notempty-message="不能为空"{% if not current_user.is_administrator() %} readonly {% endif %}  />
                         </div>
                     </div>
                 </div>
@@ -97,7 +88,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">小区名称:</label>
                         <div class="col-md-10">
-                            <input class="form-control"id="detailhousecommunity"name="detail_housecommunity"{% if not current_user.is_administrator() %} readonly {% endif %}value="{{ query.housecommunity }}">
+                            <input class="form-control"id="detailhousecommunity"name="detail_housecommunity"data-bv-trigger="blur"{% if not current_user.is_administrator() %} readonly {% endif %}value="{{ query.housecommunity }}">
                         </div>
                     </div>
                 </div>
@@ -107,7 +98,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">具体地址:</label>
                         <div class="col-md-10">
-                            <textarea class="form-control"id="detailhousedetailadress"name="detail_houseaddress"rows="2"{% if not current_user.is_administrator() %} readonly {% endif %}>{{ query.houseaddress }}</textarea>
+                            <textarea class="form-control"id="detailhousedetailadress"name="detail_houseaddress"rows="2" data-bv-trigger="blur"{% if not current_user.is_administrator() %} readonly {% endif %}>{{ query.houseaddress }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -117,7 +108,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">备注:</label>
                         <div class="col-md-10">
-                            <textarea class="form-control"id="detailhouseremark"name="detail_houseremark"{% if not current_user.is_administrator() %} readonly {% endif %}>{{ query.houseremark }}</textarea>
+                            <textarea class="form-control"id="detailhouseremark"name="detail_houseremark"data-bv-trigger="blur"{% if not current_user.is_administrator() %} readonly {% endif %}>{{ query.houseremark }}</textarea>
                         </div>
                     </div>
                 </div>

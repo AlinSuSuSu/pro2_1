@@ -4,11 +4,16 @@
 {% block page_content %}
     <div id="wrapper">
     {% block page_content_left %}
-        {% if current_user.is_administrator() %}
-        {{ super() }}
-        {% else %}
+        <div id="left-side">
+        <ul>
+       <li class="menu-active"><a href="{{ url_for('community.complaint_add') }}" class="menu-font-active" >投诉/建议</a></li>
+       <li class=""><a href="{{ url_for('community.complaint_owner') }}">我的投诉/建议记录</a></li>
 
-        {% endif %}
+        </ul>
+        </div>
+  <div id="border">
+
+  </div>
         {% endblock %}
     {% block page_content_right %}
         <div id="right-side">

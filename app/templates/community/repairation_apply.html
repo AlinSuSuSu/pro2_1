@@ -4,10 +4,16 @@
 {% block page_content %}
     <div id="wrapper">
     {% block page_content_left %}
-        {% if current_user.is_administrator() %}
-        {{ super() }}
-        {% else %}
-        {% endif %}
+            <div id="left-side">
+   <ul>
+       <li class="menu-active"><a href="{{ url_for('community.repairation_apply') }}" class="menu-font-active" >报修申请</a></li>
+       <li class=""><a href="{{ url_for('community.repairation_detail_owner') }}">我的申请记录</a></li>
+
+   </ul>
+  </div>
+  <div id="border">
+
+  </div>
         {% endblock %}
     {% block page_content_right %}
         <div id="right-side">

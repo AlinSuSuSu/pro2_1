@@ -1,0 +1,89 @@
+{% extends "community/complaint.html" %}
+{% block title %}投诉建议{% endblock %}
+
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+        <div id="left-side">
+        <ul>
+            <li class=""><a href="{{ url_for('community.complaint_add') }}" >投诉/建议</a></li>
+            <li class="menu-active"><a href="{{ url_for('community.complaint_owner') }}" class="menu-font-active" >我的投诉/建议记录</a></li>
+        </ul>
+        </div>
+        <div id="border">
+
+        </div>
+    {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="page-header">
+                        <h4>投诉/建议记录</h4>
+                    </div>
+                </div>
+            </div>
+        <div class="table-responsive ss-scrolltbody">
+
+            <table class="table table-hover table-condensed table-bordered ">
+                <thead>
+                <tr class="info td-center">
+                    <th>建议/投诉编号</th>
+                    <th>业主门牌号</th>
+                    <th>类型</th>
+                    <th>受理状态</th>
+                    <th>建议/投诉时间</th>
+                    <th>受理时间</th>
+                    <th>受理员工</th>
+                    <th>建议/投诉内容</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for query in query %}
+                <tr>
+                    <th>{{ query.complaintid }}</th>
+                    <th>{{ query.house_houseid }}</th>
+                    <th>{{ query.complainttype }}</th>
+                    <th>{{ query.complaintstatus }}</th>
+                    <th>{{ query.complainttime }}</th>
+                    <th>{{ query.replytime }}</th>
+                    <th>{{ query.replystaff }}</th>
+                    <th>{{ query.complaintdetail }}</th>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+    {% endblock %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+ <script>
+    $('.form_date').datetimepicker({
+
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+
+    var urlstr=location.href;
+    var urlstatus=false;
+    $(".navbar a").each(function(){
+        if((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!=''){
+            $(this).addClass('nav-active');urlstatus=true;
+        }
+        else {
+            $(this).removeClass('nav-active')
+        }
+    });
+    if(!urlstatus){$('.navbar a').eq(3).addClass('nav-active')}
+    </script>
+{% endblock %}

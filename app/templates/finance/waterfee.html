@@ -44,6 +44,7 @@
                     <a href="{{ url_for("finance.waterfee_create") }}"><input class="btn btn-info form-control " size="12"  type="submit" id="waterfee_create" value="生成明细账单" ></a>
                 </div>
     </div>
+
     {% endif %}
     {% if not charge %}
         <form method="GET" class="form-horizontal"action='/finance/waterfee'>
@@ -66,12 +67,12 @@
               <div class="form-group">
                   <label class="col-md-4 control-label">是否缴纳:</label>
                   <div class="col-md-6 ">
-                      <div class="checkbox">
+                      <div class="checkbox-inline">
                           <label>
                               <input type="checkbox" id="waterfeepay"name="waterfeepay"value="否">否
                           </label>
                       </div>
-                      <div class="checkbox">
+                      <div class="checkbox-inline">
                           <label>
                               <input type="checkbox" id="waterfeepay"name="waterfeepay"value="是">是
                           </label>

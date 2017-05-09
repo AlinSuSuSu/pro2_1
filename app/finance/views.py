@@ -65,8 +65,12 @@ def fee_add():
             addfee.enddate = addfee.startdate
             addfee.waterfeeid = str(addfee.enddate) + str(addfee.startdate) + addfee.house_houseid
             addfee.totalprice = 0
-            db.session.add(addfee)
-            db.session.commit()
+            q_water = Waterfee.query.filter_by(waterfeeid=addfee.waterfeeid).first()
+            if q_water is  None:
+                db.session.add(addfee)
+                db.session.commit()
+            else:
+                flash("已经生成过该条记录")
             return redirect(url_for('finance.waterfee'))
         elif type=='电费':
             addfee=Electricfee(house_houseid=request.form.get('finance-houseid'),startdegree=0,enddegree=0)
@@ -74,8 +78,12 @@ def fee_add():
             addfee.enddate = addfee.startdate
             addfee.electricfeeid = str(addfee.enddate) + str(addfee.startdate) + addfee.house_houseid
             addfee.totalprice = 0
-            db.session.add(addfee)
-            db.session.commit()
+            q_electric = Electricfee.query.filter_by(electricfeeid=addfee.electricfeeid).first()
+            if q_electric is None:
+                db.session.add(addfee)
+                db.session.commit()
+            else:
+                flash("已经生成过该条记录")
             return redirect(url_for('finance.electricfee'))
         elif type=='天然气费':
             addfee=Gasfee(house_houseid=request.form.get('finance-houseid'),startdegree=0,enddegree=0)
@@ -83,16 +91,24 @@ def fee_add():
             addfee.enddate = addfee.startdate
             addfee.gasfeeid = str(addfee.enddate) + str(addfee.startdate) + addfee.house_houseid
             addfee.totalprice = 0
-            db.session.add(addfee)
-            db.session.commit()
+            q_gas = Gasfee.query.filter_by(gasfeeid=addfee.gafeeid).first()
+            if q_gas is None:
+                db.session.add(addfee)
+                db.session.commit()
+            else:
+                flash("已经生成过该条记录")
             return redirect(url_for('finance.gasfee'))
         elif type=='卫生费':
             addcleaningfee=Cleaningfee(house_houseid=request.form.get('finance-houseid'))
             addcleaningfee.startdate=datetime.datetime.strptime(request.form.get('startdate').strip(),"%Y-%m-%d").date()
             addcleaningfee.enddate=addcleaningfee.startdate
             addcleaningfee.cleaningfeeid=str(addcleaningfee.enddate)+str(addcleaningfee.startdate)+addcleaningfee.house_houseid
-            db.session.add(addcleaningfee)
-            db.session.commit()
+            q_cleaning = Cleaningfee.query.filter_by(cleaningfeeid=addcleaningfee.cleaningfeeid).first()
+            if q_cleaning is None:
+                db.session.add(addcleaningfee)
+                db.session.commit()
+            else:
+                flash("已经生成过该条记录")
             return redirect(url_for('finance.cleaningfee'))
     return redirect(url_for('finance.waterfee'))
 @finance.route('/waterfee/create/',methods=['GET','POST'])
@@ -100,9 +116,8 @@ def waterfee_create():
     query_house=House.query.all()
     query_waterfee=Waterfee.query.first()
     date=datetime.datetime.now()
-    if query_waterfee is not None:
-        if query_waterfee.startdate.year==date.year and query_waterfee.startdate.month==date.month-1:
-            flash("已经生成了账单")
+    if query_waterfee is not None and (query_waterfee.startdate.year==date.year and query_waterfee.startdate.month==date.month-1):
+        flash("本月已经生成了账单")
     else:
         for v in query_house:
             waterfee=Waterfee(house_houseid=v.houseid,totalprice=0)
@@ -112,8 +127,11 @@ def waterfee_create():
             waterfee.enddegree=waterfee.startdegree
             waterfee.waterfeeid=str(waterfee.enddate)+str(waterfee.startdate)+waterfee.house_houseid
             #waterfee.waterfeeid=datetime.datetime.strftime("%Y%m%d",waterfee.startdate)+waterfee.house_houseid
-            db.session.add(waterfee)
-            db.session.commit()
+            q_waterfee=Waterfee.query.filter_by(waterfeeid = waterfee.waterfeeid).first()
+            if q_waterfee is None:
+                db.session.add(waterfee)
+                db.session.commit()
+
     return redirect(url_for("finance.waterfee"))
 
 @finance.route('/waterfee/delete/<string:houseid>',methods=['GET','POST'])
@@ -202,9 +220,8 @@ def electricfee_create():
     query_house=House.query.all()
     query_electricfee=Electricfee.query.first()
     date=datetime.datetime.now()
-    if query_electricfee is not None:
-        if query_electricfee.startdate.year==date.year and query_electricfee.startdate.month==date.month-1:
-            flash("已经生成了账单")
+    if query_electricfee is not None and query_electricfee.startdate.year==date.year and query_electricfee.startdate.month==date.month-1:
+        flash("已经生成了账单")
     else:
         for v in query_house:
             electricfee=Electricfee(house_houseid=v.houseid,totalprice=0)
@@ -213,9 +230,11 @@ def electricfee_create():
             electricfee.enddate=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()
             electricfee.enddegree=electricfee.startdegree
             electricfee.electricfeeid=str(electricfee.enddate)+str(electricfee.startdate)+electricfee.house_houseid
-            #waterfee.waterfeeid=datetime.datetime.strftime("%Y%m%d",waterfee.startdate)+waterfee.house_houseid
-            db.session.add(electricfee)
-            db.session.commit()
+            q_electric = Electricfee.query.filter_by(electricfeeid=electricfee.electricfeeid).first()
+            if q_electric is None:
+                db.session.add(electricfee)
+                db.session.commit()
+
     return redirect(url_for("finance.electricfee"))
 @finance.route('/electricfee/add',methods=['POST','GET'])
 def electricfee_add():
@@ -304,9 +323,8 @@ def gasfee_create():
     query_house=House.query.all()
     query_gasfee=Gasfee.query.first()
     date=datetime.datetime.now()
-    if query_gasfee is not None:
-        if query_gasfee.startdate.year==date.year and query_gasfee.startdate.month==date.month-1:
-            flash("本月已经生成了账单")
+    if query_gasfee is not None and query_gasfee.startdate.year==date.year and query_gasfee.startdate.month==date.month-1:
+        flash("本月已经生成了账单")
     else:
         for v in query_house:
             gasfee=Gasfee(house_houseid=v.houseid,totalprice=0)
@@ -315,9 +333,10 @@ def gasfee_create():
             gasfee.enddate=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()
             gasfee.enddegree=gasfee.startdegree
             gasfee.gasfeeid=str(gasfee.enddate)+str(gasfee.startdate)+gasfee.house_houseid
-            #waterfee.waterfeeid=datetime.datetime.strftime("%Y%m%d",waterfee.startdate)+waterfee.house_houseid
-            db.session.add(gasfee)
-            db.session.commit()
+            q_gasfee = Gasfee.query.filter_by(gasfeeid=gasfee.gasfeeid).first()
+            if q_gasfee is None:
+                db.session.add(gasfee)
+                db.session.commit()
     return redirect(url_for("finance.gasfee"))
 @finance.route('/gasfee/add',methods=['POST','GET'])
 def gasfee_add():
@@ -407,18 +426,18 @@ def cleaningfee_create():
     query_house=House.query.all()
     query_cleaningfee=Cleaningfee.query.first()
     date=datetime.datetime.now()
-    if query_cleaningfee is not None:
-        if query_cleaningfee.startdate.year==date.year and query_cleaningfee.startdate.month==date.month-1:
-            flash("本月已经生成了账单")
+    if query_cleaningfee is not None and query_cleaningfee.startdate.year==date.year and query_cleaningfee.startdate.month==date.month-1:
+        flash("本月已经生成了账单")
     else:
         for v in query_house:
             cleaningfee=Cleaningfee(house_houseid=v.houseid)
             cleaningfee.startdate=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month-1)+"01","%Y%m%d").date()
             cleaningfee.enddate=datetime.datetime.strptime(str(datetime.datetime.now().year)+str(datetime.datetime.now().month)+"01","%Y%m%d").date()
             cleaningfee.cleaningfeeid=str(cleaningfee.enddate)+str(cleaningfee.startdate)+cleaningfee.house_houseid
-            #waterfee.waterfeeid=datetime.datetime.strftime("%Y%m%d",waterfee.startdate)+waterfee.house_houseid
-            db.session.add(cleaningfee)
-            db.session.commit()
+            q_cleaningfee = Cleaningfee.query.filter_by(cleaningfeeid=cleaningfee.cleaningfeeid).first()
+            if q_cleaningfee is None:
+                db.session.add(cleaningfee)
+                db.session.commit()
     return redirect(url_for("finance.cleaningfee"))
 
 

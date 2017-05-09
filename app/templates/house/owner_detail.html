@@ -1,5 +1,5 @@
 {% extends 'house/house_owner.html' %}
-{% block title %}房产信息{% endblock %}
+{% block title %}业主信息{% endblock %}
 
 {% block page_content %}
     <div id="wrapper">
@@ -11,7 +11,7 @@
         <div class="row">
                 <div class="col-md-10">
                     <div class="page-header">
-                        <h4>房产信息</h4>
+                        <h4>业主信息</h4>
                     </div>
                 </div>
             </div>
@@ -31,12 +31,8 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">房产编号:</label>
                         <div class="col-md-6">
-                            <select class="form-control" id="detailhouseid"name="detail_houseid" >
-                                <option class="bg-info"value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
-                                {% for query_h in query_house %}
-                                    <option value="{{ query_h.houseid }}">{{ query_h.houseid }}</option>
-                                {% endfor %}
-                            </select>
+                            <input class="form-control" id="detailhouseid"name="detail_houseid"readonly value="{{ query.house_houseid }}">
+
                         </div>
                     </div>
                 </div>
@@ -47,7 +43,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">手机号:</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="detailownerphone"name="detail_ownerphone"value="{{ query.ownerphone }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                            <input type="text" class="form-control" id="detailownerphone"name="detail_ownerphone"value="{{ query.ownerphone }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空"{% if not current_user.is_administrator() %} readonly {% endif %}  />
                         </div>
                     </div>
                 </div>
@@ -55,7 +51,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">身份证号:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" id="detailowneridcard"name="detail_owneridcard"value="{{ query.owneridcard }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                            <input type="text" class="form-control" id="detailowneridcard"name="detail_owneridcard"value="{{ query.owneridcard }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空"{% if not current_user.is_administrator() %} readonly {% endif %}  />
                         </div>
                     </div>
                 </div>
@@ -65,11 +61,15 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">拥有状态:</label>
                         <div class="col-md-6">
+                            {% if not current_user.is_administrator() %}
+                            <input class="form-control"id="detailownerstatus"name="detail_ownerstatus"value="{{ query.ownerstatus }}"readonly>
+                            {% else %}
                             <select class="form-control" id="detailownerstatus"name="detail_ownerstatus" >
                                 <option class="bg-info"value="{{ query.ownerstatus }}">{{ query.ownerstatus }}</option>
                                 <option value="购买">购买</option>
                                 <option value="租赁">租赁</option>
                             </select>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -77,14 +77,30 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">产权年限:</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="detailowneryears"name="detail_owneryears"value="{{ query.owneryears }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                            <input type="text" class="form-control" id="detailowneryears"name="detail_owneryears"value="{{ query.owneryears }}"data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  {% if not current_user.is_administrator() %} readonly {% endif %}/>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-10 form-group">
-                        <label class="col-md-2 control-label">进户日期</label>
+
+                 {% if not current_user.is_administrator() %}
+                     <div class="row">
+                     <div class="col-md-5">
+                          <div class="form-group">
+                    <label class="col-md-4 control-label">进户日期:</label>
+                        <div class="col-md-6">
+                    <input class="form-control"  type="text" name="detail_ownerdate"value="{{ query.ownerdate }}" readonly>
+                        </div>
+                          </div>
+                     </div>
+                     </div>
+                    {% else %}
+                     <div class="row">
+
+                    <div class="col-md-10 form-group">
+                    <label class="col-md-2 control-label">进户日期:</label>
+
+
                         <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd  " data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                             <input class="form-control" size="12" type="text" name="detail_ownerdate"value="{{ query.ownerdate }}" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
@@ -92,7 +108,9 @@
                         </div>
                         <input type="hidden" id="dtp_input2" value="" />
                     </div>
-            </div>
+                     </div>
+                    {% endif %}
+                 {% if  current_user.is_administrator() %}
 
             <div class="form-group">
                     <div class="col-md-5">
@@ -100,6 +118,7 @@
                     </div>
 
             </div>
+        {% endif %}
 
         </form>
         </div>

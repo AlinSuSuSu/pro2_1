@@ -1,0 +1,82 @@
+{% extends "community/repairation_apply.html" %}
+{% block title %}故障申请{% endblock %}
+
+{% block page_content %}
+    <div id="wrapper">
+    {% block page_content_left %}
+             <div id="left-side">
+   <ul>
+       <li class=""><a href="{{ url_for('community.repairation_apply') }}"  >报修申请</a></li>
+       <li class="menu-active"><a href="{{ url_for('community.repairation_detail_owner') }}"class="menu-font-active">我的申请记录</a></li>
+
+   </ul>
+  </div>
+  <div id="border">
+
+  </div>
+        {% endblock %}
+    {% block page_content_right %}
+        <div id="right-side">
+        <div class="row">
+                <div class="col-md-10">
+                    <div class="page-header">
+                        <h4>我的申请记录</h4>
+                    </div>
+                </div>
+        </div>
+
+        <div class="table-responsive ss-scrolltbody">
+            <table class="table table-hover table-condensed table-bordered ">
+                <thead >
+                <tr class="info ">
+                    <th>报修编号</th>
+                    <th>门牌编号</th>
+                    <th>负责人</th>
+                    <th>监督人</th>
+                    <th>预计费用</th>
+                    <th>实际费用</th>
+                    <th>报修时间</th>
+                    <th>竣工时间</th>
+                    <th>进度</th>
+                    <th>报修内容</th>
+                </thead>
+                <tbody>
+                {% for q in query %}
+                    <tr >
+                        <td  >{{ q.repairationid }}</td>
+                        <td  >{{ q.house_houseid}}</td>
+                        <td  >{{ q.repairationresperson }}</td>
+                        <td  >{{ q.repairationsupervisitor }}</td>
+                        <td  >{{ q.repairationactualcost }}</td>
+                        <td  >{{ q.repairationestimatedcost }}</td>
+                        <td  >{{ q.repairationtime }}</td>
+                        <td  >{{ q.repairationcomptime }}</td>
+                        <td  >{{ q.repairationcheck }}</td>
+                        <td  >{{ q.repairationcontent }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+    <script>
+
+    var urlstr=location.href;
+    var urlstatus=false;
+    $(".navbar a").each(function(){
+        if((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!=''){
+            $(this).addClass('nav-active');urlstatus=true;
+        }
+        else {
+            $(this).removeClass('nav-active')
+        }
+    });
+    if(!urlstatus){$('.navbar a').eq(1).addClass('nav-active')}
+    </script>
+{% endblock %}

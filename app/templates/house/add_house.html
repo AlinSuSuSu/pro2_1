@@ -15,13 +15,19 @@
                     </div>
                 </div>
             </div>
+        {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
         <form id="houseForm" method="POST" class="form-horizontal"action="/house/house_message/add/post">
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-group">
                         <label class="col-md-4 control-label">房产编号:</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="add_houseid" placeholder="10位" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                            <input type="text" class="form-control" name="add_houseid" placeholder="10位" required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  />
                         </div>
                     </div>
                 </div>
@@ -44,7 +50,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">房屋面积:</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="单位:平方米" id="addhousespace"name="add_housespace" required data-bv-trigger="keyup" data-bv-notempty-message="不能为空"  />
+                            <input type="text" class="form-control" placeholder="单位:平方米" id="addhousespace"name="add_housespace" required data-bv-trigger="blur" data-bv-notempty-message="不能为空"  />
                         </div>
                     </div>
                 </div>
@@ -53,7 +59,7 @@
                         <label class="col-md-4 control-label">户型:</label>
                         <div class="col-md-6">
 
-                            <input type="text" class="form-control" placeholder="室/厅/卫/厨" id="addhousetype"name="add_housetype" />
+                            <input type="text" class="form-control" placeholder="室/厅/卫/厨" id="addhousetype"name="add_housetype" required data-bv-trigger="blur" />
 
                             </div>
                     </div>
@@ -65,8 +71,8 @@
                         <label class="col-md-4 control-label">房屋状态:</label>
                         <div class="col-md-6">
                             <select class="form-control"id="addhousestatus"name="add_housestatus">
-                                <option value="已售">已售</option>
-                                <option value="已租">已租</option>
+                                <option value="购买">购买</option>
+                                <option value="租赁">租赁</option>
                                 <option value="闲置" selected>闲置</option>
                             </select>
                         </div>
@@ -76,7 +82,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">产权年限:</label>
                         <div class="col-md-6">
-                            <input class="form-control"id="addhouseyears"placeholder="70" name="add_houseyears">
+                            <input class="form-control"id="addhouseyears"placeholder="70" name="add_houseyears" data-bv-trigger="blur">
                         </div>
                     </div>
                 </div>
@@ -86,7 +92,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">小区名称:</label>
                         <div class="col-md-10">
-                            <input class="form-control"id="addhousecommunity"name="add_housecommunity">
+                            <input class="form-control"id="addhousecommunity"name="add_housecommunity" required data-bv-trigger="blur">
                         </div>
                     </div>
                 </div>
@@ -96,7 +102,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">具体地址:</label>
                         <div class="col-md-10">
-                            <textarea class="form-control"id="addhouseaddress"name="add_houseaddress"rows="2"></textarea>
+                            <textarea class="form-control"id="addhouseaddress"name="add_houseaddress"rows="2" data-bv-trigger="blur" required></textarea>
                         </div>
                     </div>
                 </div>
@@ -106,7 +112,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">备注:</label>
                         <div class="col-md-10">
-                            <textarea class="form-control"id="addhouseremark"name="add_houseremark"></textarea>
+                            <textarea class="form-control"id="addhouseremark"name="add_houseremark" data-bv-trigger="blur"></textarea>
                         </div>
                     </div>
                 </div>

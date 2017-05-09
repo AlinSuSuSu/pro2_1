@@ -12,7 +12,7 @@
 {% block page_content_left %}
   <div id="left-side">
    <ul>
-       <li class=""><a href="{{ url_for('setting.staff_setting') }}"  >员工配置</a></li>
+       <li class=""><a href="{{ url_for('setting.staff_setting') }}" >员工配置</a></li>
        <li class="menu-active"><a href="{{ url_for('setting.choice_setting') }}" class="menu-font-active">系统基础项目配置</a></li>
    </ul>
   </div>
@@ -25,13 +25,13 @@
   <div id="right-side-tabs">
       <ul class="nav nav-tabs">
           <br>
-          <li{% if  choicecharge %} class="active"{% endif %}><a href="{{ url_for('setting.choicecharge') }}">选择项配置</a></li>
-          <li{% if not choicecharge %} class="active"{% endif %}><a href="{{ url_for('setting.choicenotcharge') }}">业主账户配置</a></li>
+          <li{% if not  choicecharge %} class="active"{% endif %}><a href="{{ url_for('setting.choicenotcharge') }}">选择项配置</a></li>
+          <li{% if  choicecharge %} class="active"{% endif %}><a href="{{ url_for('setting.choicecharge') }}">业主账户配置</a></li>
       </ul>
 
   </div>
   <br>
-  {% if choicecharge %}
+  {% if not choicecharge %}
       <div class="row">
       <div class="col-md-4 choice-border">
           <h5>保安巡逻事件类型</h5>
@@ -100,9 +100,9 @@
               <div class="row">
                   <div class="col-md-4">
                       <div class="form-group">
-                          <label class="col-md-6 control-label">已注册业主房产编号</label>
+                          <label class="col-md-6 control-label">房产编号</label>
                           <div class="col-md-6">
-                              <select class="form-control"id="staffname"name="staffname">
+                              <select class="form-control"id="houseid"name="houseid">
                                   <option value=""></option>
                                   {% for query in query_user %}
                                       <option value="{{ query.house_houseid }}">{{ query.house_houseid }}</option>
@@ -119,29 +119,7 @@
                   </div>
               </div>
        </form>
-              <form method="GET" class="form-horizontal"action='/setting/choice/register'>
-              <div class="row">
-                  <div class="col-md-4">
-                      <div class="form-group">
-                          <label class="col-md-6 control-label">所有房产编号</label>
-                          <div class="col-md-6">
-                              <select class="form-control"id="houseid"name="houseid">
-                                  <option value=""></option>
-                                  {% for query in query_house %}
-                                      <option value="{{ query.houseid }}">{{ query.houseid }}</option>
-                                  {% endfor %}
-                              </select>
-                          </div>
-                      </div>
-                  </div>
-              <div class="col-md-4">
-                      <div class="form-group">
-                          <button type="submit"id="house_searchmessage" class="btn btn-info col-md-5">注册新账户</button>
-                      </div>
-                  </div>
-              </div>
-          </form>
-      <br>
+
       <div class="table-responsive ss-scrolltbody">
                   <table class="table table-hover table-condensed table-bordered ">
                       <thead >
@@ -155,8 +133,12 @@
 
                 {% for query in query_user %}
                     <tr>
-                    <td class="td-center"><a href="{{ url_for("finance.waterfee_modify",houseid=query.house_houseid) }}" class="btn"><i class="icon-edit"></i> 编辑</a><br>
-                        <a href="{{ url_for("finance.waterfee_delete",houseid=query.house_houseid) }}"class="ss-table-delete-waterfee"id="{{ query.house_houseid }}"><i class="icon-minus"></i> 删除</a></td>
+                    <td class="td-center">
+                        {% if query.house_houseid !='admin' %}
+                        <a href="{{ url_for("house.owner_detail",house_id=query.house_houseid) }}" class="btn"><i class="icon-edit"></i> 查看业主信息</a><br>
+                        <a href="{{ url_for("house.house_detail",houseid=query.house_houseid) }}" class="btn"><i class="icon-edit"></i> 查看房产信息</a>
+                        {% endif %}
+                    </td>
                         <td>{{ query.house_houseid}}</td>
                         <td>{{ query.username}}</td>
                     </tr>

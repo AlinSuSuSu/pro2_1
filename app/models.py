@@ -47,7 +47,7 @@ class Role(db.Model):
 class User(UserMixin,db.Model):
     __tablename__='users'
     house_houseid=db.Column(db.String(10),primary_key=True)#房产编号
-    username=db.Column(db.String(16),unique=True)#用户名，用于登录，业主初始用户名为房产编号
+    username=db.Column(db.String(16))#用户名，用于登录，业主初始用户名为房产编号
     password_hash=db.Column(db.String(128))#密码散列
     role_id=db.Column(db.Integer, db.ForeignKey('roles.id'))
 
@@ -94,11 +94,11 @@ login_manager.anonymous_user=AnonymouseUser
 class Staff(UserMixin, db.Model):
     __tablename__ = 'staffs'
     staffid = db.Column(db.String(16),primary_key=True,index=True)#员工编号
-    staffname = db.Column(db.String(32),unique=True,index=True)#员工姓名
+    staffname = db.Column(db.String(32))#员工姓名
     age= db.Column(db.Integer)#年龄
     gender = db.Column(db.String(4))#性别
-    phone = db.Column(db.String(11),unique=True)#联系方式
-    idcard = db.Column(db.String(18),unique=True)#身份证号
+    phone = db.Column(db.String(11))#联系方式
+    idcard = db.Column(db.String(18))#身份证号
     job = db.Column(db.String(18))#工种
     enterdate=db.Column(db.Date)#入职时间
 
@@ -149,10 +149,10 @@ class Owner(UserMixin,db.Model):
     __tablename__='owners'
     house_houseid=db.Column(db.String(10),db.ForeignKey('houses.houseid'),primary_key=True,index=True)
     ownername=db.Column(db.String(16),nullable=False)
-    ownerphone=db.Column(db.String(11),nullable=False,unique=True)
-    owneridcard=db.Column(db.String(20),nullable=False,unique=True)
+    ownerphone=db.Column(db.String(11),nullable=False)
+    owneridcard=db.Column(db.String(20),nullable=False)
     owneryears=db.Column(db.String(4),nullable=False,default='70')
-    ownerstatus=db.Column(db.String(16),nullable=False)
+    ownerstatus=db.Column(db.String(8),nullable=False)
     ownerdate=db.Column(db.Date,nullable=False)#进户日期
 
     @staticmethod
@@ -226,7 +226,7 @@ class Repairation(UserMixin,db.Model):
     # 报修时间
     repairationcomptime=db.Column(db.Date)#竣工时间
     repairationreplytime=db.Column(db.DateTime)#申请时间
-    repairationcheck=db.Column(db.String(4),nullable=False,default='否')#进度，分为未审核，审核通过，审核失败，默认未审核
+    repairationcheck=db.Column(db.String(4),nullable=False,default='未审核')#进度，分为未审核，审核通过，审核失败，默认未审核
 
     @staticmethod
     def generate_fake(count=50):
@@ -260,7 +260,6 @@ class Patrol(UserMixin,db.Model):
     eventtype = db.Column(db.String(32),nullable=False)
     eventtime = db.Column(db.Date,nullable=False)
     solveperson = db.Column(db.String(16),nullable=False)#处理人
-    #solvephone = db.Column(db.String(16),nullable=False)#处理人电话
     personinvolved = db.Column(db.String(16),nullable=False)#当事人
     phoneinvolved = db.Column(db.String(16))#当事人电话
     eventresult = db.Column(db.String(32),nullable=False)#处理结果
@@ -296,7 +295,7 @@ class Infrastructure(UserMixin,db.Model):
     infrastructuretime=db.Column(db.Date,nullable=False)
     infrastructurearea=db.Column(db.String(32),nullable=False)
     resperson=db.Column(db.String(16),nullable=False)
-    resphone=db.Column(db.String(16),nullable=False)
+    resphone=db.Column(db.String(16))
     supervisitor=db.Column(db.String(16),nullable=False)
     check=db.Column(db.String(8),nullable=False)
     detail=db.Column(db.String(200),nullable=False)

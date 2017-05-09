@@ -95,10 +95,11 @@
                         <div class="col-md-6">
                             <select class="form-control" id="detailrepairationremark"name="detail_repairationcheck" >
                                 <option value="{{ query.repairationcheck }}">{{ query.repairationcheck }}</option>
-                                {% if  query.repairationcheck =="已审核" %}
-                                <option value="否">未审核</option>
-                                {% else %}
-                                <option value="是">已审核</option>
+                                {% if  query.repairationcheck =="未审核" %}
+                                <option value="已审核">已审核</option>
+                                <option value="正施工">正施工</option>
+                                {% elif  query.repairationcheck =="已审核"%}
+                                <option value="正施工">正施工</option>
                                 {% endif %}
                             </select>
                         </div>

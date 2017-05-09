@@ -34,6 +34,7 @@ def staff_add():
 
 @setting.route('/staff/add/post',methods=['POST','GET'])
 def staff_add_post():
+
     staff=Staff(staffid=request.form.get('add_staffid'),staffname=request.form.get('add_staffname'),
                 phone=request.form.get('add_phone'),idcard=request.form.get('add_idcard'),
                 job=request.form.get('add_job'),age=request.form.get('add_age'),
@@ -78,7 +79,11 @@ def choice_setting():
     query_patrol=Choice.query.filter_by(choicetype='保安巡逻')
     query_infrastructure=Choice.query.filter_by(choicetype='绿化基建')
     query_house=House.query.all()
-    query_user=User.query.all()
+    q_user = request.args.get('houseid')
+    if q_user is not None and q_user !='':
+        query_user = User.query.filter_by(house_houseid=q_user)
+    else:
+        query_user = User.query.all()
     return render_template('/setting/choice_setting.html',choicecharge=choicecharge,query_infrastructure=query_infrastructure,query_user=query_user,query_house=query_house,query_patrol=query_patrol)
 
 @setting.route('/choice/choicecharge')
@@ -129,7 +134,8 @@ def price_setting():
 @setting.route('/choice/register',methods=['POST','GET'])
 def register():
     houseid=request.args.get('houseid')
-    user=User(house_houseid=houseid,username=houseid,password='111111')
-    db.session.add(user)
-    db.session.commit()
+    if houseid is not None and houseid !='':
+        user=User(house_houseid=houseid,username=houseid,password='111111')
+        db.session.add(user)
+        db.session.commit()
     return redirect(url_for('setting.choice_setting'))
